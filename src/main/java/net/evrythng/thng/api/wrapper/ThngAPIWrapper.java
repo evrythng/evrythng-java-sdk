@@ -17,8 +17,8 @@ import net.evrythng.thng.api.model.Model;
 import net.evrythng.thng.api.model.Property;
 import net.evrythng.thng.api.model.Thng;
 import net.evrythng.thng.api.model.ThngCollection;
-import net.evrythng.thng.api.result.ThngArrayResult;
 import net.evrythng.thng.api.result.EvrythngResult;
+import net.evrythng.thng.api.result.ThngArrayResult;
 import net.evrythng.thng.api.search.GeoCode;
 import net.evrythng.thng.api.search.SearchParameter;
 import net.evrythng.thng.api.search.SearchParameter.Type;
@@ -27,10 +27,13 @@ import net.evrythng.thng.api.utils.JSONUtils;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
+import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
@@ -120,6 +123,29 @@ public class ThngAPIWrapper {
         return URIUtils.createURI(Configuration.SERVER_SCHEME, Configuration.SERVER_HOST, Configuration.SERVER_PORT, path, query, null);
     }
 
+	/**
+	 * Checks the status code of the response. The method throws an IOException
+	 * if it is not one of the "success" codes in the 2XX range. The HTTP status
+	 * is passed as a diagnostic message in the exception. If the response
+	 * contains a <em>message</em> property it is appended.
+	 * 
+	 * @param response
+	 * @throws IOException
+	 */
+    private void checkResponse(HttpResponse response) throws IOException {
+    	StatusLine status = response.getStatusLine();
+		switch (status.getStatusCode() / 100) {
+		case 2: // HTTP/1.1 2XX
+			break;
+		default: 
+			JSONObject jobj = HttpComponentsUtils.toJSONObject(response);
+			Object message = jobj == null ? null : jobj.get("message");
+			String diagnostic = message == null ? status.toString() : 
+				String.format("%s (%s)", status.toString(), message.toString());
+			throw new IOException(diagnostic);
+		}
+	}
+    
     /**
      * Executes the given {@link HttpRequestBase} request. This method also adds
      * the required headers for accessing the <a
@@ -147,6 +173,9 @@ public class ThngAPIWrapper {
         // ThngAPIWrapperUtils.printResponseInfo(response);
         HttpComponentsUtils.printResponseHeaders(response);
 
+        // make sure the response can be used
+        checkResponse(response);
+        
         return response;
     }
 
