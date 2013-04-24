@@ -6,6 +6,7 @@ package com.evrythng.java.wrapper.core.http;
 
 import java.net.URI;
 
+import org.apache.commons.lang3.CharEncoding;
 import org.apache.http.HttpRequest;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
@@ -100,7 +101,7 @@ public final class HttpMethodBuilder {
 
 		protected void entity(E request, final Object data) throws EvrythngClientException {
 			try {
-				request.setEntity(new StringEntity(JSONUtils.write(data)));
+				request.setEntity(new StringEntity(JSONUtils.write(data), CharEncoding.UTF_8));
 			} catch (Exception e) {
 				// Convert to custom exception:
 				throw new EvrythngClientException("Unable to define request entity: [data={}]", e);
