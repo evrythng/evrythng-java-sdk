@@ -137,7 +137,7 @@ public class EvrythngServiceBase {
 	/**
 	 * Returns a preconfigured {@link Builder} for executing PUT requests.
 	 * 
-	 * @see EvrythngApiBuilder#post(String, URI, Object, Status, TypeReference)
+	 * @see EvrythngApiBuilder#put(String, URI, Object, Status, TypeReference)
 	 * @param relativePath
 	 *            the relative path of the API endpoint. It will be appended to
 	 *            {@link ApiConfiguration#getUrl()} in
@@ -152,6 +152,28 @@ public class EvrythngServiceBase {
 	 */
 	public <T> Builder<T> put(String relativePath, Object data, TypeReference<T> type) throws EvrythngClientException {
 		return put(relativePath, data, Status.OK, type);
+	}
+
+	/**
+	 * Returns a preconfigured {@link Builder} for executing PUT requests.
+	 * The reference return type is Long, and will contain the amount of updated
+	 * documents.
+	 * 
+	 * @see EvrythngApiBuilder#putMultiple(String, URI, Object, Status,
+	 *      TypeReference)
+	 * @param relativePath
+	 *            the relative path of the API endpoint. It will be appended to
+	 *            {@link ApiConfiguration#getUrl()} in
+	 *            order to build the absolute endpoint URL.
+	 * @param data
+	 *            the content data that will be associated with the PUT request
+	 * @return a preconfigured {@link Builder} for executing PUT requests
+	 * @throws EvrythngClientException
+	 */
+	public Builder<Long> putMultiple(String relativePath, Object data) throws EvrythngClientException {
+		Builder<Long> builder = EvrythngApiBuilder.putMultiple(config.getKey(), absoluteUri(relativePath), data, Status.NO_CONTENT);
+		onBuilderCreated(builder);
+		return builder;
 	}
 
 	/**
@@ -184,8 +206,8 @@ public class EvrythngServiceBase {
 	 * @return a preconfigured {@link Builder} for executing DELETE requests
 	 * @throws EvrythngClientException
 	 */
-	public Builder<Integer> deleteMultiple(String relativePath) throws EvrythngClientException {
-		Builder<Integer> builder = EvrythngApiBuilder.deleteMultiple(config.getKey(), absoluteUri(relativePath), Status.OK);
+	public Builder<Long> deleteMultiple(String relativePath) throws EvrythngClientException {
+		Builder<Long> builder = EvrythngApiBuilder.deleteMultiple(config.getKey(), absoluteUri(relativePath), Status.OK);
 		onBuilderCreated(builder);
 		return builder;
 	}

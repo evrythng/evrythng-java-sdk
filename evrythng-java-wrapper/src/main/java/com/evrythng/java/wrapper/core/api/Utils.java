@@ -56,19 +56,21 @@ public class Utils {
 				throw new EvrythngClientException(String.format("Unable to retrieve response content stream: [type=%s, cause=%s]", type.getType(), e.getMessage()), e);
 			}
 		} else {
-			// Retrieve response entity (as String so that it can be outputted in case of exception):
-			String entity = entityString(response);
-
 			if (type.getType().equals(HttpResponse.class)) {
 				// We already have a HttpResponse, let's return it:
 				result = (K) response;
-			} else if (type.getType().equals(String.class)) {
-				result = (K) entity;
 			} else {
-				try {
-					result = JSONUtils.read(entity, type);
-				} catch (Exception e) {
-					throw new EvrythngClientException(String.format("Unable to map response entity: [type=%s, entity=%s, cause=%s]", type.getType(), entity, e.getMessage()), e);
+				// Retrieve response entity (as String so that it can be outputted in case of exception):
+				String entity = entityString(response);
+
+				if (type.getType().equals(String.class)) {
+					result = (K) entity;
+				} else {
+					try {
+						result = JSONUtils.read(entity, type);
+					} catch (Exception e) {
+						throw new EvrythngClientException(String.format("Unable to map response entity: [type=%s, entity=%s, cause=%s]", type.getType(), entity, e.getMessage()), e);
+					}
 				}
 			}
 		}

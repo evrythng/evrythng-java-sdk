@@ -82,9 +82,8 @@ public class ProductService extends EvrythngServiceBase {
 	 * @return
 	 * @throws EvrythngClientException
 	 */
-	public Builder<List<Product>> productsUpdater(Product product) throws EvrythngClientException {
-		return put(PATH_PRODUCTS, product, new TypeReference<List<Product>>() {
-		});
+	public Builder<Long> productsUpdater(Product product) throws EvrythngClientException {
+		return putMultiple(PATH_PRODUCTS, product);
 	}
 
 	/**
@@ -120,7 +119,7 @@ public class ProductService extends EvrythngServiceBase {
 	 * @return
 	 * @throws EvrythngClientException
 	 */
-	public Builder<Integer> productsDeleter() throws EvrythngClientException {
+	public Builder<Long> productsDeleter() throws EvrythngClientException {
 		return deleteMultiple(PATH_PRODUCTS);
 	}
 

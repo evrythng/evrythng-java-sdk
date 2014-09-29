@@ -106,9 +106,8 @@ public class ThngService extends EvrythngServiceBase {
 	 * @return
 	 * @throws EvrythngClientException
 	 */
-	public Builder<List<Thng>> thngsUpdater(Thng thng) throws EvrythngClientException {
-		return put(PATH_THNGS, thng, new TypeReference<List<Thng>>() {
-		});
+	public Builder<Long> thngsUpdater(Thng thng) throws EvrythngClientException {
+		return putMultiple(PATH_THNGS, thng);
 	}
 
 	/**
@@ -133,7 +132,7 @@ public class ThngService extends EvrythngServiceBase {
 	 * @return
 	 * @throws EvrythngClientException
 	 */
-	public Builder<Integer> thngsDeleter() throws EvrythngClientException {
+	public Builder<Long> thngsDeleter() throws EvrythngClientException {
 		return deleteMultiple(PATH_THNGS);
 	}
 

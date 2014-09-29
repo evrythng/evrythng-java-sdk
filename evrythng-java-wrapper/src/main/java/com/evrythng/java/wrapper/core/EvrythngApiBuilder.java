@@ -102,6 +102,45 @@ public final class EvrythngApiBuilder {
 	}
 
 	/**
+	 * Create a {@link Builder} for executing a {@code PUT} request, expecting
+	 * no result payload. But a
+	 * {@link ApiConfiguration.HTTP_HEADER_RESULT_COUNT} header which
+	 * contains the amount of document updated.
+	 * 
+	 * @param apiKey
+	 *            the authorization token for accessing the EVRYTHNG API
+	 * @param uri
+	 *            the {@link URI} holding the absolute URL
+	 * @param data
+	 *            the content data that will be associated with the PUT request
+	 * @param responseStatus
+	 *            the expected {@link HttpResponse} status. More likely 204 No
+	 *            Content
+	 * @return
+	 */
+	public static Builder<Long> putMultiple(String apiKey, URI uri, Object data, Status responseStatus) {
+		return new Builder<Long>(apiKey, HttpMethodBuilder.httpPut(data), uri, responseStatus, new TypeReference<Long>() {
+		}) {
+
+			@Override
+			public Long execute() throws EvrythngException {
+				// Perform request (response status code will be automatically checked):
+				HttpResponse response = request();
+				Header header = response.getFirstHeader(ApiConfiguration.HTTP_HEADER_RESULT_COUNT);
+				Long result = null;
+				if (header != null) {
+					try {
+						result = Long.parseLong(header.getValue());
+					} catch (NumberFormatException ex) {
+						logger.warn("Invalid numeric value in header {} : {}", ApiConfiguration.HTTP_HEADER_RESULT_COUNT, header.getValue());
+					}
+				}
+				return result;
+			};
+		};
+	}
+
+	/**
 	 * Creates a {@link Builder} for executing a {@code DELETE} request.
 	 * 
 	 * @param apiKey
@@ -140,19 +179,19 @@ public final class EvrythngApiBuilder {
 	 *            the expected {@link HttpResponse} status
 	 * @return an EVRYTHNG API-ready {@link Builder}
 	 */
-	public static Builder<Integer> deleteMultiple(String apiKey, URI uri, Status responseStatus) {
-		return new Builder<Integer>(apiKey, HttpMethodBuilder.httpDelete(), uri, responseStatus, new TypeReference<Integer>() {
+	public static Builder<Long> deleteMultiple(String apiKey, URI uri, Status responseStatus) {
+		return new Builder<Long>(apiKey, HttpMethodBuilder.httpDelete(), uri, responseStatus, new TypeReference<Long>() {
 		}) {
 
 			@Override
-			public Integer execute() throws EvrythngException {
+			public Long execute() throws EvrythngException {
 				// Perform request (response status code will be automatically checked):
 				HttpResponse response = request();
 				Header header = response.getFirstHeader(ApiConfiguration.HTTP_HEADER_RESULT_COUNT);
-				Integer result = null;
+				Long result = null;
 				if (header != null) {
 					try {
-						result = Integer.parseInt(header.getValue());
+						result = Long.parseLong(header.getValue());
 					} catch (NumberFormatException ex) {
 						logger.warn("Invalid numeric value in header {} : {}", ApiConfiguration.HTTP_HEADER_RESULT_COUNT, header.getValue());
 					}
@@ -259,8 +298,8 @@ public final class EvrythngApiBuilder {
 		 */
 		public Result<T> list() throws EvrythngException {
 
-			if (getCommand().getMethod() != Method.GET && getCommand().getMethod() != Method.PUT) {
-				throw new EvrythngClientException("The list() method is only available for GET / PUT requests.");
+			if (getCommand().getMethod() != Method.GET) {
+				throw new EvrythngClientException("The list() method is only available for GET requests.");
 			}
 
 			logger.debug("Call list. For type : {}", getCommand().getResponseType().getType());
