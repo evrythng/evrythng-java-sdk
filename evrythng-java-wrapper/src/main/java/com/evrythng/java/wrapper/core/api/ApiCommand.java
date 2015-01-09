@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.evrythng.java.wrapper.util.LogUtils;
+import com.evrythng.thng.commons.config.ApiConfiguration;
 import org.apache.commons.collections.map.MultiValueMap;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -200,7 +202,8 @@ public class ApiCommand<T> {
 	 */
 	public void setHeader(final String name, final String value) {
 
-		logger.debug("Setting header: [name={}, value={}]", name, value);
+		logger.debug("Setting header: [name={}, value={}]", name,
+		             ApiConfiguration.HTTP_HEADER_AUTHORIZATION.equals(name) ? LogUtils.maskApiKey(value) : value);
 		headers.put(name, value);
 	}
 
