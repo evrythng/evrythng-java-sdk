@@ -84,6 +84,8 @@ public abstract class Action extends TemporalResourceModel {
 		private String operatingSystemProducer;
 		private String operatingSystemVersion;
 
+		private String timeZone;
+
 		@Override
 		public boolean equals(Object o) {
 			if (this == o) {
@@ -127,6 +129,8 @@ public abstract class Action extends TemporalResourceModel {
 				return false;
 			if (userAgentVersion != null ? !userAgentVersion.equals(context.userAgentVersion) : context.userAgentVersion != null)
 				return false;
+			if (timeZone != null ? !timeZone.equals(context.timeZone) : context.timeZone != null)
+				return false;
 
 			return true;
 		}
@@ -149,6 +153,7 @@ public abstract class Action extends TemporalResourceModel {
 			result = 31 * result + (operatingSystemFamily != null ? operatingSystemFamily.hashCode() : 0);
 			result = 31 * result + (operatingSystemProducer != null ? operatingSystemProducer.hashCode() : 0);
 			result = 31 * result + (operatingSystemVersion != null ? operatingSystemVersion.hashCode() : 0);
+			result = 31 * result + (timeZone != null ? timeZone.hashCode() : 0);
 			return result;
 		}
 
@@ -280,6 +285,16 @@ public abstract class Action extends TemporalResourceModel {
 			return operatingSystemVersion;
 		}
 
+		public String getTimeZone() {
+
+			return timeZone;
+		}
+
+		public void setTimeZone(final String timeZone) {
+
+			this.timeZone = timeZone;
+		}
+
 		@Override
 		public String toString() {
 
@@ -300,6 +315,7 @@ public abstract class Action extends TemporalResourceModel {
 			sb.append(", operatingSystemFamily='").append(operatingSystemFamily).append('\'');
 			sb.append(", operatingSystemProducer='").append(operatingSystemProducer).append('\'');
 			sb.append(", operatingSystemVersion='").append(operatingSystemVersion).append('\'');
+			sb.append(", timeZone='").append(timeZone).append('\'');
 			sb.append('}');
 			return sb.toString();
 		}
