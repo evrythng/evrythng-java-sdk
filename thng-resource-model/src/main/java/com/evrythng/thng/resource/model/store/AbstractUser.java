@@ -40,14 +40,8 @@ public abstract class AbstractUser extends DurableResourceModel {
 	 */
 	private String timezone;
 	/**
-	 * The user's locale.
-	 * The basic format is ''ll_CC'', where ''ll'' is a two-letter language
-	 * code,
-	 * and ''CC'' is a two-letter country code. For instance, 'en_US' represents
-	 * US English.
-	 *
-	 * @see <a
-	 * href="https://developers.facebook.com/docs/internationalization/">https://developers.facebook.com/docs/internationalization/</a>
+	 * The user's locale. <br> The basic format corresponds <a href="http://tools.ietf.org/html/rfc5646">RFC 5464</a>. The other
+	 * formats (for example, facebook locale doesn't suit RFC 5646) are converted to match RFC 5646.
 	 */
 	private String locale;
 	/**
