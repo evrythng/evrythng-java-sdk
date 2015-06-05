@@ -40,8 +40,7 @@ public abstract class AbstractUser extends DurableResourceModel {
 	 */
 	private String timezone;
 	/**
-	 * The user's locale. <br> The basic format corresponds <a href="http://tools.ietf.org/html/rfc5646">RFC 5464</a>. The other
-	 * formats (for example, facebook locale doesn't suit RFC 5646) are converted to match RFC 5646.
+	 * The user's locale. <br> The basic format corresponds <a href="http://tools.ietf.org/html/rfc5646">RFC 5464</a>.
 	 */
 	private String locale;
 	/**
