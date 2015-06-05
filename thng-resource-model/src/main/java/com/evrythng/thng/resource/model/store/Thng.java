@@ -32,7 +32,7 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 	private Map<String, String> identifiers;
 
 	/**
-	 * An array of collection ids this thng is part of.
+	 * Collection ids this thng is part of.
 	 */
 	private Set<String> collections;
 

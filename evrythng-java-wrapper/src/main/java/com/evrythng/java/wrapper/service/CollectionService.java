@@ -3,6 +3,7 @@ package com.evrythng.java.wrapper.service;
 import com.evrythng.java.wrapper.ApiManager;
 import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.EvrythngServiceBase;
+import com.evrythng.java.wrapper.core.http.Status;
 import com.evrythng.java.wrapper.exception.EvrythngClientException;
 import com.evrythng.thng.resource.model.store.Collection;
 import com.evrythng.thng.resource.model.store.Thng;
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Service wrapper for the {@code /collections} endpoint of the EVRYTHNG API.
@@ -25,6 +27,8 @@ public class CollectionService extends EvrythngServiceBase {
 	public static final String PATH_COLLECTIONS_ACTIONS = PATH_COLLECTION + "/actions";
 	public static final String PATH_COLLECTIONS_TYPED_ACTIONS = PATH_COLLECTIONS_ACTIONS + "/%s";
 	public static final String PATH_COLLECTIONS_TYPED_ACTION = PATH_COLLECTIONS_TYPED_ACTIONS + "/%s";
+	public static final String PATH_CHILDREN_COLLECTIONS = PATH_COLLECTION + "/collections";
+	public static final String PATH_CHILD_COLLECTION = PATH_CHILDREN_COLLECTIONS + "/%s";
 
 	public CollectionService(final ApiManager apiManager) {
 
@@ -215,6 +219,88 @@ public class CollectionService extends EvrythngServiceBase {
 
 		checkCustomType(customType);
 		return get(String.format(PATH_COLLECTIONS_TYPED_ACTIONS, collectionId, customType), new TypeReference<List<CustomAction>>() {
+
+		});
+	}
+
+	private static void notBlank(final String target, final String targetName) {
+
+		if (target == null || target.isEmpty()) {
+			throw new IllegalArgumentException(targetName + " cannot be blank");
+		}
+	}
+
+	private static void notNull(final Object target, final String targetName) {
+
+		if (target == null) {
+			throw new IllegalArgumentException(targetName + " cannot be null");
+		}
+	}
+
+	/**
+	 * Removes all children {@link Collection}s from the provided {@link Collection}.
+	 * <p>
+	 * DELETE {@value #PATH_CHILDREN_COLLECTIONS}
+	 */
+	public Builder<Boolean> childrenCollectionsRemover(final String collectionId) throws EvrythngClientException {
+
+		notBlank(collectionId, "collectionId");
+		return delete(String.format(PATH_CHILDREN_COLLECTIONS, collectionId));
+	}
+
+	/**
+	 * Removes the provided child {@link Collection} from the provided {@link Collection}.
+	 * <p>
+	 * DELETE {@value #PATH_CHILD_COLLECTION}
+	 */
+	public Builder<Boolean> childCollectionRemover(final String collectionId, final String childCollectionId)
+			throws EvrythngClientException {
+
+		notBlank(collectionId, "collectionId");
+		notBlank(childCollectionId, "childCollectionId");
+		return delete(String.format(PATH_CHILD_COLLECTION, collectionId, childCollectionId));
+	}
+
+	/**
+	 * Adds children {@link Collection}s matching the provided ids to the provided {@link Collection}.
+	 * <p>
+	 * POST {@value #PATH_CHILDREN_COLLECTIONS}
+	 */
+	public Builder<Void> childrenCollectionsAdder(final String collectionId, final Set<String> childrenCollectionsId)
+			throws EvrythngClientException {
+
+		notBlank(collectionId, "collectionId");
+		notNull(childrenCollectionsId, "childrenCollectionsId");
+		for (String id : childrenCollectionsId) {
+			notBlank(id, "childCollectionId");
+		}
+		return post(String.format(PATH_CHILDREN_COLLECTIONS, collectionId), childrenCollectionsId, Status.OK, new TypeReference<Void>() {
+
+		});
+	}
+
+	/**
+	 * Adds child {@link Collection} matching the provided id to the provided {@link Collection}.
+	 * <p>
+	 * POST {@value #PATH_CHILDREN_COLLECTIONS}
+	 */
+	public Builder<Void> childCollectionAdder(final String collectionId, final String childCollectionId)
+			throws EvrythngClientException {
+
+		notBlank(collectionId, "collectionId");
+		notBlank(childCollectionId, "childCollectionId");
+		return childrenCollectionsAdder(collectionId, Collections.singleton(childCollectionId));
+	}
+
+	/**
+	 * Retrieves all children {@link Collection}s for the provided {@link Collection}.
+	 * <p>
+	 * GET {@value #PATH_CHILDREN_COLLECTIONS}
+	 */
+	public Builder<List<Collection>> childrenCollectionsReader(final String collectionId) throws EvrythngClientException {
+
+		notBlank(collectionId, "collectionId");
+		return get(String.format(PATH_CHILDREN_COLLECTIONS, collectionId), new TypeReference<List<Collection>>() {
 
 		});
 	}
