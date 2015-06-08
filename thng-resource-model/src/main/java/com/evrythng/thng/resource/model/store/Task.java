@@ -7,109 +7,48 @@ package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
 
+import java.util.Optional;
+
 /**
  * Model representation for long <em>tasks</em> to distribute between machines.
  */
-public class Task extends DurableResourceModel {
+public class Task<R> extends DurableResourceModel {
 
-	private static final long serialVersionUID = 8410171399295914073L;
+	private static final long serialVersionUID = -9117128840439882175L;
 	// TODO _MS_
-	private String name;
-	private String description;
-	private String imageUrl;
-	private Long startsAt;
-	private Long endsAt;
+	private Progress progress;
+	private Optional<ResourceLocation> resourceLocation;
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
+	public static final class ResourceLocation {
 
-		return name;
+		private String path;
+		private String id;
+
+		public ResourceLocation(final String id, final String path) {
+
+			this.id = id;
+			this.path = path;
+		}
+
+		public ResourceLocation() {
+
+		}
 	}
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(final String name) {
+	public static final class Progress {
 
-		this.name = name;
-	}
+		// TODO _MS_ percentage should be an object too
+		private Double percentage;
 
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
+		// TODO _MS_ add more
 
-		return description;
-	}
+		public Progress(final Double percentage) {
 
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(final String description) {
+			this.percentage = percentage;
+		}
 
-		this.description = description;
-	}
+		public Progress() {
 
-	/**
-	 * @return the url of the image
-	 */
-	public String getImageUrl() {
-
-		return imageUrl;
-	}
-
-	/**
-	 * @param imageUrl the url of the image to set
-	 */
-	public void setImageUrl(final String imageUrl) {
-
-		this.imageUrl = imageUrl;
-	}
-
-	/**
-	 * @return the startsAt
-	 */
-	public Long getStartsAt() {
-
-		return startsAt;
-	}
-
-	/**
-	 * @param startsAt the startsAt to set
-	 */
-	public void setStartsAt(final Long startsAt) {
-
-		this.startsAt = startsAt;
-	}
-
-	/**
-	 * @return the endsAt
-	 */
-	public Long getEndsAt() {
-
-		return endsAt;
-	}
-
-	/**
-	 * @param endsAt the endsAt to set
-	 */
-	public void setEndsAt(final Long endsAt) {
-
-		this.endsAt = endsAt;
-	}
-
-	@Override
-	public String toString() {
-
-		StringBuilder sb = new StringBuilder("Project{");
-		sb.append("name='").append(name).append('\'');
-		sb.append(", description='").append(description).append('\'');
-		sb.append(", imageUrl='").append(imageUrl).append('\'');
-		sb.append(", startsAt=").append(startsAt);
-		sb.append(", endsAt=").append(endsAt);
-		sb.append('}');
-		return sb.toString();
+		}
 	}
 }
