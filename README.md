@@ -16,21 +16,13 @@ You need an API token for authentication which you can get on [https://dashboard
 #### Setup
 The easiest way is to get the latest `.jar` with packaged dependencies from [here](https://s3.amazonaws.com/evrythng-public/evrythng-java-wrapper-1.17.0-jar-with-dependencies.jar) and adding it to your Java project.
 
-The project is also available in our maven repository:
+The project is also available in Maven Central repository:
 
     <dependency>
      <groupId>com.evrythng</groupId>
      <artifactId>evrythng-java-wrapper</artifactId>
-     <version>1.17.0</version>
+     <version>1.18.1</version>
     </dependency>
-
-the repository:
-
-    <repository>
-      <id>evrythng-public-releases</id>
-      <name>EVRYTHNG Public Releases</name>
-      <url>https://internal.evrythng.net/nexus/content/repositories/evrythng-public-releases</url>
-    </repository>
 
 #### Hello world!
 
