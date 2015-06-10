@@ -28,19 +28,19 @@ The project is also available in Maven Central repository:
 
 Then you should look at the [examples](https://github.com/evrythng/evrythng-java-sdk/tree/master/evrythng-java-wrapper/src/main/java/com/evrythng/java/wrapper/examples) or, if you are impatient, get started with the snippet below:
 
-    import com.evrythng.java.wrapper.ApiConfiguration;
     import com.evrythng.java.wrapper.ApiManager;
-    import com.evrythng.java.wrapper.exception.EvrythngClientException;
     import com.evrythng.java.wrapper.exception.EvrythngException;
     import com.evrythng.java.wrapper.service.ThngService;
+    import com.evrythng.thng.resource.model.store.NumberProperty;
     import com.evrythng.thng.resource.model.store.Property;
     import com.evrythng.thng.resource.model.store.Thng;
+    
     import java.util.ArrayList;
     import java.util.List;
 
     public class EVRYTHNGWrapperTests {
 
-    public static void main(String[] args) throws EvrythngClientException, EvrythngException {
+    public static void main(String[] args) throws EvrythngException {
         ApiManager api = new ApiManager("YOUR_EVRYTHNG_API_KEY");
         ThngService thngService = api.thngService();
 
@@ -53,9 +53,9 @@ Then you should look at the [examples](https://github.com/evrythng/evrythng-java
         myThng = thngService.thngCreator(myThng).execute();
     
         // Add a temporal property
-        List<Property> props = new ArrayList<Property>();
-        props.add(new Property("temperature", "22"));
-        props.add(new Property("altitude", "4500"));
+        List<Property<?>> props = new ArrayList<Property<?>>();
+        props.add(new NumberProperty("temperature", 22.0));
+        props.add(new NumberProperty("altitude", 4500.0));
         // do add!
         props = thngService.propertiesCreator(myThng.getId(), props).execute();
     
