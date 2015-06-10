@@ -18,7 +18,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 /**
  * GeoJSON deserializer.
  * 
- * @author colin
  **/
 public class GeoJsonDeserializerImpl extends TypeMapDeserializer<GeoJson> implements GeoJsonDeserializer {
 
@@ -50,22 +49,12 @@ public class GeoJsonDeserializerImpl extends TypeMapDeserializer<GeoJson> implem
 			throw new IllegalArgumentException(this.getValueClass().getSimpleName() + " type cannot be empty.");
 		}
 		
-//		double lon = root.path(IGeoJSON.FIELD_COORDINATES).get(GeoJSONPoint.LON_IDX).asDouble();
-//		double lat = root.path(IGeoJSON.FIELD_COORDINATES).get(GeoJSONPoint.LAT_IDX).asDouble();
-//		GeoJSON obj = new GeoJSONPoint(lat, lon);
-//		return obj;
-
 		Class<GeoJson> clazz = (Class<GeoJson>) resolveClass(sType);
 
-		//if (codec instanceof ObjectMapper) {
-		//	return ((ObjectMapper) codec).reader(clazz).readValue(root);
-		//} else {
 		GeoJson obj = codec.treeToValue(root, clazz);
 		if (obj == null) {
 			throw new IllegalArgumentException(this.getValueClass().getSimpleName() + " type deserialised as null: " + root.toString());
 		}
 		return obj;
-		//}
-		
 	}
 }

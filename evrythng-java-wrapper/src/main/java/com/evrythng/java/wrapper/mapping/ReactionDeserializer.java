@@ -9,7 +9,6 @@ import com.evrythng.thng.resource.model.store.rule.reaction.Reaction;
 /**
  * Reaction deserializer interface.
  * 
- * @author Michel Yerly (my)
  **/
 public interface ReactionDeserializer {
 

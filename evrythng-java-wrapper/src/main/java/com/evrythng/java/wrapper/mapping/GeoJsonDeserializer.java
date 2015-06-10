@@ -9,7 +9,6 @@ import com.evrythng.thng.resource.model.store.geojson.GeoJson;
 /**
  * GeoJson deserializer interface.
  * 
- * @author colin
  **/
 public interface GeoJsonDeserializer {
 
