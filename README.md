@@ -21,7 +21,7 @@ The project is also available in Maven Central repository:
     <dependency>
      <groupId>com.evrythng</groupId>
      <artifactId>evrythng-java-wrapper</artifactId>
-     <version>1.18.1</version>
+     <version>1.18.2</version>
     </dependency>
 
 #### Hello world!
