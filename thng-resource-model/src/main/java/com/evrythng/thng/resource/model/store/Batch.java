@@ -15,12 +15,4 @@ public abstract class Batch extends DurableResourceModel {
 	// TODO _MS_
 	private String name;
 	private String description;
-	
-	private List<BatchCompletionNotificationPolicy> completionNotificationPolicies;
-	private List<BatchProgressNotificationPolicy> progressNotificationPolicies;
-	
-	public static enum Type {
-		
-		ADI
-	}
 }

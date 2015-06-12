@@ -7,17 +7,18 @@ package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
  * Model representation for long <em>tasks</em> to distribute between machines.
  */
-public class Task<R> extends DurableResourceModel {
+public class Task extends DurableResourceModel {
 
 	private static final long serialVersionUID = -9117128840439882175L;
 	// TODO _MS_
 	private Progress progress;
-	private Optional<ResourceLocation> resourceLocation;
+	private ResourceLocation resourceLocation;
+	private Notification.Policy notificationPolicy;
 
 	public static final class ResourceLocation {
 
@@ -50,5 +51,65 @@ public class Task<R> extends DurableResourceModel {
 		public Progress() {
 
 		}
+	}
+
+	public static final class Notification {
+
+		public static class Policy {
+
+			private List<Notification.Way> completion;
+
+			public List<Way> getCompletion() {
+
+				return completion;
+			}
+
+			public void setCompletion(final List<Way> completion) {
+
+				this.completion = completion;
+			}
+		}
+
+		public static interface Way {
+
+			Way.Type type();
+			
+			void setType(Way.Type type);
+
+			enum Type {
+
+				EMAIL
+			}
+		}
+	}
+
+	public Notification.Policy getNotificationPolicy() {
+
+		return notificationPolicy;
+	}
+
+	public void setNotificationPolicy(final Notification.Policy notificationPolicy) {
+
+		this.notificationPolicy = notificationPolicy;
+	}
+
+	public Progress getProgress() {
+
+		return progress;
+	}
+
+	public void setProgress(final Progress progress) {
+
+		this.progress = progress;
+	}
+
+	public ResourceLocation getResourceLocation() {
+
+		return resourceLocation;
+	}
+
+	public void setResourceLocation(final ResourceLocation resourceLocation) {
+
+		this.resourceLocation = resourceLocation;
 	}
 }
