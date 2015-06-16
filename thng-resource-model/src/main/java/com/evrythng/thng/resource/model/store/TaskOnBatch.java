@@ -4,7 +4,7 @@
  */
 package com.evrythng.thng.resource.model.store;
 
-public class TaskOnBatch extends Task {
+public abstract class TaskOnBatch extends Task {
 
 	private static final long serialVersionUID = 8091207835379916024L;
 	private String batch;

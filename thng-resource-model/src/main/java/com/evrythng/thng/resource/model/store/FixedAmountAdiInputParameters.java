@@ -11,7 +11,6 @@ package com.evrythng.thng.resource.model.store;
 public class FixedAmountAdiInputParameters extends BaseAdiInputParameters {
 
 	private Long quantity;
-	private String shortDomain;
 	private ShortIdTemplate shortIdTemplate;
 
 	public Long getQuantity() {
@@ -22,16 +21,6 @@ public class FixedAmountAdiInputParameters extends BaseAdiInputParameters {
 	public void setQuantity(final Long quantity) {
 
 		this.quantity = quantity;
-	}
-
-	public String getShortDomain() {
-
-		return shortDomain;
-	}
-
-	public void setShortDomain(final String shortDomain) {
-
-		this.shortDomain = shortDomain;
 	}
 
 	public ShortIdTemplate getShortIdTemplate() {

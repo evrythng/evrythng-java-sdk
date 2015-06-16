@@ -35,7 +35,7 @@ public class EvrythngJacksonModuleImpl extends SimpleModule implements EvrythngJ
 		super(name, version);
 		actionDeserializer = createActionDeserializer();
 		addDeserializer(Action.class, actionDeserializer);
-		addDeserializer(Actions.class, new ActionsDeserializer(actionDeserializer));
+		addDeserializer(Actions.class, new ActionsDeserializer());
 	}
 
 	public static ActionDeserializerImpl createActionDeserializer() {

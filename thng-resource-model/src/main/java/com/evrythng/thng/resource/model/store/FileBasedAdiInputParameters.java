@@ -12,7 +12,6 @@ public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 
 	private String location;
 	private Format format;
-	private String shortDomain;
 	// Authorization
 
 	public Format getFormat() {
@@ -33,16 +32,6 @@ public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 	public void setLocation(final String location) {
 
 		this.location = location;
-	}
-
-	public String getShortDomain() {
-
-		return shortDomain;
-	}
-
-	public void setShortDomain(final String shortDomain) {
-
-		this.shortDomain = shortDomain;
 	}
 
 	public static enum Format {

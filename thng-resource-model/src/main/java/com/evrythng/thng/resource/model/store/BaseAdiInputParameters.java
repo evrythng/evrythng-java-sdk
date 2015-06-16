@@ -7,8 +7,9 @@ package com.evrythng.thng.resource.model.store;
 /**
  * TODO write javadoc here
  */
-class BaseAdiInputParameters implements AdiGenerationPolicy.InputParameters {
+abstract class BaseAdiInputParameters implements AdiGenerationPolicy.InputParameters {
 
+	private String shortDomain;
 	private Type type;
 
 	@Override
@@ -21,5 +22,15 @@ class BaseAdiInputParameters implements AdiGenerationPolicy.InputParameters {
 	public final void setType(final Type type) {
 
 		this.type = type;
+	}
+
+	public String getShortDomain() {
+
+		return shortDomain;
+	}
+
+	public void setShortDomain(final String shortDomain) {
+
+		this.shortDomain = shortDomain;
 	}
 }

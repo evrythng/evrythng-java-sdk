@@ -9,7 +9,6 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ import java.util.Map;
  * Base class for deserializers with a type map.
  *
  **/
-public abstract class TypeMapDeserializer<T> extends StdDeserializer<T> {
+public abstract class TypeMapDeserializer<T> extends Deserializer<T> {
 
 	private static final long serialVersionUID = 1L;
 
