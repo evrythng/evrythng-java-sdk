@@ -8,6 +8,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 	private static final long serialVersionUID = 2514640549756857875L;
 	private AdiGenerationPolicy adiGenerationPolicy;
+	private Result result;
 
 	public AdiGenerationPolicy getAdiGenerationPolicy() {
 
@@ -18,4 +19,9 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 		this.adiGenerationPolicy = adiGenerationPolicy;
 	}
+	
+	public static final class Result {
+		
+		
+	} 
 }

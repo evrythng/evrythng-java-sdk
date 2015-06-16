@@ -5,6 +5,8 @@
 
 package com.evrythng.thng.resource.model.store;
 
+import java.util.Map;
+
 /**
  * TODO write javadoc here
  */
@@ -13,6 +15,7 @@ public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 	private String location;
 	private Format format;
 	// Authorization
+	private Map<String, String> headers;
 
 	public Format getFormat() {
 

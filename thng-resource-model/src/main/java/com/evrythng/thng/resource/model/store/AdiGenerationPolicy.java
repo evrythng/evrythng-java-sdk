@@ -8,6 +8,7 @@ public class AdiGenerationPolicy {
 
 	private Boolean generateThngs;
 	private Boolean generateRedirections;
+	// product in here
 	private ThngTemplate thngTemplate;
 	private InputParameters inputParameters;
 
