@@ -7,7 +7,7 @@ package com.evrythng.thng.resource.model.store;
 /**
  * TODO write javadoc here
  */
-abstract class BaseAdiInputParameters implements AdiGenerationPolicy.InputParameters {
+abstract class BaseAdiInputParameters implements BatchPopulatingTask.InputParameters {
 
 	private String shortDomain;
 	private Type type;
