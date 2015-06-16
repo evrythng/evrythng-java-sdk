@@ -13,7 +13,7 @@ public abstract class ShortIdTemplate {
 
 	public static enum Type {
 
-		SEQUENTIAL, PSEUDO_RANDOM
+		SEQUENTIAL, PSEUDO_RANDOM, THNG_ID
 	}
 
 	public Type getType() {
