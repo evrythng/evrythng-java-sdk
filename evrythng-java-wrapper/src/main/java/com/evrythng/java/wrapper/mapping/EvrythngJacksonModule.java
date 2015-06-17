@@ -14,5 +14,6 @@ public interface EvrythngJacksonModule {
 
 	Module getModule();
 	ActionDeserializer getActionDeserializer();
-
+	ReactionDeserializer getReactionDeserializer();
+	GeoJsonDeserializer getGeoJSONDeserializer();
 }

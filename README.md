@@ -16,39 +16,31 @@ You need an API token for authentication which you can get on [https://dashboard
 #### Setup
 The easiest way is to get the latest `.jar` with packaged dependencies from [here](https://s3.amazonaws.com/evrythng-public/evrythng-java-wrapper-1.17.0-jar-with-dependencies.jar) and adding it to your Java project.
 
-The project is also available in our maven repository:
+The project is also available in Maven Central repository:
 
     <dependency>
      <groupId>com.evrythng</groupId>
      <artifactId>evrythng-java-wrapper</artifactId>
-     <version>1.17.0</version>
+     <version>1.18.2</version>
     </dependency>
-
-the repository:
-
-    <repository>
-      <id>evrythng-public-releases</id>
-      <name>EVRYTHNG Public Releases</name>
-      <url>https://internal.evrythng.net/nexus/content/repositories/evrythng-public-releases</url>
-    </repository>
 
 #### Hello world!
 
 Then you should look at the [examples](https://github.com/evrythng/evrythng-java-sdk/tree/master/evrythng-java-wrapper/src/main/java/com/evrythng/java/wrapper/examples) or, if you are impatient, get started with the snippet below:
 
-    import com.evrythng.java.wrapper.ApiConfiguration;
     import com.evrythng.java.wrapper.ApiManager;
-    import com.evrythng.java.wrapper.exception.EvrythngClientException;
     import com.evrythng.java.wrapper.exception.EvrythngException;
     import com.evrythng.java.wrapper.service.ThngService;
+    import com.evrythng.thng.resource.model.store.NumberProperty;
     import com.evrythng.thng.resource.model.store.Property;
     import com.evrythng.thng.resource.model.store.Thng;
+    
     import java.util.ArrayList;
     import java.util.List;
 
     public class EVRYTHNGWrapperTests {
 
-    public static void main(String[] args) throws EvrythngClientException, EvrythngException {
+    public static void main(String[] args) throws EvrythngException {
         ApiManager api = new ApiManager("YOUR_EVRYTHNG_API_KEY");
         ThngService thngService = api.thngService();
 
@@ -61,9 +53,9 @@ Then you should look at the [examples](https://github.com/evrythng/evrythng-java
         myThng = thngService.thngCreator(myThng).execute();
     
         // Add a temporal property
-        List<Property> props = new ArrayList<Property>();
-        props.add(new Property("temperature", "22"));
-        props.add(new Property("altitude", "4500"));
+        List<Property<?>> props = new ArrayList<Property<?>>();
+        props.add(new NumberProperty("temperature", 22.0));
+        props.add(new NumberProperty("altitude", 4500.0));
         // do add!
         props = thngService.propertiesCreator(myThng.getId(), props).execute();
     
