@@ -12,6 +12,9 @@ import java.util.Map;
  */
 public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 
+	private ThngTemplate thngTemplate;
+	private Boolean generateThngs;
+	
 	private String location;
 	private Format format;
 	// Authorization
@@ -35,6 +38,43 @@ public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 	public void setLocation(final String location) {
 
 		this.location = location;
+	}
+
+	public void setGenerateThngs(final Boolean generateThngs) {
+
+		this.generateThngs = generateThngs;
+	}
+
+	public ThngTemplate getThngTemplate() {
+
+		return thngTemplate;
+	}
+
+	public void setThngTemplate(final ThngTemplate thngTemplate) {
+
+		this.thngTemplate = thngTemplate;
+	}
+
+	public Map<String, String> getHeaders() {
+
+		return headers;
+	}
+
+	public void setHeaders(final Map<String, String> headers) {
+
+		this.headers = headers;
+	}
+
+	@Override
+	public Boolean getGenerateThngs() {
+
+		return generateThngs;
+	}
+
+	@Override
+	public Boolean getGenerateRedirections() {
+
+		return true;
 	}
 
 	public static enum Format {
