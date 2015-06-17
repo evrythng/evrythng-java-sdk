@@ -40,6 +40,6 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	
 	public static final class Result {
 		
-		
+		// TODO implement hierarchy with type
 	} 
 }

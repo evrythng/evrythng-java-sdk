@@ -14,6 +14,7 @@ public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 
 	private ThngTemplate thngTemplate;
 	private Boolean generateThngs;
+	private Boolean generateRedirections;
 	
 	private String location;
 	private Format format;
@@ -71,10 +72,15 @@ public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 		return generateThngs;
 	}
 
+	public void setGenerateRedirections(final Boolean generateRedirections) {
+
+		this.generateRedirections = generateRedirections;
+	}
+
 	@Override
 	public Boolean getGenerateRedirections() {
 
-		return true;
+		return generateRedirections;
 	}
 
 	public static enum Format {
