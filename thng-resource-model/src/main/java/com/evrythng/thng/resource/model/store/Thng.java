@@ -36,6 +36,8 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 	 */
 	private Set<String> collections;
 
+	private String batch;
+
 	public String getName() {
 
 		return name;
@@ -125,5 +127,15 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 	public void setCollections(final Set<String> collections) {
 
 		this.collections = collections;
+	}
+
+	public String getBatch() {
+
+		return batch;
+	}
+
+	public void setBatch(final String batch) {
+
+		this.batch = batch;
 	}
 }
