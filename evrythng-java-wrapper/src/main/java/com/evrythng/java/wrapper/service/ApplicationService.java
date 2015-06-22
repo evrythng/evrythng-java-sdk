@@ -9,6 +9,7 @@ import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.EvrythngServiceBase;
 import com.evrythng.java.wrapper.exception.EvrythngClientException;
 import com.evrythng.thng.resource.model.store.Application;
+import com.evrythng.thng.resource.model.store.OAuthClient;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.List;
@@ -24,6 +25,8 @@ public class ApplicationService extends EvrythngServiceBase {
 	public static final String PATH_APPLICATION = PATH_APPLICATIONS + "/%s";
 	public static final String PATH_APPLICATIONS_LEGACY = "/applications";
 	public static final String PATH_APPLICATION_LEGACY = PATH_APPLICATIONS_LEGACY + "/%s";
+	public static final String PATH_APPLICATION_OAUTH_CLIENTS = PATH_APPLICATION + "/oauthClients";
+	public static final String PATH_APPLICATION_OAUTH_CLIENT = PATH_APPLICATION_OAUTH_CLIENTS + "/%s";
 
 	public ApplicationService(final ApiManager apiManager) {
 
@@ -159,4 +162,86 @@ public class ApplicationService extends EvrythngServiceBase {
 
 		});
 	}
+
+	/**
+	 * Creates a new {@link OAuthClient} for the application
+	 * <p>
+	 * POST {@value #PATH_APPLICATION_OAUTH_CLIENTS}
+	 *
+	 * @param projectId project id
+	 * @param appId: application id
+	 * @param oauthClient OAuth client to create
+	 * @return a preconfigured {@link Builder}
+	 */
+	public Builder<OAuthClient> oauthClientCreator(final String projectId, final String appId, final OAuthClient oauthClient) throws EvrythngClientException {
+
+		return post(String.format(PATH_APPLICATION_OAUTH_CLIENTS, projectId, appId), oauthClient, new TypeReference<OAuthClient>() {
+
+		});
+	}
+
+	/**
+	 * List all {@link OAuthClient} registered for the application.
+	 * <p>
+	 * GET {@value #PATH_APPLICATION_OAUTH_CLIENTS}
+	 *
+	 * @param projectId project id
+	 * @param appId app id
+	 * @return a preconfigured {@link Builder}
+	 */
+	public Builder<List<OAuthClient>> oauthClientsReader(final String projectId, final String appId) throws EvrythngClientException {
+
+		return get(String.format(PATH_APPLICATION_OAUTH_CLIENTS, projectId, appId), new TypeReference<List<OAuthClient>>() {
+
+		});
+	}
+
+	/**
+	 * Load a single {@link OAuthClient}.
+	 * <p>
+	 * GET {@value #PATH_APPLICATION_OAUTH_CLIENT}
+	 *
+	 * @param projectId project id
+	 * @param appId app id
+	 * @param clientId OAuth client id
+	 * @return a preconfigured {@link Builder}
+	 */
+	public Builder<OAuthClient> oauthClientReader(final String projectId, final String appId, final String clientId) throws EvrythngClientException {
+
+		return get(String.format(PATH_APPLICATION_OAUTH_CLIENT, projectId, appId, clientId), new TypeReference<OAuthClient>() {
+
+		});
+	}
+
+	/**
+	 * Updates {@link OAuthClient}.
+	 * <p>
+	 * GET {@value #PATH_APPLICATION_OAUTH_CLIENT}
+	 *
+	 * @param projectId project id
+	 * @param appId app id
+	 * @param clientId OAuth client id
+	 * @param oauthClient OAuth client for update
+	 * @return a preconfigured {@link Builder}
+	 */
+	public Builder<OAuthClient> oauthClientUpdater(final String projectId, final String appId, final String clientId, final OAuthClient oauthClient) throws EvrythngClientException {
+
+		return put(String.format(PATH_APPLICATION_OAUTH_CLIENT, projectId, appId, clientId), oauthClient, new TypeReference<OAuthClient>() {
+
+		});
+	}
+
+	/**
+	 * Deletes {@link OAuthClient}.
+	 *
+	 * @param projectId project id
+	 * @param appId app id
+	 * @param clientId OAuth client id
+	 * @return a preconfigured {@link Builder}
+	 */
+	public Builder<Boolean> oauthClientDeleter(final String projectId, final String appId, final String clientId) throws EvrythngClientException {
+
+		return delete(String.format(PATH_APPLICATION_OAUTH_CLIENT, projectId, appId, clientId));
+	}
+
 }
