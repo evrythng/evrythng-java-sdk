@@ -26,6 +26,7 @@ public class Product extends DurableResourceModel implements ResourceWithPropert
 	 */
 	private String fn;
 	public static final String FIELD_FN = "fn";
+	private String name;
 	/**
 	 * URLs to the photos, not the photos themselves
 	 */
@@ -93,6 +94,16 @@ public class Product extends DurableResourceModel implements ResourceWithPropert
 	public void setFn(final String fn) {
 
 		this.fn = fn;
+	}
+
+	public String getName() {
+
+		return name;
+	}
+
+	public void setName(final String name) {
+
+		this.name = name;
 	}
 
 	public List<String> getPhotos() {
