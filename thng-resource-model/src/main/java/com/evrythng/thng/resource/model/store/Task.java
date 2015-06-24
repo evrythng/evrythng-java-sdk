@@ -17,24 +17,28 @@ public class Task extends DurableResourceModel {
 	private static final long serialVersionUID = -9117128840439882175L;
 	// TODO _MS_
 	private Progress progress;
-	private ResourceLocation resourceLocation;
+	// private ResourceLocation resourceLocation;
 	private Notification.Policy notificationPolicy;
+	public static final String FIELD_NOTIFICATION_POLICY = "notificationPolicy";
 
-	public static final class ResourceLocation {
+	private Long completedAt;
 
-		private String path;
-		private String id;
 
-		public ResourceLocation(final String id, final String path) {
-
-			this.id = id;
-			this.path = path;
-		}
-
-		public ResourceLocation() {
-
-		}
-	}
+//	public static final class ResourceLocation {
+//
+//		private String path;
+//		private String id;
+//
+//		public ResourceLocation(final String id, final String path) {
+//
+//			this.id = id;
+//			this.path = path;
+//		}
+//
+//		public ResourceLocation() {
+//
+//		}
+//	}
 
 	public static final class Progress {
 
@@ -58,6 +62,8 @@ public class Task extends DurableResourceModel {
 		public static class Policy {
 
 			private List<Notification.Way> completion;
+
+			public static final String FIELD_COMPLETION = "completion";
 
 			public List<Way> getCompletion() {
 
@@ -103,13 +109,23 @@ public class Task extends DurableResourceModel {
 		this.progress = progress;
 	}
 
-	public ResourceLocation getResourceLocation() {
+//	public ResourceLocation getResourceLocation() {
+//
+//		return resourceLocation;
+//	}
+//
+//	public void setResourceLocation(final ResourceLocation resourceLocation) {
+//
+//		this.resourceLocation = resourceLocation;
+//	}
 
-		return resourceLocation;
+	public Long getCompletedAt() {
+
+		return completedAt;
 	}
 
-	public void setResourceLocation(final ResourceLocation resourceLocation) {
+	public void setCompletedAt(final Long completedAt) {
 
-		this.resourceLocation = resourceLocation;
+		this.completedAt = completedAt;
 	}
 }

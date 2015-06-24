@@ -15,7 +15,10 @@ public class FixedAmountAdiInputParameters extends BaseAdiInputParameters {
 	private Boolean generateRedirections;
 	
 	private Long quantity;
+	public static final String FIELD_QUANTITY = "quantity";
+
 	private ShortIdTemplate shortIdTemplate;
+	public static final String FIELD_SHORT_ID_TEMPLATE = "shortIdTemplate";
 
 	public Long getQuantity() {
 

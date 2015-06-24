@@ -17,7 +17,11 @@ public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 	private Boolean generateRedirections;
 	
 	private String location;
+	public static final String FIELD_LOCATION = "location";
+
 	private Format format;
+	public static final String FIELD_FORMAT = "format";
+
 	// Authorization
 	private Map<String, String> headers;
 

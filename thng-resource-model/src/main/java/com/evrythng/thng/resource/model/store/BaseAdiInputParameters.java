@@ -10,6 +10,7 @@ package com.evrythng.thng.resource.model.store;
 abstract class BaseAdiInputParameters implements BatchPopulatingTask.InputParameters {
 
 	private String shortDomain;
+
 	private Type type;
 
 	@Override
