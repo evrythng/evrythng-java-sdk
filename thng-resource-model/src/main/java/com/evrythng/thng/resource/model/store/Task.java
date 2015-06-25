@@ -7,6 +7,7 @@ package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -61,6 +62,14 @@ public class Task extends DurableResourceModel {
 
 		public static class Policy {
 
+			public Policy() {
+
+			}
+
+			public Policy(Way singleWay) {
+				this.completion = Collections.singletonList(singleWay);
+			}
+
 			private List<Notification.Way> completion;
 
 			public static final String FIELD_COMPLETION = "completion";
@@ -78,7 +87,7 @@ public class Task extends DurableResourceModel {
 
 		public static interface Way {
 
-			Way.Type type();
+			Way.Type getType();
 			
 			void setType(Way.Type type);
 

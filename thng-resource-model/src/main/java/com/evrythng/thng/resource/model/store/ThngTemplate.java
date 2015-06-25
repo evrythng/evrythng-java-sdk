@@ -9,6 +9,10 @@ package com.evrythng.thng.resource.model.store;
  */
 public class ThngTemplate extends Thng {
 
+	public ThngTemplate(Thng thng) {
+		super(thng);
+	}
+
 	private static final long serialVersionUID = 180005519265755737L;
 
 	// TODO _MS_ maybe different

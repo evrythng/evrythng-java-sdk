@@ -19,7 +19,7 @@ abstract class TaskNotificationWay implements Task.Notification.Way {
 	}
 
 	@Override
-	public final Type type() {
+	public final Type getType() {
 
 		return type;
 	}
