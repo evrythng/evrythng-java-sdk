@@ -10,7 +10,6 @@ package com.evrythng.thng.resource.model.store;
  */
 public class FixedAmountAdiInputParameters extends BaseAdiInputParameters {
 
-	private ThngTemplate thngTemplate;
 	private Boolean generateThngs;
 	private Boolean generateRedirections;
 	
@@ -60,15 +59,5 @@ public class FixedAmountAdiInputParameters extends BaseAdiInputParameters {
 	public void setGenerateThngs(final Boolean generateThngs) {
 
 		this.generateThngs = generateThngs;
-	}
-
-	public ThngTemplate getThngTemplate() {
-
-		return thngTemplate;
-	}
-
-	public void setThngTemplate(final ThngTemplate thngTemplate) {
-
-		this.thngTemplate = thngTemplate;
 	}
 }

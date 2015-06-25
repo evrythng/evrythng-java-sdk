@@ -11,6 +11,10 @@ abstract class BaseAdiInputParameters implements BatchPopulatingTask.InputParame
 
 	private String shortDomain;
 
+	private String defaultRedirectUrl;
+
+	private ThngTemplate thngTemplate;
+
 	private Type type;
 
 	@Override
@@ -33,5 +37,25 @@ abstract class BaseAdiInputParameters implements BatchPopulatingTask.InputParame
 	public void setShortDomain(final String shortDomain) {
 
 		this.shortDomain = shortDomain;
+	}
+
+	public String getDefaultRedirectUrl() {
+
+		return defaultRedirectUrl;
+	}
+
+	public void setDefaultRedirectUrl(final String defaultRedirectUrl) {
+
+		this.defaultRedirectUrl = defaultRedirectUrl;
+	}
+
+	public ThngTemplate getThngTemplate() {
+
+		return thngTemplate;
+	}
+
+	public void setThngTemplate(final ThngTemplate thngTemplate) {
+
+		this.thngTemplate = thngTemplate;
 	}
 }

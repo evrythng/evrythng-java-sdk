@@ -12,7 +12,6 @@ import java.util.Map;
  */
 public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 
-	private ThngTemplate thngTemplate;
 	private Boolean generateThngs;
 	private Boolean generateRedirections;
 	
@@ -48,16 +47,6 @@ public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 	public void setGenerateThngs(final Boolean generateThngs) {
 
 		this.generateThngs = generateThngs;
-	}
-
-	public ThngTemplate getThngTemplate() {
-
-		return thngTemplate;
-	}
-
-	public void setThngTemplate(final ThngTemplate thngTemplate) {
-
-		this.thngTemplate = thngTemplate;
 	}
 
 	public Map<String, String> getHeaders() {

@@ -29,6 +29,8 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		public final static String FIELD_SHORT_DOMAIN = "shortDomain";
 		public final static String FIELD_GENERATE_THNGS = "generateThngs";
 		public final static String FIELD_GENERATE_REDIRECTIONS = "generateRedirections";
+		public final static String FIELD_DEFAULT_REDIRECT_URL = "defaultRedirectUrl";
+		public final static String FIELD_THNG_TEMPLATE = "thngTemplate";
 
 		Type getType();
 
@@ -42,6 +44,8 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		Boolean getGenerateThngs();
 		Boolean getGenerateRedirections();
 		String getShortDomain();
+		String getDefaultRedirectUrl();
+		ThngTemplate getThngTemplate();
 	}
 	
 	public static final class Result {
