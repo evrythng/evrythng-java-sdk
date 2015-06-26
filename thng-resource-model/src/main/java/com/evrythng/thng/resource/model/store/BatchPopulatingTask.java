@@ -26,11 +26,11 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	public static interface InputParameters {
 
 		String FIELD_TYPE = "type";
-		public final static String FIELD_SHORT_DOMAIN = "shortDomain";
-		public final static String FIELD_GENERATE_THNGS = "generateThngs";
-		public final static String FIELD_GENERATE_REDIRECTIONS = "generateRedirections";
-		public final static String FIELD_DEFAULT_REDIRECT_URL = "defaultRedirectUrl";
-		public final static String FIELD_THNG_TEMPLATE = "thngTemplate";
+		public static final String FIELD_SHORT_DOMAIN = "shortDomain";
+		public static final String FIELD_GENERATE_THNGS = "generateThngs";
+		public static final String FIELD_GENERATE_REDIRECTIONS = "generateRedirections";
+		public static final String FIELD_DEFAULT_REDIRECT_URL = "defaultRedirectUrl";
+		public static final String FIELD_THNG_TEMPLATE = "thngTemplate";
 
 		Type getType();
 
@@ -38,7 +38,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 		public static enum Type {
 
-			FIXED_AMOUNT, FILE_BASED, LIST_BASED;
+			FIXED_AMOUNT, FILE_BASED, LIST_BASED
 		}
 		
 		Boolean getGenerateThngs();
