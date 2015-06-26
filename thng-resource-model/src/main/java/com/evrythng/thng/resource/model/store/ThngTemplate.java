@@ -9,6 +9,10 @@ package com.evrythng.thng.resource.model.store;
  */
 public class ThngTemplate extends Thng {
 
+	public ThngTemplate() {
+
+	}
+
 	public ThngTemplate(Thng thng) {
 		super(thng);
 	}
