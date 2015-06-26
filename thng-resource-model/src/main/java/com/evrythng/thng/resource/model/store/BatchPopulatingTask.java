@@ -12,6 +12,12 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	private InputParameters inputParameters;
 	public static final String FIELD_INPUT_PARAMETERS = "inputParameters";
 
+	// Might be promoted to a super class !
+	public static enum Status {
+		PENDING, EXECUTING, TERMINATED, CANCELING
+	}
+
+	private Status status;
 
 	public InputParameters getInputParameters() {
 
@@ -21,6 +27,16 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	public void setInputParameters(final InputParameters inputParameters) {
 
 		this.inputParameters = inputParameters;
+	}
+
+	public Status getStatus() {
+
+		return status;
+	}
+
+	public void setStatus(final Status status) {
+
+		this.status = status;
 	}
 
 	public static interface InputParameters {
