@@ -39,8 +39,6 @@ public class Product extends DurableResourceModel implements ResourceWithPropert
 	 */
 	private Map<String, String> identifiers;
 
-	protected Long activatedAt;
-
 	public Product() {
 
 	}
@@ -150,15 +148,5 @@ public class Product extends DurableResourceModel implements ResourceWithPropert
 	public void setProperties(final Map<String, Object> properties) {
 
 		this.properties = properties != null ? new HashMap<>(properties) : null;
-	}
-
-	public Long getActivatedAt() {
-
-		return activatedAt;
-	}
-
-	public void setActivatedAt(final Long activatedAt) {
-
-		this.activatedAt = activatedAt;
 	}
 }

@@ -32,11 +32,11 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 	private Map<String, String> identifiers;
 
 	/**
-	 * An array of collection ids this thng is part of.
+	 * Collection ids this thng is part of.
 	 */
 	private Set<String> collections;
 
-	protected Long activatedAt;
+	private String batch;
 
 	public String getName() {
 
@@ -129,13 +129,13 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 		this.collections = collections;
 	}
 
-	public Long getActivatedAt() {
+	public String getBatch() {
 
-		return activatedAt;
+		return batch;
 	}
 
-	public void setActivatedAt(final Long activatedAt) {
+	public void setBatch(final String batch) {
 
-		this.activatedAt = activatedAt;
+		this.batch = batch;
 	}
 }

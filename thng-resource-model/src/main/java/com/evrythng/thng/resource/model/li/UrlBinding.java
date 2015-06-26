@@ -21,6 +21,7 @@ public class UrlBinding extends AbstractUrlBinding {
 	private String shortId;
 	private String evrythngId;
 	private Integer hits;
+	private String batch;
 
 	// Input used for scanthng
 	/**
@@ -111,6 +112,16 @@ public class UrlBinding extends AbstractUrlBinding {
 	public void setData(final String data) {
 
 		this.data = data;
+	}
+
+	public String getBatch() {
+
+		return batch;
+	}
+
+	public void setBatch(final String batch) {
+
+		this.batch = batch;
 	}
 
 	/**

@@ -7,6 +7,7 @@ package com.evrythng.thng.resource.model.store;
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
 
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Model representation for <em>collections</em>.
@@ -20,6 +21,10 @@ public class Collection extends DurableResourceModel {
 	 * Collection of {@link Thng#id} references.
 	 */
 	private LinkedHashSet<String> thngs;
+	/**
+	 * Collection ids this collection is part of.
+	 */
+	private Set<String> collections;
 
 	public String getName() {
 
@@ -55,10 +60,29 @@ public class Collection extends DurableResourceModel {
 	public String toString() {
 
 		StringBuilder sb = new StringBuilder("Collection{");
-		sb.append("name='").append(name).append('\'');
-		sb.append(", description='").append(description).append('\'');
-		sb.append(", thngs=").append(thngs);
+		if (name != null) {
+			sb.append("name='").append(name).append('\'');
+		}
+		if (description != null) {
+			sb.append(", description='").append(description).append('\'');
+		}
+		if (thngs != null) {
+			sb.append(", thngs=").append(thngs);
+		}
+		if (collections != null) {
+			sb.append(", collections=").append(collections);
+				}
 		sb.append('}');
 		return sb.toString();
+	}
+
+	public void setCollections(final Set<String> collections) {
+
+		this.collections = collections;
+	}
+
+	public Set<String> getCollections() {
+
+		return collections;
 	}
 }
