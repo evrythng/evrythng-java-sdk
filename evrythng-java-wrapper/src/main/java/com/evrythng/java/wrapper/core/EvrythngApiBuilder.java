@@ -10,7 +10,6 @@ import com.evrythng.java.wrapper.core.api.ApiCommand;
 import com.evrythng.java.wrapper.core.api.ApiCommandBuilder;
 import com.evrythng.java.wrapper.core.api.TypedResponseWithEntity;
 import com.evrythng.java.wrapper.core.api.Utils;
-import com.evrythng.java.wrapper.core.api.param.AppQueryParamValue;
 import com.evrythng.java.wrapper.core.api.param.CallbackQueryParamValue;
 import com.evrythng.java.wrapper.core.api.param.FromQueryParamValue;
 import com.evrythng.java.wrapper.core.api.param.PageQueryParamValue;
@@ -379,12 +378,15 @@ public final class EvrythngApiBuilder {
 		}
 
 		/**
-		 * @param appId "{@value AppQueryParamValue#NAME}" query parameter value
+		 * Does nothing. App query parameter is not used anymore.
+		 * @param appId
 		 * @return an EVRYTHNG API-ready {@link Builder}
+		 * @deprecated Use {@value ProjectQueryParamValue#NAME} project to scope a request on a project.
 		 */
+		@Deprecated
 		public Builder<T> app(final String appId) {
 
-			return queryParam(AppQueryParamValue.appId(appId));
+			return this;
 		}
 
 		/**
