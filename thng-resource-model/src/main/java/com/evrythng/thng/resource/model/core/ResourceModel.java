@@ -20,11 +20,11 @@ public abstract class ResourceModel implements Serializable, WithScopeResource {
 
 	private static final long serialVersionUID = -2842591513551534611L;
 	public static final String FIELD_ID = "id";
-	private String id;
-	private Long createdAt;
-	private Map<String, Object> customFields;
-	private List<String> tags;
-	private ScopeResource scopes;
+	protected String id;
+	protected Long createdAt;
+	protected Map<String, Object> customFields;
+	protected List<String> tags;
+	protected ScopeResource scopes;
 
 	public String getId() {
 

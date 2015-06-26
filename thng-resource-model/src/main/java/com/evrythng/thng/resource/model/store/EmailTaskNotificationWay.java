@@ -11,6 +11,7 @@ package com.evrythng.thng.resource.model.store;
 public class EmailTaskNotificationWay extends TaskNotificationWay {
 
 	private String address;
+	public static final String FIELD_ADDRESS = "address";
 
 	public String getAddress() {
 

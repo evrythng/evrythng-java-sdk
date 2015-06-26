@@ -10,6 +10,7 @@ package com.evrythng.thng.resource.model.store;
 public abstract class ShortIdTemplate {
 
 	private Type type;
+	public static final String FIELD_TYPE = "type";
 
 	public static enum Type {
 
