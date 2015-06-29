@@ -12,7 +12,9 @@ public class ListBasedAdiInputParameters extends BaseAdiInputParameters {
 	private ThngTemplate thngTemplate;
 	private Boolean generateThngs;
 	private Boolean generateRedirections;
-	
+
+	public static final String FIELD_SHORT_IDS = "shortIds";
+
 	private List<RedirectionResource> shortIds;
 
 	public void setGenerateThngs(final Boolean generateThngs) {
