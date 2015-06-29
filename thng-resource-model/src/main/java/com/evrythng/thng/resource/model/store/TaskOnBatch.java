@@ -35,4 +35,19 @@ public abstract class TaskOnBatch extends Task {
 
 		POPULATING
 	}
+
+	public static abstract class BaseTaskResult {
+		public static String FIELD_TYPE = "type";
+		private Type type;
+
+		public Type getType() {
+
+			return type;
+		}
+
+		public void setType(final Type type) {
+
+			this.type = type;
+		}
+	}
 }

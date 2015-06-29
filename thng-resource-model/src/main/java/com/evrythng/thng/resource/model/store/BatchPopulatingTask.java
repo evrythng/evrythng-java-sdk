@@ -4,11 +4,13 @@
  */
 package com.evrythng.thng.resource.model.store;
 
+import java.util.Map;
+
 public class BatchPopulatingTask extends TaskOnBatch {
 
 	private static final long serialVersionUID = 2514640549756857875L;
 	// product in here
-	private Result result;
+	private BatchPopulatingTaskResult result;
 	private InputParameters inputParameters;
 	public static final String FIELD_INPUT_PARAMETERS = "inputParameters";
 
@@ -39,6 +41,16 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		this.status = status;
 	}
 
+	public BatchPopulatingTaskResult getResult() {
+
+		return result;
+	}
+
+	public void setResult(final BatchPopulatingTaskResult result) {
+
+		this.result = result;
+	}
+
 	public static interface InputParameters {
 
 		String FIELD_TYPE = "type";
@@ -63,9 +75,51 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		String getDefaultRedirectUrl();
 		ThngTemplate getThngTemplate();
 	}
-	
-	public static final class Result {
-		
-		// TODO implement hierarchy with type
-	} 
+
+	public static final class BatchPopulatingTaskResult extends BaseTaskResult {
+		private Long totalCount;
+		private String location;
+		private FileBasedAdiInputParameters.Format format;
+		private Map<String, String> headers;
+
+		public Long getTotalCount() {
+
+			return totalCount;
+		}
+
+		public void setTotalCount(final Long totalCount) {
+
+			this.totalCount = totalCount;
+		}
+
+		public String getLocation() {
+
+			return location;
+		}
+
+		public void setLocation(final String location) {
+
+			this.location = location;
+		}
+
+		public FileBasedAdiInputParameters.Format getFormat() {
+
+			return format;
+		}
+
+		public void setFormat(final FileBasedAdiInputParameters.Format format) {
+
+			this.format = format;
+		}
+
+		public Map<String, String> getHeaders() {
+
+			return headers;
+		}
+
+		public void setHeaders(final Map<String, String> headers) {
+
+			this.headers = headers;
+		}
+	}
 }
