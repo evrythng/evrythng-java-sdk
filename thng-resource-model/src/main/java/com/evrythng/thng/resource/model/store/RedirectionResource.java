@@ -12,6 +12,8 @@ public class RedirectionResource {
 
 	private String shortId;
 
+	public static final String FIELD_SHORT_ID = "shortId";
+
 	public String getShortId() {
 
 		return shortId;

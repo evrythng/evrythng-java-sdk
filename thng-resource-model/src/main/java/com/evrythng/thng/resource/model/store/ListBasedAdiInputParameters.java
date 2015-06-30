@@ -13,9 +13,9 @@ public class ListBasedAdiInputParameters extends BaseAdiInputParameters {
 	private Boolean generateThngs;
 	private Boolean generateRedirections;
 
-	public static final String FIELD_SHORT_IDS = "shortIds";
+	public static final String FIELD_REDIRECTIONS = "redirections";
 
-	private List<RedirectionResource> shortIds;
+	private List<RedirectionResource> redirections;
 
 	public void setGenerateThngs(final Boolean generateThngs) {
 
@@ -49,13 +49,13 @@ public class ListBasedAdiInputParameters extends BaseAdiInputParameters {
 		return generateRedirections;
 	}
 
-	public List<RedirectionResource> getShortIds() {
+	public List<RedirectionResource> getRedirections() {
 
-		return shortIds;
+		return redirections;
 	}
 
-	public void setShortIds(final List<RedirectionResource> shortIds) {
+	public void setRedirections(final List<RedirectionResource> redirections) {
 
-		this.shortIds = shortIds;
+		this.redirections = redirections;
 	}
 }
