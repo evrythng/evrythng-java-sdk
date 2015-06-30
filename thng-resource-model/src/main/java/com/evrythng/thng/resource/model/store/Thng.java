@@ -36,6 +36,27 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 	 */
 	private Set<String> collections;
 
+	public Thng() {
+
+	}
+
+	public Thng(Thng thng) {
+		this.name = thng.name;
+		this.description = thng.description;
+		this.location = thng.location;
+		this.product = thng.product;
+		this.properties = thng.properties;
+		this.identifiers = thng.identifiers;
+		this.collections = thng.collections;
+		this.updatedAt = thng.updatedAt;
+		this.id = thng.id;
+		this.createdAt = thng.createdAt;
+		this.customFields = thng.customFields;
+		this.tags = thng.tags;
+		this.scopes = thng.scopes;
+		this.batch = thng.batch;
+	}
+
 	private String batch;
 
 	public String getName() {

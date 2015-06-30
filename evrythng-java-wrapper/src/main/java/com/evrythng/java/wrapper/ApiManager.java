@@ -10,6 +10,7 @@ import com.evrythng.java.wrapper.mapping.EvrythngJacksonModuleImpl;
 import com.evrythng.java.wrapper.service.ActionService;
 import com.evrythng.java.wrapper.service.ApplicationService;
 import com.evrythng.java.wrapper.service.AuthService;
+import com.evrythng.java.wrapper.service.BatchService;
 import com.evrythng.java.wrapper.service.CollectionService;
 import com.evrythng.java.wrapper.service.PlaceService;
 import com.evrythng.java.wrapper.service.ProductService;
@@ -46,6 +47,7 @@ public class ApiManager {
 	private ActionService actionService;
 	private final TimeService timeService;
 	private final RedirectorService redirectorService;
+	private final BatchService batchService;
 
 	/**
 	 * Creates a new {@link ApiManager} instance using the provided
@@ -72,6 +74,7 @@ public class ApiManager {
 		this.projectService = new ProjectService(this);
 		this.timeService = new TimeService(this);
 		this.redirectorService = new RedirectorService(this);
+		this.batchService = new BatchService(this);
 		createThngService();
 		createProductService();
 		createPlaceService();
@@ -180,6 +183,10 @@ public class ApiManager {
 	public RedirectorService redirectorService() {
 
 		return redirectorService;
+	}
+
+	public BatchService batchService() {
+		return batchService;
 	}
 
 	public ApiConfiguration getConfig() {
