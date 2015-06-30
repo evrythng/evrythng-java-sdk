@@ -10,9 +10,6 @@ package com.evrythng.thng.resource.model.store;
  */
 public class FixedAmountAdiInputParameters extends BaseAdiInputParameters {
 
-	private Boolean generateThngs;
-	private Boolean generateRedirections;
-	
 	private Long quantity;
 	public static final String FIELD_QUANTITY = "quantity";
 
@@ -37,27 +34,5 @@ public class FixedAmountAdiInputParameters extends BaseAdiInputParameters {
 	public void setShortIdTemplate(final ShortIdTemplate shortIdTemplate) {
 
 		this.shortIdTemplate = shortIdTemplate;
-	}
-
-	@Override
-	public Boolean getGenerateRedirections() {
-
-		return generateRedirections;
-	}
-
-	public void setGenerateRedirections(final Boolean generateRedirections) {
-
-		this.generateRedirections = generateRedirections;
-	}
-
-	@Override
-	public Boolean getGenerateThngs() {
-
-		return generateThngs;
-	}
-
-	public void setGenerateThngs(final Boolean generateThngs) {
-
-		this.generateThngs = generateThngs;
 	}
 }

@@ -9,6 +9,9 @@ package com.evrythng.thng.resource.model.store;
  */
 public abstract class BaseAdiInputParameters implements BatchPopulatingTask.InputParameters {
 
+	private Boolean generateThngs;
+	private Boolean generateRedirections;
+
 	private String shortDomain;
 
 	private String defaultRedirectUrl;
@@ -57,5 +60,27 @@ public abstract class BaseAdiInputParameters implements BatchPopulatingTask.Inpu
 	public void setThngTemplate(final ThngTemplate thngTemplate) {
 
 		this.thngTemplate = thngTemplate;
+	}
+
+	public void setGenerateThngs(final Boolean generateThngs) {
+
+		this.generateThngs = generateThngs;
+	}
+
+	@Override
+	public Boolean getGenerateThngs() {
+
+		return generateThngs;
+	}
+
+	public void setGenerateRedirections(final Boolean generateRedirections) {
+
+		this.generateRedirections = generateRedirections;
+	}
+
+	@Override
+	public Boolean getGenerateRedirections() {
+
+		return generateRedirections;
 	}
 }
