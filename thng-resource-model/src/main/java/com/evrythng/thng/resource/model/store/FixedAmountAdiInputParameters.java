@@ -6,7 +6,7 @@
 package com.evrythng.thng.resource.model.store;
 
 /**
- * TODO write javadoc here
+ * Input for the BatchPopulatingTask. Defines a shortId template, and a quantity.
  */
 public class FixedAmountAdiInputParameters extends BaseAdiInputParameters {
 

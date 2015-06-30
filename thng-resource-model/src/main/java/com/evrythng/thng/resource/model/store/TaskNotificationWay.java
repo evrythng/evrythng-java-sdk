@@ -6,7 +6,7 @@
 package com.evrythng.thng.resource.model.store;
 
 /**
- * TODO write javadoc here
+ * Abstract. Ways to notify about task progress
  */
 abstract class TaskNotificationWay implements Task.Notification.Way {
 	

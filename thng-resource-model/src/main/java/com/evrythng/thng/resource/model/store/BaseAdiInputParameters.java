@@ -5,7 +5,7 @@
 package com.evrythng.thng.resource.model.store;
 
 /**
- * TODO write javadoc here
+ * Common base for BatchPopulatingTask ADI generator
  */
 public abstract class BaseAdiInputParameters implements BatchPopulatingTask.InputParameters {
 

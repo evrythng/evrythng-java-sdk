@@ -5,7 +5,7 @@
 package com.evrythng.thng.resource.model.store;
 
 /**
- * TODO write javadoc here
+ * The template to be used in ADI generation. Common to BatchPopulatingTask input parameters
  */
 public class ThngTemplate extends Thng {
 

@@ -6,7 +6,7 @@
 package com.evrythng.thng.resource.model.store;
 
 /**
- * TODO write javadoc here
+ * One redirection definition.
  */
 public class RedirectionResource {
 

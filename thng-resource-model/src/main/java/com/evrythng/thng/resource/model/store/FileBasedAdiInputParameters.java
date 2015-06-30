@@ -8,7 +8,7 @@ package com.evrythng.thng.resource.model.store;
 import java.util.Map;
 
 /**
- * TODO write javadoc here
+ * Input for ADI BatchPopulating task. Use a file to provide the shortIds to be generated.
  */
 public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 

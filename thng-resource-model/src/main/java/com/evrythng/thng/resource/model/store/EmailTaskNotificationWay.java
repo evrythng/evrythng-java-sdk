@@ -6,7 +6,7 @@
 package com.evrythng.thng.resource.model.store;
 
 /**
- * TODO write javadoc here
+ * Task Nofification.Way. Represent the e-mail address to send notifications to
  */
 public class EmailTaskNotificationWay extends TaskNotificationWay {
 

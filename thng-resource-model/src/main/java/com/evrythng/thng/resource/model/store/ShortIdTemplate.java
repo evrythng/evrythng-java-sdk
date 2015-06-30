@@ -5,7 +5,7 @@
 package com.evrythng.thng.resource.model.store;
 
 /**
- * TODO write javadoc here
+ * Abstract structure to represent the possible shortId templates to be used in BatchPopulatingTask
  */
 public abstract class ShortIdTemplate {
 
