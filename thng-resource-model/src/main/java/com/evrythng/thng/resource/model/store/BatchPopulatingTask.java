@@ -11,6 +11,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	private static final long serialVersionUID = 2514640549756857875L;
 	// product in here
 	private BatchPopulatingTaskResult result;
+	public static final String FIELD_RESULT = "result";
 	private InputParameters inputParameters;
 	public static final String FIELD_INPUT_PARAMETERS = "inputParameters";
 
@@ -20,6 +21,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	}
 
 	private Status status;
+	public static final String FIELD_STATUS = "status";
 
 	public InputParameters getInputParameters() {
 

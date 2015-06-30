@@ -10,6 +10,7 @@ public abstract class TaskOnBatch extends Task {
 	private String batch;
 	private Type type;
 	public static final String FIELD_TYPE = "type";
+	public static final String FIELD_BATCH = "batch";
 
 	public Type getType() {
 

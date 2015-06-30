@@ -18,14 +18,18 @@ public class Task extends DurableResourceModel {
 	private static final long serialVersionUID = -9117128840439882175L;
 	// TODO _MS_
 	private Progress progress;
+	public static final String FIELD_PROGRESS = "progress";
+
 	// private ResourceLocation resourceLocation;
 	private Notification.Policy notificationPolicy;
 	public static final String FIELD_NOTIFICATION_POLICY = "notificationPolicy";
 
 	private Long completedAt;
+	public static final String FIELD_COMPLETED_AT = "completedAt";
 
 
-//	public static final class ResourceLocation {
+
+	//	public static final class ResourceLocation {
 //
 //		private String path;
 //		private String id;
