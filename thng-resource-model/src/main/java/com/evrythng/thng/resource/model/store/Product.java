@@ -27,6 +27,7 @@ public class Product extends DurableResourceModel implements ResourceWithPropert
 	 */
 	@Deprecated
 	private String fn;
+	@Deprecated
 	public static final String FIELD_FN = "fn";
 	/**
 	 * Product name or title
