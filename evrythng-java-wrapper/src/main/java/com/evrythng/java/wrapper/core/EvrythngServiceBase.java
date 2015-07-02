@@ -117,6 +117,12 @@ public class EvrythngServiceBase {
 		return builder;
 	}
 
+	public Builder<String> postAccepted(final String relativePath, Object data) throws EvrythngClientException {
+		Builder<String> builder = EvrythngApiBuilder.postAccepted(config.getKey(), absoluteUri(relativePath), data);
+		onBuilderCreated(builder);
+		return builder;
+	}
+
 	/**
 	 * Returns a preconfigured {@link Builder} for executing GET requests.
 	 *

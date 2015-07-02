@@ -113,11 +113,9 @@ public class BatchService extends EvrythngServiceBase {
 	 * @param task the instance holding the {@link TaskOnBatch} resource data
 	 * @return a preconfigured {@link Builder}
 	 */
-	public Builder<Void> taskCreator(final String batchId, final TaskOnBatch task) throws EvrythngClientException {
+	public Builder<String> taskCreator(final String batchId, final TaskOnBatch task) throws EvrythngClientException {
 
-		return post(String.format(PATH_BATCH_TASKS, batchId), task, Status.ACCEPTED, new TypeReference<Void>() {
-
-		});
+		return postAccepted(String.format(PATH_BATCH_TASKS, batchId), task);
 	}
 
 	/**

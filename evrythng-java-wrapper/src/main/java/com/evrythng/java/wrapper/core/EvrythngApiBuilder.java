@@ -36,8 +36,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Entry-point command builder for the EVRYTHNG API.
@@ -89,6 +91,24 @@ public final class EvrythngApiBuilder {
 		return new Builder<>(apiKey, HttpMethodBuilder.httpPostMultipart(file), uri, responseStatus, responseType, null);
 	}
 
+	public static Builder<String> postAccepted(final String apiKey, final URI uri, final Object data) {
+		return new Builder<String>(apiKey, HttpMethodBuilder.httpPost(data), uri, Status.ACCEPTED, new TypeReference<String>() {
+
+		}) {
+
+			@Override
+			public String execute() throws EvrythngException {
+				// Perform request (response status code will be automatically checked):
+				HttpResponse response = request();
+				String result = null;
+				Header header = response.getFirstHeader("location");
+				if (header != null) {
+					result = header.getValue();
+				}
+				return result;
+			}
+		};
+	}
 	/**
 	 * Creates a {@link Builder} for executing a {@code GET} request.
 	 *
