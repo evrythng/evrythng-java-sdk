@@ -37,9 +37,10 @@ public abstract class TaskOnBatch extends Task {
 		POPULATING
 	}
 
-	public static abstract class BaseTaskResult {
+	public abstract static class BaseTaskResult {
 		public static String FIELD_TYPE = "type";
 		private Type type;
+		private String error;
 
 		public Type getType() {
 
@@ -49,6 +50,16 @@ public abstract class TaskOnBatch extends Task {
 		public void setType(final Type type) {
 
 			this.type = type;
+		}
+
+		public String getError() {
+
+			return error;
+		}
+
+		public void setError(final String error) {
+
+			this.error = error;
 		}
 	}
 }
