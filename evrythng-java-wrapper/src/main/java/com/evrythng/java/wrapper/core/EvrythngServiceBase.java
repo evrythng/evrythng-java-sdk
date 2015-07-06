@@ -11,7 +11,9 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
+import java.util.regex.Pattern;
 
+import com.evrythng.java.wrapper.core.api.AcceptedResourceResponse;
 import org.apache.commons.codec.binary.Base64InputStream;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
@@ -117,8 +119,8 @@ public class EvrythngServiceBase {
 		return builder;
 	}
 
-	public Builder<String> postAccepted(final String relativePath, Object data) throws EvrythngClientException {
-		Builder<String> builder = EvrythngApiBuilder.postAccepted(config.getKey(), absoluteUri(relativePath), data);
+	public Builder<AcceptedResourceResponse> postAsynchronously(final String relativePath, Object data, Pattern pattern) throws EvrythngClientException {
+		Builder<AcceptedResourceResponse> builder = EvrythngApiBuilder.postAsynchronously(config.getKey(), absoluteUri(relativePath), data, pattern);
 		onBuilderCreated(builder);
 		return builder;
 	}

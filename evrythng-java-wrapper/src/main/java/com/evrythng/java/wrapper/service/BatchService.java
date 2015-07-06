@@ -8,6 +8,7 @@ package com.evrythng.java.wrapper.service;
 import com.evrythng.java.wrapper.ApiManager;
 import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.EvrythngServiceBase;
+import com.evrythng.java.wrapper.core.api.AcceptedResourceResponse;
 import com.evrythng.java.wrapper.core.http.Status;
 import com.evrythng.java.wrapper.exception.EvrythngClientException;
 import com.evrythng.thng.resource.model.store.Batch;
@@ -15,6 +16,7 @@ import com.evrythng.thng.resource.model.store.TaskOnBatch;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Service wrapper for the {@code /batches} endpoint of the EVRYTHNG API.
@@ -113,9 +115,9 @@ public class BatchService extends EvrythngServiceBase {
 	 * @param task the instance holding the {@link TaskOnBatch} resource data
 	 * @return a preconfigured {@link Builder}
 	 */
-	public Builder<String> taskCreator(final String batchId, final TaskOnBatch task) throws EvrythngClientException {
+	public Builder<AcceptedResourceResponse> taskCreator(final String batchId, final TaskOnBatch task) throws EvrythngClientException {
 
-		return postAccepted(String.format(PATH_BATCH_TASKS, batchId), task);
+		return postAsynchronously(String.format(PATH_BATCH_TASKS, batchId), task, Pattern.compile(".*/([^/]*)$"));
 	}
 
 	/**
