@@ -17,7 +17,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 	// Might be promoted to a super class !
 	public static enum Status {
-		PENDING, EXECUTING, TERMINATED, CANCELING
+		PENDING, EXECUTING, EXECUTED, CANCELING
 	}
 
 	private Status status;
