@@ -9,18 +9,18 @@ import java.util.List;
 
 public class ListBasedAdiInputParameters extends BaseAdiInputParameters {
 
-	public static final String FIELD_REDIRECTIONS = "redirections";
+	public static final String FIELD_REDIRECTIONS = "inputData";
 
-	private List<RedirectionResource> redirections;
+	private List<RedirectionResource> inputData;
 
 
-	public List<RedirectionResource> getRedirections() {
+	public List<RedirectionResource> getInputData() {
 
-		return redirections;
+		return inputData;
 	}
 
-	public void setRedirections(final List<RedirectionResource> redirections) {
+	public void setInputData(final List<RedirectionResource> inputData) {
 
-		this.redirections = redirections;
+		this.inputData = inputData;
 	}
 }
