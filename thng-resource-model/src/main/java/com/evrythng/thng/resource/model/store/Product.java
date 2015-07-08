@@ -23,9 +23,16 @@ public class Product extends DurableResourceModel implements ResourceWithPropert
 	private String description;
 	/**
 	 * Product name or title
+	 * @deprecated use {@link #name} instead.
 	 */
+	@Deprecated
 	private String fn;
+	@Deprecated
 	public static final String FIELD_FN = "fn";
+	/**
+	 * Product name or title
+	 */
+	private String name;
 	/**
 	 * URLs to the photos, not the photos themselves
 	 */
@@ -85,14 +92,40 @@ public class Product extends DurableResourceModel implements ResourceWithPropert
 		this.description = description;
 	}
 
+	/**
+	 * Get product name or title
+	 * @deprecated use {@link #getName()} instead.
+	 */
+	@Deprecated
 	public String getFn() {
 
 		return fn;
 	}
 
+	/**
+	 * Set product name or title
+	 * @deprecated use {@link #setName(String)} instead.
+	 */
+	@Deprecated
 	public void setFn(final String fn) {
 
 		this.fn = fn;
+	}
+
+	/**
+	 * Get product name or title
+	 */
+	public String getName() {
+
+		return name;
+	}
+
+	/**
+	 * Set product name or title
+	 */
+	public void setName(final String name) {
+
+		this.name = name;
 	}
 
 	public List<String> getPhotos() {
