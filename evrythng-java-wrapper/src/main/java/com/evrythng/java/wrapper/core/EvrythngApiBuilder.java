@@ -6,6 +6,7 @@ package com.evrythng.java.wrapper.core;
 
 import com.evrythng.api.wrapper.param.FilterQueryParamValue;
 import com.evrythng.api.wrapper.param.IdsQueryParamValue;
+import com.evrythng.java.wrapper.core.api.AcceptedResourceResponse;
 import com.evrythng.java.wrapper.core.api.ApiCommand;
 import com.evrythng.java.wrapper.core.api.ApiCommandBuilder;
 import com.evrythng.java.wrapper.core.api.TypedResponseWithEntity;
@@ -36,8 +37,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Entry-point command builder for the EVRYTHNG API.
@@ -89,6 +94,31 @@ public final class EvrythngApiBuilder {
 		return new Builder<>(apiKey, HttpMethodBuilder.httpPostMultipart(file), uri, responseStatus, responseType, null);
 	}
 
+	public static Builder<AcceptedResourceResponse> postAsynchronously(final String apiKey, final URI uri, final Object data, final Pattern extractor) {
+		return new Builder<AcceptedResourceResponse>(apiKey, HttpMethodBuilder.httpPost(data), uri, Status.ACCEPTED, new TypeReference<AcceptedResourceResponse>() {
+
+		}) {
+
+			@Override
+			public AcceptedResourceResponse execute() throws EvrythngException {
+				// Perform request (response status code will be automatically checked):
+				HttpResponse response = request();
+				String location = null;
+				Header header = response.getFirstHeader("location");
+				String id = null;
+				if (header != null) {
+					location = header.getValue();
+					if (location != null) {
+						Matcher match = extractor.matcher(location);
+						if (match.matches() && match.groupCount() > 0) {
+							id = match.group(1);
+						}
+					}
+				}
+				return new AcceptedResourceResponse(id, location);
+			}
+		};
+	}
 	/**
 	 * Creates a {@link Builder} for executing a {@code GET} request.
 	 *
