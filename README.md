@@ -14,7 +14,7 @@ You need an API token for authentication which you can get on [https://dashboard
 ### Getting Started
 
 #### Setup
-The easiest way is to get the latest `.jar` with packaged dependencies from [here](https://s3.amazonaws.com/evrythng-public/evrythng-java-wrapper-1.17.0-jar-with-dependencies.jar) and adding it to your Java project.
+The easiest way is to get the latest `.jar` with packaged dependencies from [here](https://s3.amazonaws.com/evrythng-public/evrythng-java-wrapper-1.18.2-jar-with-dependencies.jar) and adding it to your Java project.
 
 The project is also available in Maven Central repository:
 
@@ -69,7 +69,7 @@ See [examples](https://github.com/evrythng/evrythng-java-sdk/tree/master/evrythn
 
 ### Working with the wrapper for Android projects
 
-You can also use the wrapper for your Android applications as it compiles on the Dalvik virtual machine! To get started get the latest `.jar` with packaged dependencies from [here](https://s3.amazonaws.com/evrythng-public/evrythng-java-wrapper-1.17.0-jar-with-dependencies.jar) and adding it to your Android project's libraries. Make sure that the wrapper library is exported to your final Android application.
+You can also use the wrapper for your Android applications as it compiles on the Dalvik virtual machine! To get started get the latest `.jar` with packaged dependencies from [here](https://s3.amazonaws.com/evrythng-public/evrythng-java-wrapper-1.18.2-jar-with-dependencies.jar) and adding it to your Android project's libraries. Make sure that the wrapper library is exported to your final Android application.
 
 To get you started with Android and EVRYTHNG have a look at the [FreezeMe](https://github.com/webofthings/FreezeMe) sample app. It is a freezer management application using QR codes, NFC tags and the EVRYTHNG API.
 

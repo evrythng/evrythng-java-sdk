@@ -40,4 +40,9 @@ public final class Pagination {
 	public final int getOffset() {
 		return offset;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Pagination [page=%s, perPage=%s, offset=%s]", page, perPage, offset);
+	}
 }
