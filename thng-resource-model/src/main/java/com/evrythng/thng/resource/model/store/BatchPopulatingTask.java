@@ -70,15 +70,20 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 			FIXED_AMOUNT, FILE_BASED, LIST_BASED
 		}
-		
+
 		Boolean getGenerateThngs();
+
 		Boolean getGenerateRedirections();
+
 		String getShortDomain();
+
 		String getDefaultRedirectUrl();
+
 		ThngTemplate getThngTemplate();
 	}
 
 	public static final class BatchPopulatingTaskResult extends BaseTaskResult {
+
 		private Long totalCount;
 		private String location;
 		private FileBasedAdiInputParameters.Format format;
