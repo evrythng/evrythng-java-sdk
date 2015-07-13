@@ -27,24 +27,6 @@ public class Task extends DurableResourceModel {
 	private Long completedAt;
 	public static final String FIELD_COMPLETED_AT = "completedAt";
 
-
-
-	//	public static final class ResourceLocation {
-//
-//		private String path;
-//		private String id;
-//
-//		public ResourceLocation(final String id, final String path) {
-//
-//			this.id = id;
-//			this.path = path;
-//		}
-//
-//		public ResourceLocation() {
-//
-//		}
-//	}
-
 	public static final class Progress {
 
 		// TODO _MS_ percentage should be an object too
@@ -121,16 +103,6 @@ public class Task extends DurableResourceModel {
 
 		this.progress = progress;
 	}
-
-//	public ResourceLocation getResourceLocation() {
-//
-//		return resourceLocation;
-//	}
-//
-//	public void setResourceLocation(final ResourceLocation resourceLocation) {
-//
-//		this.resourceLocation = resourceLocation;
-//	}
 
 	public Long getCompletedAt() {
 
