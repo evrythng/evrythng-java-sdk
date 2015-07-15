@@ -4,9 +4,10 @@
  */
 package com.evrythng.thng.resource.model.store;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
@@ -14,7 +15,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 	private static final long serialVersionUID = 2514640549756857875L;
 	// product in here
-	private BatchPopulatingTaskResult result;
+	private Result result;
 	public static final String FIELD_RESULT = "result";
 	private InputParameters inputParameters;
 	public static final String FIELD_INPUT_PARAMETERS = "inputParameters";
@@ -38,32 +39,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 			urlBindings = new HashMap<>();
 		}
 
-		public void addCreatedThngsCount(final String taskId, final int count) {
-
-			thngs.merge(taskId, count, new BiFunction<Integer, Integer, Integer>() {
-
-				@Override
-				public Integer apply(final Integer one, final Integer another) {
-
-					return one + another;
-				}
-			});
-		}
-
-		public void addCreatedUrlBindingsCount(final String taskId, final int count) {
-
-			urlBindings.merge(taskId, count, new BiFunction<Integer, Integer, Integer>() {
-
-				@Override
-				public Integer apply(final Integer one, final Integer another) {
-
-					return one + another;
-				}
-
-				;
-			});
-		}
-
+		@JsonIgnore
 		public Integer getThngsCount() {
 
 			return thngs.values().stream().collect(Collectors.summingInt(new ToIntFunction<Integer>() {
@@ -76,6 +52,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 			}));
 		}
 
+		@JsonIgnore
 		public Integer getUrlBindingsCount() {
 
 			return urlBindings.values().stream().collect(Collectors.summingInt(new ToIntFunction<Integer>() {
@@ -98,6 +75,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 			this.totalAmount = totalAmount;
 		}
 		
+		@JsonIgnore
 		public boolean isComplete(){
 			
 			return getThngsCount() >= totalAmount && getUrlBindingsCount() >= totalAmount;
@@ -113,12 +91,18 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 				this.contributor = contributor;
 			}
+			
+			public Contribution(){
+				// for the mapper
+			}
 
+			@JsonIgnore
 			public void addCreatedThngsCount(final int count) {
 
 				thngs += count;
 			}
 
+			@JsonIgnore
 			public void addCreatedUrlBindingsCount(final Integer count) {
 
 				urlBindings += count;
@@ -132,6 +116,16 @@ public class BatchPopulatingTask extends TaskOnBatch {
 			public Integer getUrlBindingsCount() {
 
 				return urlBindings;
+			}
+
+			public String getContributor() {
+
+				return contributor;
+			}
+
+			public void setContributor(final String contributor) {
+
+				this.contributor = contributor;
 			}
 		}
 	}
@@ -159,12 +153,12 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		this.status = status;
 	}
 
-	public BatchPopulatingTaskResult getResult() {
+	public Result getResult() {
 
 		return result;
 	}
 
-	public void setResult(final BatchPopulatingTaskResult result) {
+	public void setResult(final Result result) {
 
 		this.result = result;
 	}
@@ -208,7 +202,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		ThngTemplate getThngTemplate();
 	}
 
-	public static final class BatchPopulatingTaskResult extends BaseTaskResult {
+	public static final class Result extends BaseTaskResult {
 
 		private Long totalCount;
 		private String location;
