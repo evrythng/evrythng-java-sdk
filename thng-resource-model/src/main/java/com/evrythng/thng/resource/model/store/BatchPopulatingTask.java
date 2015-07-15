@@ -4,7 +4,11 @@
  */
 package com.evrythng.thng.resource.model.store;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.ToIntFunction;
+import java.util.stream.Collectors;
 
 public class BatchPopulatingTask extends TaskOnBatch {
 
@@ -14,10 +18,122 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	public static final String FIELD_RESULT = "result";
 	private InputParameters inputParameters;
 	public static final String FIELD_INPUT_PARAMETERS = "inputParameters";
+	private Progress progress;
+	public static final String FIELD_PROGRESS = "progress";
 
 	// Might be promoted to a super class !
 	public static enum Status {
 		PENDING, EXECUTING, EXECUTED, CANCELING
+	}
+
+	public static final class Progress {
+
+		private Map<String, Integer> thngs;
+		private Map<String, Integer> urlBindings;
+		private Integer totalAmount;
+
+		public Progress() {
+
+			thngs = new HashMap<>();
+			urlBindings = new HashMap<>();
+		}
+
+		public void addCreatedThngsCount(final String taskId, final Integer count) {
+
+			thngs.merge(taskId, count, new BiFunction<Integer, Integer, Integer>() {
+
+				@Override
+				public Integer apply(final Integer one, final Integer another) {
+
+					return one + another;
+				}
+			});
+		}
+
+		public void addCreatedUrlBindingsCount(final String taskId, final Integer count) {
+
+			urlBindings.merge(taskId, count, new BiFunction<Integer, Integer, Integer>() {
+
+				@Override
+				public Integer apply(final Integer one, final Integer another) {
+
+					return one + another;
+				}
+
+				;
+			});
+		}
+
+		public Integer getThngsCount() {
+
+			return thngs.values().stream().collect(Collectors.summingInt(new ToIntFunction<Integer>() {
+
+				@Override
+				public int applyAsInt(final Integer value) {
+
+					return value;
+				}
+			}));
+		}
+
+		public Integer getUrlBindingsCount() {
+
+			return urlBindings.values().stream().collect(Collectors.summingInt(new ToIntFunction<Integer>() {
+
+				@Override
+				public int applyAsInt(final Integer value) {
+
+					return value;
+				}
+			}));
+		}
+
+		public Integer getTotalAmount() {
+
+			return totalAmount;
+		}
+
+		public void setTotalAmount(final Integer totalAmount) {
+
+			this.totalAmount = totalAmount;
+		}
+		
+		public boolean isComplete(){
+			
+			return getThngsCount() >= totalAmount && getUrlBindingsCount() >= totalAmount;
+		}
+
+		public static final class Contribution {
+
+			private String contributor;
+			private int urlBindings;
+			private int thngs;
+
+			public Contribution(final String contributor) {
+
+				this.contributor = contributor;
+			}
+
+			public void addCreatedThngsCount(final int count) {
+
+				thngs += count;
+			}
+
+			public void addCreatedUrlBindingsCount(final Integer count) {
+
+				urlBindings += count;
+			}
+
+			public Integer getThngsCount() {
+
+				return thngs;
+			}
+
+			public Integer getUrlBindingsCount() {
+
+				return urlBindings;
+			}
+		}
 	}
 
 	private Status status;
@@ -51,6 +167,16 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	public void setResult(final BatchPopulatingTaskResult result) {
 
 		this.result = result;
+	}
+
+	public Progress getProgress() {
+
+		return progress;
+	}
+
+	public void setProgress(final Progress progress) {
+
+		this.progress = progress;
 	}
 
 	public static interface InputParameters {
