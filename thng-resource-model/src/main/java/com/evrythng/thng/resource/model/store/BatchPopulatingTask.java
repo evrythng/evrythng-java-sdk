@@ -38,7 +38,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 			urlBindings = new HashMap<>();
 		}
 
-		public void addCreatedThngsCount(final String taskId, final Integer count) {
+		public void addCreatedThngsCount(final String taskId, final int count) {
 
 			thngs.merge(taskId, count, new BiFunction<Integer, Integer, Integer>() {
 
@@ -50,7 +50,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 			});
 		}
 
-		public void addCreatedUrlBindingsCount(final String taskId, final Integer count) {
+		public void addCreatedUrlBindingsCount(final String taskId, final int count) {
 
 			urlBindings.merge(taskId, count, new BiFunction<Integer, Integer, Integer>() {
 
