@@ -6,6 +6,8 @@ package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
 
+import java.util.List;
+
 /**
  * Model representation for <em>projects</em>.
  */
@@ -17,6 +19,7 @@ public class Project extends DurableResourceModel {
 	private String imageUrl;
 	private Long startsAt;
 	private Long endsAt;
+	private List<String> shortDomains;
 
 	/**
 	 * @return the name
@@ -96,6 +99,16 @@ public class Project extends DurableResourceModel {
 	public void setEndsAt(final Long endsAt) {
 
 		this.endsAt = endsAt;
+	}
+
+	public List<String> getShortDomains() {
+
+		return shortDomains;
+	}
+
+	public void setShortDomains(final List<String> shortDomains) {
+
+		this.shortDomains = shortDomains;
 	}
 
 	@Override
