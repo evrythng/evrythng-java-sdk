@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
@@ -29,20 +30,26 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 	public static final class Progress {
 
-		private Map<String, Integer> thngs;
-		private Map<String, Integer> urlBindings;
+		public static final String FIELD_CONTRIBUTIONS = "contributions";
+		private Map<String, Contribution> contributions;
 		private Integer totalAmount;
 
 		public Progress() {
 
-			thngs = new HashMap<>();
-			urlBindings = new HashMap<>();
+			contributions = new HashMap<>();
 		}
 
 		@JsonIgnore
 		public Integer getThngsCount() {
 
-			return thngs.values().stream().collect(Collectors.summingInt(new ToIntFunction<Integer>() {
+			return contributions.values().stream().map(new Function<Contribution, Integer>() {
+
+				@Override
+				public Integer apply(final Contribution contribution) {
+
+					return contribution.getThngsCount();
+				}
+			}).collect(Collectors.summingInt(new ToIntFunction<Integer>() {
 
 				@Override
 				public int applyAsInt(final Integer value) {
@@ -55,7 +62,14 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		@JsonIgnore
 		public Integer getUrlBindingsCount() {
 
-			return urlBindings.values().stream().collect(Collectors.summingInt(new ToIntFunction<Integer>() {
+			return contributions.values().stream().map(new Function<Contribution, Integer>() {
+
+				@Override
+				public Integer apply(final Contribution contribution) {
+
+					return contribution.getUrlBindingsCount();
+				}
+			}).collect(Collectors.summingInt(new ToIntFunction<Integer>() {
 
 				@Override
 				public int applyAsInt(final Integer value) {
@@ -74,27 +88,29 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 			this.totalAmount = totalAmount;
 		}
-		
+
+		public Map<String, Contribution> getContributions() {
+
+			return contributions;
+		}
+
+		public void setContributions(final Map<String, Contribution> contributions) {
+
+			this.contributions = contributions;
+		}
+
 		@JsonIgnore
-		public boolean isComplete(){
-			
+		public boolean isComplete() {
+
 			return getThngsCount() >= totalAmount && getUrlBindingsCount() >= totalAmount;
 		}
 
 		public static final class Contribution {
 
-			private String contributor;
+			public static final String FIELD_URL_BINDINGS = "urlBindings";
 			private int urlBindings;
+			public static final String FIELD_THNGS = "thngs";
 			private int thngs;
-
-			public Contribution(final String contributor) {
-
-				this.contributor = contributor;
-			}
-			
-			public Contribution(){
-				// for the mapper
-			}
 
 			@JsonIgnore
 			public void addCreatedThngsCount(final int count) {
@@ -118,14 +134,14 @@ public class BatchPopulatingTask extends TaskOnBatch {
 				return urlBindings;
 			}
 
-			public String getContributor() {
+			public void setThngs(final int thngs) {
 
-				return contributor;
+				this.thngs = thngs;
 			}
 
-			public void setContributor(final String contributor) {
+			public void setUrlBindings(final int urlBindings) {
 
-				this.contributor = contributor;
+				this.urlBindings = urlBindings;
 			}
 		}
 	}
