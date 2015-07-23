@@ -9,8 +9,25 @@ public abstract class TaskOnBatch extends Task {
 	private static final long serialVersionUID = 8091207835379916024L;
 	private String batch;
 	private Type type;
+	private Status status;
+	public static final String FIELD_STATUS = "status";
 	public static final String FIELD_TYPE = "type";
 	public static final String FIELD_BATCH = "batch";
+
+	// Might be promoted to a super class !
+	public static enum Status {
+		PENDING, EXECUTING, EXECUTED, CANCELING
+	}
+
+	public Status getStatus() {
+
+		return status;
+	}
+
+	public void setStatus(final Status status) {
+
+		this.status = status;
+	}
 
 	public Type getType() {
 
@@ -34,7 +51,7 @@ public abstract class TaskOnBatch extends Task {
 
 	public static enum Type {
 
-		POPULATING
+		POPULATING, SHORT_ID_GENERATION;
 	}
 
 	public abstract static class BaseTaskResult {
