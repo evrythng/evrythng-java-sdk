@@ -32,6 +32,7 @@ public abstract class BaseAdiInputParameters implements BatchPopulatingTask.Inpu
 		this.type = type;
 	}
 
+	@Override
 	public String getShortDomain() {
 
 		return shortDomain;
@@ -42,6 +43,7 @@ public abstract class BaseAdiInputParameters implements BatchPopulatingTask.Inpu
 		this.shortDomain = shortDomain;
 	}
 
+	@Override
 	public String getDefaultRedirectUrl() {
 
 		return defaultRedirectUrl;
@@ -52,6 +54,7 @@ public abstract class BaseAdiInputParameters implements BatchPopulatingTask.Inpu
 		this.defaultRedirectUrl = defaultRedirectUrl;
 	}
 
+	@Override
 	public ThngTemplate getThngTemplate() {
 
 		return thngTemplate;

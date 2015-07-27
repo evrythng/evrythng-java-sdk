@@ -7,6 +7,7 @@ package com.evrythng.thng.resource.model.store;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
@@ -20,6 +21,8 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	public static final String FIELD_RESULT = "result";
 	private InputParameters inputParameters;
 	public static final String FIELD_INPUT_PARAMETERS = "inputParameters";
+	private OutputParameters ourputParameters;
+	public static final String FIELD_OUTPUT_PARAMETERS = "outputParameters";
 	private Progress progress;
 	public static final String FIELD_PROGRESS = "progress";
 
@@ -189,6 +192,16 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		this.progress = progress;
 	}
 
+	public OutputParameters getOurputParameters() {
+
+		return ourputParameters;
+	}
+
+	public void setOurputParameters(final OutputParameters ourputParameters) {
+
+		this.ourputParameters = ourputParameters;
+	}
+
 	public static interface InputParameters {
 
 		String FIELD_TYPE = "type";
@@ -218,11 +231,77 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		ThngTemplate getThngTemplate();
 	}
 
+	public static interface OutputParameters {
+
+		String FIELD_TYPE = "type";
+
+		Type getType();
+
+		void setType(final Type type);
+
+		public static enum Type {
+
+			CSV(Format.CSV);
+			private final Format format;
+
+			private Type(final Format format) {
+
+				this.format = format;
+			}
+
+			public Format getFormat() {
+
+				return format;
+			}
+		}
+		
+		public static enum Format {
+			
+			CSV("csv", "text/csv");
+			private final String extension;
+			private final String mimeType;
+
+			private Format(final String extension, final String mimeType) {
+
+				this.extension = extension;
+				this.mimeType = mimeType;
+			}
+
+			public String getExtension() {
+
+				return extension;
+			}
+
+			public String getMimeType() {
+
+				return mimeType;
+			}
+		}
+
+		public static enum Column {
+
+			SHORT_ID("shortId"), THNG("thng");
+			private final String name;
+
+			private Column(final String name) {
+
+				this.name = name;
+			}
+
+			public String getName() {
+
+				return name;
+			}
+		}
+
+		List<Column> getColumns();
+	}
+
 	public static final class Result extends BaseTaskResult {
 
 		private Long totalCount;
 		private String location;
-		private FileBasedAdiInputParameters.Format format;
+		private OutputParameters.Format format;
 		private Map<String, String> headers;
 
 		public Long getTotalCount() {
@@ -245,12 +324,12 @@ public class BatchPopulatingTask extends TaskOnBatch {
 			this.location = location;
 		}
 
-		public FileBasedAdiInputParameters.Format getFormat() {
+		public OutputParameters.Format getFormat() {
 
 			return format;
 		}
 
-		public void setFormat(final FileBasedAdiInputParameters.Format format) {
+		public void setFormat(final OutputParameters.Format format) {
 
 			this.format = format;
 		}
