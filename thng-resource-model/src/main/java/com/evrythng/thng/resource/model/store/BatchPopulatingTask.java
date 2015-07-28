@@ -21,7 +21,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	public static final String FIELD_RESULT = "result";
 	private InputParameters inputParameters;
 	public static final String FIELD_INPUT_PARAMETERS = "inputParameters";
-	private OutputParameters ourputParameters;
+	private OutputParameters outputParameters;
 	public static final String FIELD_OUTPUT_PARAMETERS = "outputParameters";
 	private Progress progress;
 	public static final String FIELD_PROGRESS = "progress";
@@ -192,14 +192,14 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		this.progress = progress;
 	}
 
-	public OutputParameters getOurputParameters() {
+	public OutputParameters getOutputParameters() {
 
-		return ourputParameters;
+		return outputParameters;
 	}
 
-	public void setOurputParameters(final OutputParameters ourputParameters) {
+	public void setOutputParameters(final OutputParameters outputParameters) {
 
-		this.ourputParameters = ourputParameters;
+		this.outputParameters = outputParameters;
 	}
 
 	public static interface InputParameters {
