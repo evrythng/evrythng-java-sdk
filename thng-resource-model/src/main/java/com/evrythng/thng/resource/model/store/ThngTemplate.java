@@ -18,6 +18,4 @@ public class ThngTemplate extends Thng {
 	}
 
 	private static final long serialVersionUID = 180005519265755737L;
-
-	// TODO _MS_ maybe different
 }
