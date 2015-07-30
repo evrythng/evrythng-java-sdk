@@ -11,6 +11,8 @@ public abstract class ShortIdTemplate {
 
 	private Type type;
 	public static final String FIELD_TYPE = "type";
+	
+	private Integer length;
 
 	public static enum Type {
 
@@ -25,5 +27,15 @@ public abstract class ShortIdTemplate {
 	public void setType(final Type type) {
 
 		this.type = type;
+	}
+
+	public Integer getLength() {
+
+		return length;
+	}
+
+	public void setLength(final Integer length) {
+
+		this.length = length;
 	}
 }

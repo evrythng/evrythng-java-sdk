@@ -38,6 +38,7 @@ public abstract class TaskOnBatch extends Task {
 	}
 
 	public abstract static class BaseTaskResult {
+		
 		public static String FIELD_TYPE = "type";
 		private Type type;
 		private String error;

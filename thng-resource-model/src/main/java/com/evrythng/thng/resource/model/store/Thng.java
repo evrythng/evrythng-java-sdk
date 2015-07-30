@@ -57,6 +57,7 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 		this.batch = thng.batch;
 	}
 
+	public static final String FIELD_BATCH = "batch";
 	private String batch;
 
 	public String getName() {
