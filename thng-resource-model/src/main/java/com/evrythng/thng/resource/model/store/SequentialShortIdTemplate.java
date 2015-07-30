@@ -5,16 +5,12 @@
 
 package com.evrythng.thng.resource.model.store;
 
-public class SequentialShortIdTemplate extends ShortIdTemplate {
+public class SequentialShortIdTemplate extends FragmentedShortIdTemplate {
 
-	private String prefix;
-	public static final String PREFIX = "prefix";
-	private String suffix;
-	public static final String SUFFIX = "suffix";
-	private String separator;
-	public static final String SEPARATOR = "separator";
 	private PaddingType padding;
 	public static final String PADDING = "padding";
+	private String paddingChar;
+	public static final String PADDING_CHAR = "paddingChar";
 	private Long start;
 	public static final String START = "start";
 	private Long increment;
@@ -25,37 +21,7 @@ public class SequentialShortIdTemplate extends ShortIdTemplate {
 	}
 
 	public static enum PaddingType {
-		ZERO;
-	}
-
-	public String getPrefix() {
-
-		return prefix;
-	}
-
-	public void setPrefix(final String prefix) {
-
-		this.prefix = prefix;
-	}
-
-	public String getSuffix() {
-
-		return suffix;
-	}
-
-	public void setSuffix(final String suffix) {
-
-		this.suffix = suffix;
-	}
-
-	public String getSeparator() {
-
-		return separator;
-	}
-
-	public void setSeparator(final String separator) {
-
-		this.separator = separator;
+		ZERO, CHAR;
 	}
 
 	public PaddingType getPadding() {
@@ -66,6 +32,16 @@ public class SequentialShortIdTemplate extends ShortIdTemplate {
 	public void setPadding(final PaddingType padding) {
 
 		this.padding = padding;
+	}
+
+	public String getPaddingChar() {
+
+		return paddingChar;
+	}
+
+	public void setPaddingChar(final String paddingChar) {
+
+		this.paddingChar = paddingChar;
 	}
 
 	public Long getStart() {
