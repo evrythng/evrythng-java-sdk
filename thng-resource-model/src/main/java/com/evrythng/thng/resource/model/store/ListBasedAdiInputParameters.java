@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ListBasedAdiInputParameters extends BaseAdiInputParameters {
 
-	public static final String FIELD_REDIRECTIONS = "inputData";
+	public static final String FIELD_INPUT_DATA = "inputData";
 
 	private List<RedirectionResource> inputData;
 

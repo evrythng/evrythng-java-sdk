@@ -216,6 +216,12 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		String getDefaultRedirectUrl();
 
 		ThngTemplate getThngTemplate();
+
+		void setShortDomain(String shortDomain);
+
+		void setDefaultRedirectUrl(String defaultRedirectUrl);
+
+		void setThngTemplate(ThngTemplate thngTemplate);
 	}
 
 	public static final class Result extends BaseTaskResult {
