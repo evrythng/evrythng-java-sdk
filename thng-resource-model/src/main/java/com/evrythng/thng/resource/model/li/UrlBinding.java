@@ -21,6 +21,7 @@ public class UrlBinding extends AbstractUrlBinding {
 	private String shortId;
 	private String evrythngId;
 	private Integer hits;
+	public static final String FIELD_BATCH = "batch";
 	private String batch;
 
 	// Input used for scanthng

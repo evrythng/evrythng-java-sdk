@@ -13,6 +13,7 @@ public abstract class ShortIdTemplate {
 	public static final String FIELD_TYPE = "type";
 	
 	private Integer length;
+	public static final String LENGTH = "length";
 
 	public static enum Type {
 

@@ -26,9 +26,9 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	private Progress progress;
 	public static final String FIELD_PROGRESS = "progress";
 
-	// Might be promoted to a super class !
-	public static enum Status {
-		PENDING, EXECUTING, EXECUTED, CANCELING
+	public BatchPopulatingTask() {
+
+		setType(Type.POPULATING);
 	}
 
 	public static final class Progress {
@@ -149,9 +149,6 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		}
 	}
 
-	private Status status;
-	public static final String FIELD_STATUS = "status";
-
 	public InputParameters getInputParameters() {
 
 		return inputParameters;
@@ -160,16 +157,6 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	public void setInputParameters(final InputParameters inputParameters) {
 
 		this.inputParameters = inputParameters;
-	}
-
-	public Status getStatus() {
-
-		return status;
-	}
-
-	public void setStatus(final Status status) {
-
-		this.status = status;
 	}
 
 	public Result getResult() {
