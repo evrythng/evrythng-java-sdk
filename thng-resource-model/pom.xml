@@ -1,5 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<properties>
+		<commons-collections.version>3.2.1</commons-collections.version>
+	</properties>
 
 	<parent>
 		<groupId>com.evrythng</groupId>
@@ -39,6 +42,12 @@
 			<version>${version.jackson-core}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>${commons-collections.version}</version>
+		</dependency>
+		
 	</dependencies>
 
 </project>

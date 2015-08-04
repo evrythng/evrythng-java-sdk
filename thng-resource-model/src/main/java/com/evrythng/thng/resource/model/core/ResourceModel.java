@@ -7,6 +7,7 @@ package com.evrythng.thng.resource.model.core;
 import com.evrythng.commons.LowerCaseKeyMap;
 import com.evrythng.commons.annotations.csv.CsvTransient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.collections.list.SetUniqueList;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -88,7 +89,7 @@ public abstract class ResourceModel implements Serializable, WithScopeResource {
 
 	public void setTags(final List<String> tags) {
 
-		this.tags = tags;
+		this.tags = tags != null ? SetUniqueList.decorate(tags) : null;
 	}
 
 	@Override
