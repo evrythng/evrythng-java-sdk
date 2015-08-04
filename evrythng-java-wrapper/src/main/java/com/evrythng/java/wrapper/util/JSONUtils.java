@@ -6,12 +6,18 @@ package com.evrythng.java.wrapper.util;
 
 import com.evrythng.java.wrapper.exception.WrappedRuntimeException;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
+import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -29,8 +35,7 @@ public final class JSONUtils {
 	}
 
 	/**
-	 * Deserializes the provided {@code json} {@link String} to a native
-	 * {@code type} representation.
+	 * Deserializes the provided {@code json} {@link String} to a native {@code type} representation.
 	 *
 	 * @return Deserialized native instance
 	 *
@@ -38,6 +43,7 @@ public final class JSONUtils {
 	 */
 	@Deprecated
 	public static <T> T read(final String json, final Class<T> type) {
+
 		try {
 			return OBJECT_MAPPER.readValue(json, type);
 		} catch (Exception e) {
@@ -47,12 +53,12 @@ public final class JSONUtils {
 	}
 
 	/**
-	 * Deserializes the provided {@code json} {@link String} to a native
-	 * {@code type} representation.
+	 * Deserializes the provided {@code json} {@link String} to a native {@code type} representation.
 	 *
 	 * @return Deserialized native instance
 	 */
 	public static <T> T read(final String json, final TypeReference<T> type) {
+
 		try {
 			return OBJECT_MAPPER.readValue(json, type);
 		} catch (Exception e) {
@@ -62,8 +68,7 @@ public final class JSONUtils {
 	}
 
 	/**
-	 * Deserializes the provided {@link InputStream} to a native {@code type}
-	 * representation.
+	 * Deserializes the provided {@link InputStream} to a native {@code type} representation.
 	 *
 	 * @return Deserialized native instance
 	 *
@@ -71,6 +76,7 @@ public final class JSONUtils {
 	 */
 	@Deprecated
 	public static <T> T read(final InputStream inputStream, final TypeReference<T> type) {
+
 		try {
 			return OBJECT_MAPPER.readValue(inputStream, type);
 		} catch (Exception e) {
@@ -80,8 +86,7 @@ public final class JSONUtils {
 	}
 
 	/**
-	 * Deserializes the provided {@link InputStream} to a native
-	 * {@code valueType} representation.
+	 * Deserializes the provided {@link InputStream} to a native {@code valueType} representation.
 	 *
 	 * @return Deserialized native instance
 	 *
@@ -89,6 +94,7 @@ public final class JSONUtils {
 	 */
 	@Deprecated
 	public static <T> T read(final InputStream inputStream, final Class<T> valueType) {
+
 		try {
 			return OBJECT_MAPPER.readValue(inputStream, valueType);
 		} catch (Exception e) {
@@ -101,6 +107,7 @@ public final class JSONUtils {
 	 * Converts the provided {@code object} to an JSON {@link String}.
 	 */
 	public static String write(final Object object) {
+
 		try {
 			return OBJECT_MAPPER.writeValueAsString(object);
 		} catch (Exception e) {
@@ -121,7 +128,26 @@ public final class JSONUtils {
 		mapper.configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true);
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 		mapper.setDateFormat(new ISO8601DateFormat());
+		
+		mapper.registerModule(new CoreModule());
 
 		return mapper;
+	}
+
+	private static class CoreModule extends SimpleModule {
+
+		private CoreModule() {
+
+			addDeserializer(String.class, new StdScalarDeserializer<String>(String.class) {
+
+				private static final long serialVersionUID = 6977627268309308664L;
+
+				@Override
+				public String deserialize(final JsonParser jp, final DeserializationContext ctx) throws IOException {
+
+					return StringUtils.trim(jp.getValueAsString());
+				}
+			});
+		}
 	}
 }
