@@ -227,6 +227,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	public static interface OutputParameters {
 
 		String FIELD_TYPE = "type";
+		String FIELD_COLUMNS = "columns";
 
 		Type getType();
 

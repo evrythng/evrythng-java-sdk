@@ -41,7 +41,7 @@ public class ScopeResource implements Serializable {
 
 	public void setUsers(final List<String> users) {
 
-		this.users = users != null ? SetUniqueList.decorate(users) : null;
+		this.users = users != null ? SetUniqueList.decorate(new ArrayList(users)) : null;
 	}
 
 	public List<String> getProjects() {
@@ -51,7 +51,7 @@ public class ScopeResource implements Serializable {
 
 	public void setProjects(final List<String> projects) {
 
-		this.projects = projects != null ? SetUniqueList.decorate(projects) : null;
+		this.projects = projects != null ? SetUniqueList.decorate(new ArrayList(projects)) : null;
 	}
 
 	@Override

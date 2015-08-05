@@ -7,6 +7,7 @@ package com.evrythng.thng.resource.model.store;
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
 import org.apache.commons.collections.list.SetUniqueList;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class Task extends DurableResourceModel {
 
 			public void setCompletion(final List<Way> completion) {
 
-				this.completion = completion != null ? SetUniqueList.decorate(completion) : null;
+				this.completion = completion != null ? SetUniqueList.decorate(new ArrayList(completion)) : null;
 			}
 		}
 

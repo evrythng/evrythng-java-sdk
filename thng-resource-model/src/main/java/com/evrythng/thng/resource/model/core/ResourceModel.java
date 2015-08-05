@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.collections.list.SetUniqueList;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -89,7 +90,7 @@ public abstract class ResourceModel implements Serializable, WithScopeResource {
 
 	public void setTags(final List<String> tags) {
 
-		this.tags = tags != null ? SetUniqueList.decorate(tags) : null;
+		this.tags = tags != null ? SetUniqueList.decorate(new ArrayList(tags)) : null;
 	}
 
 	@Override
