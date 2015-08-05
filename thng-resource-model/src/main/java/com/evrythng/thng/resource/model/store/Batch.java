@@ -16,13 +16,45 @@ public class Batch extends DurableResourceModel {
 	private static final long serialVersionUID = -4440334109484551488L;
 
 	public enum Status {
-		EMPTY, IN_PROGRESS, COMPLETE, SEALED;
+		EMPTY, IN_PROGRESS, COMPLETE, SEALED
+	}
+
+	public static final class ResourceCount {
+		
+		public static final String FIELD_THNGS = "thngs";
+		private Integer thngs;
+		public static final String FIELD_URL_BINDINGS = "urlBindings";
+		private Integer urlBindings;
+
+		public Integer getThngs() {
+
+			return thngs;
+		}
+
+		public void setThngs(final Integer thngs) {
+
+			this.thngs = thngs;
+		}
+
+		public Integer getUrlBindings() {
+
+			return urlBindings;
+		}
+
+		public void setUrlBindings(final Integer urlBindings) {
+
+			this.urlBindings = urlBindings;
+		}
 	}
 
 	private String name;
 	private String description;
 	private Map<String, String> identifiers;
 	private Status status;
+	// TODO _MS_ validate here on creation: read-only
+	public static final String FIELD_RESOURCE_COUNTS_BY_PRODUCT = "resourceCountsByProduct";
+	public static final String NO_PRODUCT_RESOURCES_KEY = "NO_PRODUCT";
+	private Map<String, ResourceCount> resourceCountsByProduct;
 
 	public String getName() {
 
@@ -42,6 +74,16 @@ public class Batch extends DurableResourceModel {
 	public void setDescription(final String description) {
 
 		this.description = description;
+	}
+
+	public Map<String, ResourceCount> getResourceCountsByProduct() {
+
+		return resourceCountsByProduct;
+	}
+	
+	public void setResourceCountsByProduct(final Map<String, ResourceCount> resourceCountsByProduct){
+		
+		this.resourceCountsByProduct = resourceCountsByProduct;
 	}
 
 	public Map<String, String> getIdentifiers() {

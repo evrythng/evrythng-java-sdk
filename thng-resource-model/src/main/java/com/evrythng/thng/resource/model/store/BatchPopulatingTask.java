@@ -286,17 +286,17 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 	public static final class Result extends BaseTaskResult {
 
-		private Long totalCount;
+		private Integer totalCount;
 		private String location;
 		private OutputParameters.Format format;
 		private Map<String, String> headers;
 
-		public Long getTotalCount() {
+		public Integer getTotalCount() {
 
 			return totalCount;
 		}
 
-		public void setTotalCount(final Long totalCount) {
+		public void setTotalCount(final Integer totalCount) {
 
 			this.totalCount = totalCount;
 		}
