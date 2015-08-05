@@ -5,6 +5,10 @@
 
 package com.evrythng.thng.resource.model.store;
 
-public class PseudoRandomShortIdTemplate extends ShortIdTemplate {
+public class PseudoRandomShortIdTemplate extends FragmentedShortIdTemplate {
+
+	public PseudoRandomShortIdTemplate() {
+		setType(Type.PSEUDO_RANDOM);
+	}
 
 }
