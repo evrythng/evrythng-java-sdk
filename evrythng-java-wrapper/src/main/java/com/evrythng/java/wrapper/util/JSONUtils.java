@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
+import com.fasterxml.jackson.databind.deser.std.StringDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import org.apache.commons.lang3.StringUtils;
@@ -141,11 +142,12 @@ public final class JSONUtils {
 			addDeserializer(String.class, new StdScalarDeserializer<String>(String.class) {
 
 				private static final long serialVersionUID = 6977627268309308664L;
+				private final StringDeserializer STRING_DESERIALIZER = new StringDeserializer();
 
 				@Override
 				public String deserialize(final JsonParser jp, final DeserializationContext ctx) throws IOException {
 
-					return StringUtils.trim(jp.getValueAsString());
+					return StringUtils.trim(STRING_DESERIALIZER.deserialize(jp, ctx));
 				}
 			});
 		}
