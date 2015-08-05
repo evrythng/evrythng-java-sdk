@@ -216,11 +216,18 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		String getDefaultRedirectUrl();
 
 		ThngTemplate getThngTemplate();
+
+		void setShortDomain(String shortDomain);
+
+		void setDefaultRedirectUrl(String defaultRedirectUrl);
+
+		void setThngTemplate(ThngTemplate thngTemplate);
 	}
 
 	public static interface OutputParameters {
 
 		String FIELD_TYPE = "type";
+		String FIELD_COLUMNS = "columns";
 
 		Type getType();
 

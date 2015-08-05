@@ -4,6 +4,8 @@
  */
 package com.evrythng.thng.resource.model.core;
 
+import org.apache.commons.collections.list.SetUniqueList;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +41,7 @@ public class ScopeResource implements Serializable {
 
 	public void setUsers(final List<String> users) {
 
-		this.users = users;
+		this.users = users != null ? SetUniqueList.decorate(new ArrayList(users)) : null;
 	}
 
 	public List<String> getProjects() {
@@ -49,7 +51,7 @@ public class ScopeResource implements Serializable {
 
 	public void setProjects(final List<String> projects) {
 
-		this.projects = projects;
+		this.projects = projects != null ? SetUniqueList.decorate(new ArrayList(projects)) : null;
 	}
 
 	@Override

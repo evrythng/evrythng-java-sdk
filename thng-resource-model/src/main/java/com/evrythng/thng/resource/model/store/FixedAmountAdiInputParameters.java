@@ -10,18 +10,18 @@ package com.evrythng.thng.resource.model.store;
  */
 public class FixedAmountAdiInputParameters extends BaseAdiInputParameters {
 
-	private Long quantity;
+	private Number quantity;
 	public static final String FIELD_QUANTITY = "quantity";
 
 	private ShortIdTemplate shortIdTemplate;
 	public static final String FIELD_SHORT_ID_TEMPLATE = "shortIdTemplate";
 
-	public Long getQuantity() {
+	public Number getQuantity() {
 
 		return quantity;
 	}
 
-	public void setQuantity(final Long quantity) {
+	public void setQuantity(final Number quantity) {
 
 		this.quantity = quantity;
 	}

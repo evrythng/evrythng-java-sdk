@@ -14,6 +14,10 @@ import java.util.Map;
 public class Batch extends DurableResourceModel {
 
 	private static final long serialVersionUID = -4440334109484551488L;
+	public static final String FIELD_NAME = "name";
+	public static final String FIELD_DESCRIPTION = "description";
+	public static final String FIELD_STATUS = "status";
+	public static final String FIELD_IDENTIFIERS = "identifiers";
 
 	public enum Status {
 		EMPTY, IN_PROGRESS, COMPLETE, SEALED;

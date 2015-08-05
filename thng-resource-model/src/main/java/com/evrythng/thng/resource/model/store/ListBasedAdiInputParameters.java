@@ -5,11 +5,14 @@
 
 package com.evrythng.thng.resource.model.store;
 
+import org.apache.commons.collections.list.SetUniqueList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListBasedAdiInputParameters extends BaseAdiInputParameters {
 
-	public static final String FIELD_REDIRECTIONS = "inputData";
+	public static final String FIELD_INPUT_DATA = "inputData";
 
 	private List<RedirectionResource> inputData;
 
@@ -21,6 +24,6 @@ public class ListBasedAdiInputParameters extends BaseAdiInputParameters {
 
 	public void setInputData(final List<RedirectionResource> inputData) {
 
-		this.inputData = inputData;
+		this.inputData = inputData != null ? SetUniqueList.decorate(new ArrayList(inputData)) : null;
 	}
 }
