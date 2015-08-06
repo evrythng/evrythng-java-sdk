@@ -5,7 +5,9 @@
 package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
+import org.apache.commons.collections.list.SetUniqueList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -108,7 +110,7 @@ public class Project extends DurableResourceModel {
 
 	public void setShortDomains(final List<String> shortDomains) {
 
-		this.shortDomains = shortDomains;
+		this.shortDomains = shortDomains != null ? SetUniqueList.decorate(new ArrayList(shortDomains)) : null;
 	}
 
 	@Override

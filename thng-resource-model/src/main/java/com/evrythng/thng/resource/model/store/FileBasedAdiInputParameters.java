@@ -12,6 +12,7 @@ import java.util.Map;
  */
 public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 
+	public static final String FIELD_HEADERS = "headers";
 	private String location;
 	public static final String FIELD_LOCATION = "location";
 

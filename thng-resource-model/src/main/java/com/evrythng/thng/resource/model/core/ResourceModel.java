@@ -7,8 +7,10 @@ package com.evrythng.thng.resource.model.core;
 import com.evrythng.commons.LowerCaseKeyMap;
 import com.evrythng.commons.annotations.csv.CsvTransient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.collections.list.SetUniqueList;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +23,13 @@ public abstract class ResourceModel implements Serializable, WithScopeResource {
 	private static final long serialVersionUID = -2842591513551534611L;
 	public static final String FIELD_ID = "id";
 	protected String id;
+	public static final String FIELD_CREATED_AT = "createdAt";
 	protected Long createdAt;
+	public static final String FIELD_CUSTOM_FIELDS = "customFields";
 	protected Map<String, Object> customFields;
+	public static final String FIELD_TAGS = "tags";
 	protected List<String> tags;
+	public static final String FIELD_SCOPES = "scopes";
 	protected ScopeResource scopes;
 
 	public String getId() {
@@ -84,7 +90,7 @@ public abstract class ResourceModel implements Serializable, WithScopeResource {
 
 	public void setTags(final List<String> tags) {
 
-		this.tags = tags;
+		this.tags = tags != null ? SetUniqueList.decorate(new ArrayList(tags)) : null;
 	}
 
 	@Override

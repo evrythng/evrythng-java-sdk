@@ -69,7 +69,7 @@ public class JSONUtilsTest {
 	@Test
 	public void deserialize() {
 
-		String json = "{\"myProp\":\"1\",\"b\":2, \"sub\": {\"x\":14,\"y\":33} }";
+		String json = "{\"myProp\":\"   1 \",\"b\":2, \"sub\": {\"x\":14,\"y\":33} }";
 
 		MyObject o = JSONUtils.read(json, new TypeReference<MyObject>() {
 		});

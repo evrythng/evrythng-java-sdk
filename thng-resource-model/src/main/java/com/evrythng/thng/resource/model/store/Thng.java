@@ -17,6 +17,11 @@ import java.util.Set;
 public class Thng extends DurableResourceModel implements ResourceWithProperties {
 
 	private static final long serialVersionUID = -5495600871904690325L;
+	public static final String FIELD_DESCRIPTION = "description";
+	public static final String FIELD_PRODUCT = "product";
+	public static final String FIELD_COLLECTIONS = "collections";
+	public static final String FIELD_PROPERTIES = "properties";
+	public static final String FIELD_IDENTIFIERS = "identifiers";
 	private String name;
 	public static final String FIELD_NAME = "name";
 	private String description;
