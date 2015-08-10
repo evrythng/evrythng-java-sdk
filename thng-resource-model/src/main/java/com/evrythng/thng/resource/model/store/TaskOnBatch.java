@@ -10,9 +10,11 @@ public abstract class TaskOnBatch extends Task {
 	private String batch;
 	private Type type;
 	private Status status;
+    private BaseTaskResult result;
 	public static final String FIELD_STATUS = "status";
 	public static final String FIELD_TYPE = "type";
 	public static final String FIELD_BATCH = "batch";
+    public static final String FIELD_RESULT = "result";
 
 	// Might be promoted to a super class !
 	public static enum Status {
@@ -49,7 +51,17 @@ public abstract class TaskOnBatch extends Task {
 		this.batch = batch;
 	}
 
-	public static enum Type {
+    public BaseTaskResult getResult() {
+
+        return result;
+    }
+
+    public void setResult(BaseTaskResult result) {
+
+        this.result = result;
+    }
+
+    public static enum Type {
 
 		POPULATING, SHORT_ID_GENERATION;
 	}
@@ -58,7 +70,6 @@ public abstract class TaskOnBatch extends Task {
 		
 		public static String FIELD_TYPE = "type";
 		private Type type;
-		private String error;
 
 		public Type getType() {
 
@@ -70,14 +81,29 @@ public abstract class TaskOnBatch extends Task {
 			this.type = type;
 		}
 
-		public String getError() {
+        public static enum Type {
 
-			return error;
-		}
-
-		public void setError(final String error) {
-
-			this.error = error;
-		}
+            POPULATING, SHORT_ID_GENERATION, ERROR;
+        }
 	}
+
+    public static class ErrorTaskResult extends BaseTaskResult {
+
+        private String error;
+
+        public ErrorTaskResult() {
+
+            setType(Type.ERROR);
+        }
+
+        public String getError() {
+
+            return error;
+        }
+
+        public void setError(final String error) {
+
+            this.error = error;
+        }
+    }
 }

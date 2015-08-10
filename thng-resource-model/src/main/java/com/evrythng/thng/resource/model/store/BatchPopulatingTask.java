@@ -17,8 +17,6 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 	private static final long serialVersionUID = 2514640549756857875L;
 	// product in here
-	private Result result;
-	public static final String FIELD_RESULT = "result";
 	private InputParameters inputParameters;
 	public static final String FIELD_INPUT_PARAMETERS = "inputParameters";
 	private OutputParameters outputParameters;
@@ -159,16 +157,6 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		this.inputParameters = inputParameters;
 	}
 
-	public Result getResult() {
-
-		return result;
-	}
-
-	public void setResult(final Result result) {
-
-		this.result = result;
-	}
-
 	public Progress getProgress() {
 
 		return progress;
@@ -297,6 +285,11 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		private String location;
 		private OutputParameters.Format format;
 		private Map<String, String> headers;
+
+        public Result() {
+
+            setType(Type.POPULATING);
+        }
 
 		public Integer getTotalCount() {
 
