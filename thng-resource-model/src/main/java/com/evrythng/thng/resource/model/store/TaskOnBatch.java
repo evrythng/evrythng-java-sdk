@@ -18,7 +18,7 @@ public abstract class TaskOnBatch extends Task {
 
 	// Might be promoted to a super class !
 	public static enum Status {
-		PENDING, EXECUTING, EXECUTED, CANCELING
+		PENDING, EXECUTING, EXECUTED, CANCELING, FAILED;
 	}
 
 	public Status getStatus() {
