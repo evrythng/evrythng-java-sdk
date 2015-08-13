@@ -11,8 +11,6 @@ public class ShortIdGenerationTask extends TaskOnBatch {
 
 	private InputParameters inputParameters;
 	public static final String FIELD_INPUT_PARAMETERS = "inputParameters";
-	private Result result;
-	public static final String FIELD_RESULT = "result";
 
 	public ShortIdGenerationTask() {
 		setType(Type.SHORT_ID_GENERATION);
@@ -26,16 +24,6 @@ public class ShortIdGenerationTask extends TaskOnBatch {
 	public void setInputParameters(final InputParameters inputParameters) {
 
 		this.inputParameters = inputParameters;
-	}
-
-	public Result getResult() {
-
-		return result;
-	}
-
-	public void setResult(final Result result) {
-
-		this.result = result;
 	}
 
 	public static class InputParameters {
@@ -71,6 +59,11 @@ public class ShortIdGenerationTask extends TaskOnBatch {
 
 		private String location;
 		private Map<String, String> headers;
+
+        public Result() {
+
+            setType(Type.SHORT_ID_GENERATION);
+        }
 
 		public String getLocation() {
 
