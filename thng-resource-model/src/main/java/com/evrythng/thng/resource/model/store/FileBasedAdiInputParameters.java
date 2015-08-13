@@ -54,6 +54,6 @@ public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 
 	public static enum Format {
 		
-		CSV
+		CSV, ZIP
 	}
 }
