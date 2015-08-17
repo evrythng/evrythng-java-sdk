@@ -19,4 +19,8 @@ public class WrappedRuntimeException extends RuntimeException {
 		super(e);
 	}
 
+    public WrappedRuntimeException(final String message, final Exception e) {
+        super(message, e);
+    }
+
 }
