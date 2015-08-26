@@ -200,13 +200,13 @@ public class AddressInfo implements Serializable {
 				String countryName = name.trim().toUpperCase();
 				if (!countryNames.containsKey(countryName)) {
 					if (!softCountryNames.containsKey(name.trim())) {
-						throw new NullPointerException();
+						throw new NullPointerException("Not in softCountryNames.");
 					}
 					return softCountryNames.get(name.trim());
 				}
 				return countryNames.get(countryName);
 			} catch (Exception e) {
-				throw new IllegalArgumentException("Country name not recognised", e);
+				throw new IllegalArgumentException("Country name not recognised. Value was " + name != null ? name : "[null]" + ".", e);
 			}
 		}
 	}
