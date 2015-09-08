@@ -6,6 +6,7 @@ package com.evrythng.java.wrapper.core.api;
 
 import java.io.InputStream;
 
+import com.evrythng.java.wrapper.exception.RequestEntityTooLargeException;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -179,6 +180,8 @@ public class Utils {
 							throw new MethodNotAllowedException(message);
 						case CONFLICT:
 							throw new ConflictException(message);
+						case REQUEST_ENTITY_TOO_LARGE:
+							throw new RequestEntityTooLargeException(message);
 						default:
 							throw new EvrythngUnexpectedException(message);
 					}
