@@ -6,9 +6,12 @@ package com.evrythng.thng.resource.model.core;
 
 import com.evrythng.commons.LowerCaseKeyMap;
 import com.evrythng.commons.annotations.csv.CsvTransient;
+import com.evrythng.thng.resource.model.core.validation.annotations.CustomFields;
+import com.evrythng.thng.resource.model.core.validation.annotations.Tags;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.collections.list.SetUniqueList;
 
+import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,12 +25,16 @@ public abstract class ResourceModel implements Serializable, WithScopeResource {
 
 	private static final long serialVersionUID = -2842591513551534611L;
 	public static final String FIELD_ID = "id";
+	@Null
 	protected String id;
 	public static final String FIELD_CREATED_AT = "createdAt";
+	@Null
 	protected Long createdAt;
 	public static final String FIELD_CUSTOM_FIELDS = "customFields";
+	@CustomFields
 	protected Map<String, Object> customFields;
 	public static final String FIELD_TAGS = "tags";
+	@Tags
 	protected List<String> tags;
 	public static final String FIELD_SCOPES = "scopes";
 	protected ScopeResource scopes;
