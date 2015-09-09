@@ -99,10 +99,13 @@ public class Project extends DurableResourceModel {
 	 */
 	public void setStartsAt(final Long startsAt) {
 
-		if (startsAt != null && duration == null) {
+		if (duration == null) {
 			duration = new DurationModel();
 		}
 		duration.setStartsAt(startsAt);
+		if (duration.getStartsAt() == null && duration.getEndsAt() == null) {
+			duration = null;
+		}
 	}
 
 	/**
@@ -118,10 +121,13 @@ public class Project extends DurableResourceModel {
 	 */
 	public void setEndsAt(final Long endsAt) {
 
-		if (endsAt != null && duration == null) {
+		if (duration == null) {
 			duration = new DurationModel();
 		}
 		duration.setEndsAt(endsAt);
+		if (duration.getStartsAt() == null && duration.getEndsAt() == null) {
+			duration = null;
+		}
 	}
 
 	public List<String> getShortDomains() {

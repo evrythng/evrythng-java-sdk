@@ -11,7 +11,6 @@ import com.evrythng.thng.resource.model.core.validation.annotations.Tags;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.collections.list.SetUniqueList;
 
-import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,10 +24,8 @@ public abstract class ResourceModel implements Serializable, WithScopeResource {
 
 	private static final long serialVersionUID = -2842591513551534611L;
 	public static final String FIELD_ID = "id";
-	@Null
 	protected String id;
 	public static final String FIELD_CREATED_AT = "createdAt";
-	@Null
 	protected Long createdAt;
 	public static final String FIELD_CUSTOM_FIELDS = "customFields";
 	@CustomFields
