@@ -23,6 +23,7 @@ public abstract class TypeMapDeserializer<T> extends Deserializer<T> {
 
 	private static final long serialVersionUID = 1L;
 
+	private Class<? extends T> defaultClass;
 	private Map<String, Class<? extends T>> registry = new HashMap<>();
 	private Map<Class<? extends T>, String> reverseRegistry = new HashMap<>();
 	private String typeFieldName;
@@ -33,8 +34,12 @@ public abstract class TypeMapDeserializer<T> extends Deserializer<T> {
 	}
 
 	public void registerType(final String type, final Class<? extends T> objectClass) {
-		registry.put(type, objectClass);
-		reverseRegistry.put(objectClass, type);
+		if (type == null) {
+			defaultClass = objectClass;
+		} else {
+			registry.put(type, objectClass);
+			reverseRegistry.put(objectClass, type);
+		}
 	}
 
 	@Override
@@ -61,6 +66,9 @@ public abstract class TypeMapDeserializer<T> extends Deserializer<T> {
 
 		Class<? extends T> clazz = registry.get(type);
 		if (clazz == null) {
+			if (defaultClass != null) {
+				return defaultClass;
+			}
 			throw new IllegalArgumentException(this.getValueClass().getSimpleName() + " type '" + type + "' is not recognized.");
 		}
 		return clazz;
