@@ -22,7 +22,6 @@ import java.util.Map;
 public abstract class TypeMapDeserializer<T> extends Deserializer<T> {
 
 	private static final long serialVersionUID = 1L;
-	private static final String NULL_TYPE = "__null";
 
 	private Map<String, Class<? extends T>> registry = new HashMap<>();
 	private Map<Class<? extends T>, String> reverseRegistry = new HashMap<>();
@@ -33,16 +32,8 @@ public abstract class TypeMapDeserializer<T> extends Deserializer<T> {
 		this.typeFieldName = fieldName;
 	}
 
-	public void registerType(final String typeInput, final Class<? extends T> objectClass) {
+	public void registerType(final String type, final Class<? extends T> objectClass) {
 
-		final String type;
-		if (typeInput == null) {
-			type = NULL_TYPE;
-		} else if (NULL_TYPE.equals(typeInput) || typeInput.isEmpty()) {
-			throw new IllegalArgumentException("'" + NULL_TYPE + "' is not a valid type.");
-		} else {
-			type = typeInput;
-		}
 		registry.put(type, objectClass);
 		reverseRegistry.put(objectClass, type);
 	}
@@ -54,13 +45,7 @@ public abstract class TypeMapDeserializer<T> extends Deserializer<T> {
 		ObjectMapper mapper = (ObjectMapper) codec;
 		ObjectNode root = mapper.readTree(jp);
 		JsonNode type = root.get(typeFieldName);
-		final String sType;
-		if (type == null) {
-			sType = NULL_TYPE;
-		} else {
-			String sTypeInput = type.textValue();
-			sType = (sTypeInput == null) || sTypeInput.isEmpty() ? NULL_TYPE : sTypeInput;
-		}
+		final String sType = type == null ? null : type.textValue();
 
 		Class<? extends T> clazz = resolveClass(sType);
 
