@@ -97,6 +97,40 @@ public final class HttpMethodBuilder {
 		};
 	}
 
+
+	/**
+	 * Creates {@link MethodBuilder} for multipart PUT request
+	 * @param file file
+	 * @return the {@link MethodBuilder} instance
+	 */
+	public static MethodBuilder<HttpPut> httpPutMultipart(final File file) {
+		return new EntityMethodBuilder<HttpPut>(Method.PUT) {
+			@Override
+			public HttpPut build(final URI uri) throws EvrythngClientException {
+				HttpPut request = new HttpPut(uri);
+				MultipartEntity reqEntity = new MultipartEntity();
+
+				try {
+					// Name of the file
+					StringBody strBody = new StringBody(file.getName());
+					reqEntity.addPart("filename", strBody);
+
+					// File attachment
+					FileBody fileBody = new FileBody(file);
+					reqEntity.addPart("file", fileBody);
+
+					request.setEntity(reqEntity);
+
+				} catch (UnsupportedEncodingException ex) {
+					throw new EvrythngClientException("Unable to build the multipart put request", ex);
+				}
+
+				return request;
+			}
+		};
+	}
+
+
 	/**
 	 * Creates {@link MethodBuilder} for GET request
 	 * @return the {@link MethodBuilder} instance

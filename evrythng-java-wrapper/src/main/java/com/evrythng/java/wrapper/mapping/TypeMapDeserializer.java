@@ -33,6 +33,7 @@ public abstract class TypeMapDeserializer<T> extends Deserializer<T> {
 	}
 
 	public void registerType(final String type, final Class<? extends T> objectClass) {
+
 		registry.put(type, objectClass);
 		reverseRegistry.put(objectClass, type);
 	}
@@ -44,13 +45,7 @@ public abstract class TypeMapDeserializer<T> extends Deserializer<T> {
 		ObjectMapper mapper = (ObjectMapper) codec;
 		ObjectNode root = mapper.readTree(jp);
 		JsonNode type = root.get(typeFieldName);
-		if (type == null) {
-			throw new IllegalArgumentException(this.getValueClass().getSimpleName() + " type cannot be empty.");
-		}
-		String sType = type.textValue();
-		if ((sType == null) || sType.isEmpty()) {
-			throw new IllegalArgumentException(this.getValueClass().getSimpleName() + " type cannot be empty.");
-		}
+		final String sType = type == null ? null : type.textValue();
 
 		Class<? extends T> clazz = resolveClass(sType);
 
