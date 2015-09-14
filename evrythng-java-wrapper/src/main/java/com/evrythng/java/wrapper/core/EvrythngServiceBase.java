@@ -119,6 +119,43 @@ public class EvrythngServiceBase {
 		return builder;
 	}
 
+
+	/**
+	 * Returns a preconfigured {@link Builder} for uploading file via PUT requests
+	 *
+	 * @param relativePath the relative path of the API endpoint. It will be appended to
+	 *                     {@link ApiConfiguration#getUrl()} in
+	 *                     order to build the absolute endpoint URL.
+	 * @param file         file
+	 * @param type         the {@link TypeReference} for mapping the {@link HttpResponse} entity
+	 * @return a preconfigured {@link Builder} for executing PUT requests
+	 * @see #postMultipart(String, File, Status, TypeReference)
+	 */
+	public <T> Builder<T> putMultipart(final String relativePath, final File file, final TypeReference<T> type) throws EvrythngClientException {
+
+		return putMultipart(relativePath, file, Status.OK, type);
+	}
+
+	/**
+	 * Returns a preconfigured {@link Builder} for uploading file via PUT
+	 * requests
+	 *
+	 * @param relativePath the relative path of the API endpoint. It will be appended to
+	 *                     {@link ApiConfiguration#getUrl()} in
+	 *                     order to build the absolute endpoint URL.
+	 * @param file         file
+	 * @param expected     expected return {@link Status}
+	 * @param type         the {@link TypeReference} for mapping the {@link HttpResponse} entity
+	 * @return a preconfigured {@link Builder} for executing PUT requests
+	 */
+	public <T> Builder<T> putMultipart(final String relativePath, final File file, final Status expected, final TypeReference<T> type) throws EvrythngClientException {
+
+		Builder<T> builder = EvrythngApiBuilder.putMultipart(config.getKey(), absoluteUri(relativePath), file, expected, type);
+		onBuilderCreated(builder);
+		return builder;
+	}
+
+
 	public Builder<AcceptedResourceResponse> postAsynchronously(final String relativePath, Object data, Pattern pattern) throws EvrythngClientException {
 		Builder<AcceptedResourceResponse> builder = EvrythngApiBuilder.postAsynchronously(config.getKey(), absoluteUri(relativePath), data, pattern);
 		onBuilderCreated(builder);

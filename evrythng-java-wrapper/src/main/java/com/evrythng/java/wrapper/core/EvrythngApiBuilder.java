@@ -94,6 +94,25 @@ public final class EvrythngApiBuilder {
 		return new Builder<>(apiKey, HttpMethodBuilder.httpPostMultipart(file), uri, responseStatus, responseType, null);
 	}
 
+
+	/**
+	 * Creates a {@link Builder} for executing a file upload via a {@code PUT}
+	 * request.
+	 *
+	 * @param apiKey         the authorization token for accessing the EVRYTHNG API
+	 * @param uri            the {@link URI} holding the absolute URL
+	 * @param file           file
+	 * @param responseStatus the expected response {@link Status}
+	 * @param responseType   the native type to which the {@link HttpResponse} will be
+	 *                       mapped to
+	 * @return an EVRYTHNG API-ready {@link Builder}
+	 */
+	public static <T> Builder<T> putMultipart(final String apiKey, final URI uri, final File file, final Status responseStatus, final TypeReference<T> responseType) {
+
+		return new Builder<>(apiKey, HttpMethodBuilder.httpPutMultipart(file), uri, responseStatus, responseType, null);
+	}
+
+
 	public static Builder<AcceptedResourceResponse> postAsynchronously(final String apiKey, final URI uri, final Object data, final Pattern extractor) {
 		return new Builder<AcceptedResourceResponse>(apiKey, HttpMethodBuilder.httpPost(data), uri, Status.ACCEPTED, new TypeReference<AcceptedResourceResponse>() {
 

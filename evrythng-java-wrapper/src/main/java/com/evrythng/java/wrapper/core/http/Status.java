@@ -80,6 +80,12 @@ public enum Status {
 	 */
 	CONFLICT(409, "Conflict"),
 	/**
+	 * 413 Request Entity Too Large
+	 *
+	 * @see <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.14">HTTP/1.1 documentation</a>.
+	 */
+	REQUEST_ENTITY_TOO_LARGE(413, "Request Entity Too Large"),
+	/**
 	 * 429 Too Many Requests, see
 	 * <a href="http://tools.ietf.org/html/rfc6585#section-4">Additional HTTP Status Codes</a>.
 	 */
