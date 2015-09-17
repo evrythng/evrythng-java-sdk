@@ -20,6 +20,7 @@ public class Account extends DurableResourceModel {
 	 * The account's image url.
 	 */
 	private String imageUrl;
+	private Boolean tfaRequired;
 
 	public String getName() {
 
@@ -50,5 +51,13 @@ public class Account extends DurableResourceModel {
 		sb.append("imageUrl='").append(imageUrl).append("\'");
 		sb.append('}');
 		return sb.toString();
+	}
+
+	public Boolean getTfaRequired() {
+		return tfaRequired;
+	}
+
+	public void setTfaRequired(final Boolean tfaRequired) {
+		this.tfaRequired = tfaRequired;
 	}
 }
