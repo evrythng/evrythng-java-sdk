@@ -16,7 +16,7 @@ public class Operator extends AbstractUser {
 	private String registrationCode;
 
 	private Integer loginAttempts;
-	private java.util.Date authBlockedUntil;
+	private Date authBlockedUntil;
 
 	private Boolean tfaEnabled;
 
