@@ -16,7 +16,7 @@ public class Operator extends AbstractUser {
 	private String registrationCode;
 
 	private Integer loginAttempts;
-	private Date authBlockedUntil;
+	private Long authBlockedUntil;
 
 	private Boolean tfaEnabled;
 
@@ -56,12 +56,12 @@ public class Operator extends AbstractUser {
 		this.loginAttempts = loginAttempts;
 	}
 
-	public Date getAuthBlockedUntil() {
+	public Long getAuthBlockedUntil() {
 
 		return authBlockedUntil;
 	}
 
-	public void setAuthBlockedUntil(final Date authBlockedUntil) {
+	public void setAuthBlockedUntil(final Long authBlockedUntil) {
 		this.authBlockedUntil = authBlockedUntil;
 	}
 }
