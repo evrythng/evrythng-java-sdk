@@ -5,17 +5,8 @@
 package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
-import com.evrythng.thng.resource.model.core.DurationModel;
-import com.evrythng.thng.resource.model.core.validation.OnCreation;
-import com.evrythng.thng.resource.model.core.validation.annotations.Description;
-import com.evrythng.thng.resource.model.core.validation.annotations.Duration;
-import com.evrythng.thng.resource.model.core.validation.annotations.Name;
-import com.evrythng.thng.resource.model.core.validation.annotations.ShortDomains;
 import org.apache.commons.collections.list.SetUniqueList;
-import org.hibernate.validator.constraints.URL;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,17 +16,11 @@ import java.util.List;
 public class Project extends DurableResourceModel {
 
 	private static final long serialVersionUID = -2362864476419100132L;
-	@Name
-	@NotNull(groups = OnCreation.class)
 	private String name;
-	@Description
 	private String description;
-	@URL
 	private String imageUrl;
-	@Valid
-	@Duration
-	private DurationModel duration;
-	@ShortDomains
+	private Long startsAt;
+	private Long endsAt;
 	private List<String> shortDomains;
 
 	/**
@@ -91,7 +76,7 @@ public class Project extends DurableResourceModel {
 	 */
 	public Long getStartsAt() {
 
-		return duration != null ? duration.getStartsAt() : null;
+		return startsAt;
 	}
 
 	/**
@@ -99,13 +84,7 @@ public class Project extends DurableResourceModel {
 	 */
 	public void setStartsAt(final Long startsAt) {
 
-		if (duration == null) {
-			duration = new DurationModel();
-		}
-		duration.setStartsAt(startsAt);
-		if (duration.getStartsAt() == null && duration.getEndsAt() == null) {
-			duration = null;
-		}
+		this.startsAt = startsAt;
 	}
 
 	/**
@@ -113,7 +92,7 @@ public class Project extends DurableResourceModel {
 	 */
 	public Long getEndsAt() {
 
-		return duration != null ? duration.getEndsAt() : null;
+		return endsAt;
 	}
 
 	/**
@@ -121,13 +100,7 @@ public class Project extends DurableResourceModel {
 	 */
 	public void setEndsAt(final Long endsAt) {
 
-		if (duration == null) {
-			duration = new DurationModel();
-		}
-		duration.setEndsAt(endsAt);
-		if (duration.getStartsAt() == null && duration.getEndsAt() == null) {
-			duration = null;
-		}
+		this.endsAt = endsAt;
 	}
 
 	public List<String> getShortDomains() {
@@ -147,8 +120,8 @@ public class Project extends DurableResourceModel {
 		sb.append("name='").append(name).append('\'');
 		sb.append(", description='").append(description).append('\'');
 		sb.append(", imageUrl='").append(imageUrl).append('\'');
-		sb.append(", startsAt=").append(duration != null ? duration.getStartsAt() : null);
-		sb.append(", endsAt=").append(duration != null ? duration.getEndsAt() : null);
+		sb.append(", startsAt=").append(startsAt);
+		sb.append(", endsAt=").append(endsAt);
 		sb.append('}');
 		return sb.toString();
 	}

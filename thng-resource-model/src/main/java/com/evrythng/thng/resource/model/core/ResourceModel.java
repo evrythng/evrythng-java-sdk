@@ -6,8 +6,6 @@ package com.evrythng.thng.resource.model.core;
 
 import com.evrythng.commons.LowerCaseKeyMap;
 import com.evrythng.commons.annotations.csv.CsvTransient;
-import com.evrythng.thng.resource.model.core.validation.annotations.CustomFields;
-import com.evrythng.thng.resource.model.core.validation.annotations.Tags;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.collections.list.SetUniqueList;
 
@@ -28,10 +26,8 @@ public abstract class ResourceModel implements Serializable, WithScopeResource {
 	public static final String FIELD_CREATED_AT = "createdAt";
 	protected Long createdAt;
 	public static final String FIELD_CUSTOM_FIELDS = "customFields";
-	@CustomFields
 	protected Map<String, Object> customFields;
 	public static final String FIELD_TAGS = "tags";
-	@Tags
 	protected List<String> tags;
 	public static final String FIELD_SCOPES = "scopes";
 	protected ScopeResource scopes;
@@ -58,10 +54,10 @@ public abstract class ResourceModel implements Serializable, WithScopeResource {
 
 	@CsvTransient
 	public Map<String, Object> getCustomFields() {
-		
+
 		return customFields != null ? Collections.unmodifiableMap(customFields) : null;
 	}
-	
+
 	@JsonIgnore
 	public <T> T getCustomField(final String key){
 
