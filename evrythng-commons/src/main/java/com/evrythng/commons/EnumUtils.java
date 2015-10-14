@@ -15,9 +15,9 @@ public class EnumUtils {
 
 	/**
 	 * Creates an enum value from a string using a lookup map (usually created by {@link #createNames(Object[])}.
-	 * <p/>
+	 * <p>
 	 * Typical implementation:
-	 * <p/>
+	 * <p>
 	 * <pre>
 	 * public static MyEnum fromString(String name) {
 	 * 	return EnumUtils.fromString(names, name);
@@ -43,7 +43,7 @@ public class EnumUtils {
 	/**
 	 * Creates a lookup map for the enum names, intended for use with the {@link #fromString(Map, String)} method. It uses the
 	 * {@link #toString()} method to build the lookup map. This is intended to be used in a static initializer.
-	 * <p/>
+	 * <p>
 	 * <pre>
 	 * private static Map&lt;String, MyEnum&gt; names;
 	 * static {
