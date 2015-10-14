@@ -66,13 +66,22 @@ public class ScopeResource implements Serializable {
 
 		ScopeResource that = (ScopeResource) other;
 
-		if (projects != null ? !projects.equals(that.projects) : that.projects != null) {
+		if (projects != null && that.projects != null) {
+			if (projects.size() != that.projects.size() || !projects.containsAll(that.projects)){
+				return false;
+			}
+		}
+		if (projects != null && that.projects == null || projects == null && that.projects != null) {
 			return false;
 		}
-		if (users != null ? !users.equals(that.users) : that.users != null) {
+		if (users != null && that.users != null) {
+			if (users.size() != that.users.size() || !users.containsAll(that.users)){
+				return false;
+			}
+		}
+		if (users != null && that.users == null || users == null && that.users != null) {
 			return false;
 		}
-
 		return true;
 	}
 
@@ -82,5 +91,15 @@ public class ScopeResource implements Serializable {
 		int result = users != null ? users.hashCode() : 0;
 		result = 31 * result + (projects != null ? projects.hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public String toString() {
+
+		final StringBuilder sb = new StringBuilder("{");
+		sb.append("projects=").append(projects);
+		sb.append(", users=").append(users);
+		sb.append('}');
+		return sb.toString();
 	}
 }
