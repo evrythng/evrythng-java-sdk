@@ -4,8 +4,6 @@
  */
 package com.evrythng.java.wrapper.service;
 
-import java.util.Map;
-
 import com.evrythng.java.wrapper.ApiManager;
 import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.EvrythngServiceBase;
@@ -14,6 +12,8 @@ import com.evrythng.thng.resource.model.access.Credentials;
 import com.evrythng.thng.resource.model.access.ThngCredentials;
 import com.evrythng.thng.resource.model.store.User;
 import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.util.Map;
 
 /**
  * Methods for the authentication API.
@@ -138,4 +138,18 @@ public class AuthService extends EvrythngServiceBase {
 		return delete(String.format(PATH_AUTH_EVRYTHNG_THNG, thngId));
 	}
 
+	/**
+	 * Retrieves credentials of a thng.
+	 * <p>
+	 * GET {@value #PATH_AUTH_EVRYTHNG_THNG}
+	 *
+	 * @param thngId the id of the thng whose credentials will be retrieved
+	 * @return a preconfigured {@link Builder}
+	 */
+	public Builder<ThngCredentials> thngRegistrationReader(final String thngId) throws EvrythngClientException {
+
+		return get(String.format(PATH_AUTH_EVRYTHNG_THNG, thngId), new TypeReference<ThngCredentials>() {
+
+		});
+	}
 }

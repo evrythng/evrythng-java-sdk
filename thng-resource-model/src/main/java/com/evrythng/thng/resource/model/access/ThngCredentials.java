@@ -44,4 +44,34 @@ public class ThngCredentials {
 
 		this.thngApiKey = thngApiKey;
 	}
+
+	@Override
+	public final boolean equals(final Object o) {
+
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+
+		ThngCredentials that = (ThngCredentials) o;
+
+		if (thngId != null ? !thngId.equals(that.thngId) : that.thngId != null) {
+			return false;
+		}
+		if (thngApiKey != null ? !thngApiKey.equals(that.thngApiKey) : that.thngApiKey != null) {
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	public final int hashCode() {
+
+		int result = thngId != null ? thngId.hashCode() : 0;
+		result = 31 * result + (thngApiKey != null ? thngApiKey.hashCode() : 0);
+		return result;
+	}
 }
