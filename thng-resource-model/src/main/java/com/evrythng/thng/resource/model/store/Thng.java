@@ -41,11 +41,17 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 	 */
 	private Set<String> collections;
 
+	public static final String FIELD_BATCH = "batch";
+	private String batch;
+
+	public static final String FIELD_CREATED_BY_TASK = "createdByTask";
+	private String createdByTask;
+
 	public Thng() {
 
 	}
 
-	public Thng(Thng thng) {
+	public Thng(final Thng thng) {
 		this.name = thng.name;
 		this.description = thng.description;
 		this.location = thng.location;
@@ -60,10 +66,8 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 		this.tags = thng.tags;
 		this.scopes = thng.scopes;
 		this.batch = thng.batch;
+		this.createdByTask = thng.createdByTask;
 	}
-
-	public static final String FIELD_BATCH = "batch";
-	private String batch;
 
 	public String getName() {
 
@@ -117,12 +121,6 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 		this.properties = properties != null ? new HashMap<>(properties) : null;
 	}
 
-	@Override
-	public String toString() {
-
-		return "Thng [name=" + name + ", description=" + description + ", location=" + location + ", product=" + product + ", properties=" + properties + ", id=" + getId() + ", identifiers=" + identifiers + "]";
-	}
-
 	public void addIdentifier(final String type, final String value) {
 
 		if (identifiers == null) {
@@ -164,5 +162,32 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 	public void setBatch(final String batch) {
 
 		this.batch = batch;
+	}
+
+	public String getCreatedByTask() {
+
+		return createdByTask;
+	}
+
+	public void setCreatedByTask(final String createdByTask) {
+
+		this.createdByTask = createdByTask;
+	}
+
+	@Override
+	public String toString() {
+
+		final StringBuilder sb = new StringBuilder("Thng{");
+		sb.append("name='").append(name).append('\'');
+		sb.append(", description='").append(description).append('\'');
+		sb.append(", location=").append(location);
+		sb.append(", product='").append(product).append('\'');
+		sb.append(", properties=").append(properties);
+		sb.append(", identifiers=").append(identifiers);
+		sb.append(", collections=").append(collections);
+		sb.append(", batch='").append(batch).append('\'');
+		sb.append(", createdByTask='").append(createdByTask).append('\'');
+		sb.append('}');
+		return sb.toString();
 	}
 }
