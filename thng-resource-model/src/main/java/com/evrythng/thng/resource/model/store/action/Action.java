@@ -6,6 +6,7 @@ package com.evrythng.thng.resource.model.store.action;
 
 import com.evrythng.commons.EnumUtils;
 import com.evrythng.commons.annotations.csv.CsvTransient;
+import com.evrythng.thng.resource.model.core.Identifiable;
 import com.evrythng.thng.resource.model.core.TemporalResourceModel;
 import com.evrythng.thng.resource.model.store.EmbeddedLocation;
 import com.evrythng.thng.resource.model.store.rule.reaction.Reaction;
@@ -15,24 +16,25 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Rest model for an action.
- **/
-public abstract class Action extends TemporalResourceModel {
+ */
+public abstract class Action extends TemporalResourceModel implements Identifiable {
 
 	private static final long serialVersionUID = -7924569012523434017L;
 
 	public enum LocationSource {
 
 		SENSOR("sensor"), PLACE("place"), GEO_IP("geoIp"), UNKNOWN("unknown");
+		private static final Map<String, LocationSource> names;
+		private final String name;
 
-		private static Map<String, LocationSource> names;
-		private String name;
+		LocationSource(final String name) {
 
-		LocationSource(String name) {
 			this.name = name;
 		}
 
@@ -43,11 +45,13 @@ public abstract class Action extends TemporalResourceModel {
 		@JsonValue
 		@Override
 		public String toString() {
+
 			return name;
 		}
 
 		@JsonCreator
-		public static LocationSource fromString(String name) {
+		public static LocationSource fromString(final String name) {
+
 			return EnumUtils.fromString(names, name);
 		}
 	}
@@ -55,39 +59,30 @@ public abstract class Action extends TemporalResourceModel {
 	public static class Context implements Serializable {
 
 		private static final long serialVersionUID = 3873168084260820545L;
-
 		private String ipAddress;
-
 		private String city;
 		public static final String FIELD_CITY = "city";
-
 		private String region;
 		public static final String FIELD_REGION = "region";
-
 		private String countryCode;
 		public static final String FIELD_COUNTRY_CODE = "countryCode";
-
 		private String userAgent;
-
 		private String referer;
 		private String language;
-
 		private String userAgentName;
 		private String userAgentVersion;
 		private String userAgentType;
-
 		private String deviceType;
 		private String device;
-
 		private String operatingSystemName;
 		private String operatingSystemFamily;
 		private String operatingSystemProducer;
 		private String operatingSystemVersion;
-
 		private String timeZone;
 
 		@Override
-		public boolean equals(Object o) {
+		public boolean equals(final Object o) {
+
 			if (this == o) {
 				return true;
 			}
@@ -97,46 +92,74 @@ public abstract class Action extends TemporalResourceModel {
 
 			Context context = (Context) o;
 
-			if (city != null ? !city.equals(context.city) : context.city != null)
+			if (city != null ? !city.equals(context.city) : context.city != null) {
 				return false;
-			if (countryCode != null ? !countryCode.equals(context.countryCode) : context.countryCode != null)
+			}
+			if (countryCode != null ? !countryCode.equals(context.countryCode) : context.countryCode != null) {
 				return false;
-			if (device != null ? !device.equals(context.device) : context.device != null)
+			}
+			if (device != null ? !device.equals(context.device) : context.device != null) {
 				return false;
-			if (deviceType != null ? !deviceType.equals(context.deviceType) : context.deviceType != null)
+			}
+			if (deviceType != null ? !deviceType.equals(context.deviceType) : context.deviceType != null) {
 				return false;
-			if (ipAddress != null ? !ipAddress.equals(context.ipAddress) : context.ipAddress != null)
+			}
+			if (ipAddress != null ? !ipAddress.equals(context.ipAddress) : context.ipAddress != null) {
 				return false;
-			if (language != null ? !language.equals(context.language) : context.language != null)
+			}
+			if (language != null ? !language.equals(context.language) : context.language != null) {
 				return false;
-			if (operatingSystemFamily != null ? !operatingSystemFamily.equals(context.operatingSystemFamily) : context.operatingSystemFamily != null)
+			}
+			if (operatingSystemFamily != null ?
+			    !operatingSystemFamily.equals(context.operatingSystemFamily) :
+			    context.operatingSystemFamily != null) {
 				return false;
-			if (operatingSystemName != null ? !operatingSystemName.equals(context.operatingSystemName) : context.operatingSystemName != null)
+			}
+			if (operatingSystemName != null ?
+			    !operatingSystemName.equals(context.operatingSystemName) :
+			    context.operatingSystemName != null) {
 				return false;
-			if (operatingSystemProducer != null ? !operatingSystemProducer.equals(context.operatingSystemProducer) : context.operatingSystemProducer != null)
+			}
+			if (operatingSystemProducer != null ?
+			    !operatingSystemProducer.equals(context.operatingSystemProducer) :
+			    context.operatingSystemProducer != null) {
 				return false;
-			if (operatingSystemVersion != null ? !operatingSystemVersion.equals(context.operatingSystemVersion) : context.operatingSystemVersion != null)
+			}
+			if (operatingSystemVersion != null ?
+			    !operatingSystemVersion.equals(context.operatingSystemVersion) :
+			    context.operatingSystemVersion != null) {
 				return false;
-			if (referer != null ? !referer.equals(context.referer) : context.referer != null)
+			}
+			if (referer != null ? !referer.equals(context.referer) : context.referer != null) {
 				return false;
-			if (region != null ? !region.equals(context.region) : context.region != null)
+			}
+			if (region != null ? !region.equals(context.region) : context.region != null) {
 				return false;
-			if (userAgent != null ? !userAgent.equals(context.userAgent) : context.userAgent != null)
+			}
+			if (userAgent != null ? !userAgent.equals(context.userAgent) : context.userAgent != null) {
 				return false;
-			if (userAgentName != null ? !userAgentName.equals(context.userAgentName) : context.userAgentName != null)
+			}
+			if (userAgentName != null ? !userAgentName.equals(context.userAgentName) : context.userAgentName != null) {
 				return false;
-			if (userAgentType != null ? !userAgentType.equals(context.userAgentType) : context.userAgentType != null)
+			}
+			if (userAgentType != null ? !userAgentType.equals(context.userAgentType) : context.userAgentType != null) {
 				return false;
-			if (userAgentVersion != null ? !userAgentVersion.equals(context.userAgentVersion) : context.userAgentVersion != null)
+			}
+			if (userAgentVersion != null ?
+			    !userAgentVersion.equals(context.userAgentVersion) :
+			    context.userAgentVersion != null) {
 				return false;
-			if (timeZone != null ? !timeZone.equals(context.timeZone) : context.timeZone != null)
+			}
+			if (timeZone != null ? !timeZone.equals(context.timeZone) : context.timeZone != null) {
 				return false;
+			}
 
 			return true;
 		}
 
 		@Override
 		public int hashCode() {
+
 			int result = ipAddress != null ? ipAddress.hashCode() : 0;
 			result = 31 * result + (city != null ? city.hashCode() : 0);
 			result = 31 * result + (region != null ? region.hashCode() : 0);
@@ -158,130 +181,162 @@ public abstract class Action extends TemporalResourceModel {
 		}
 
 		public String getCity() {
+
 			return city;
 		}
 
-		public void setCity(String city) {
+		public void setCity(final String city) {
+
 			this.city = city;
 		}
 
 		public String getRegion() {
+
 			return region;
 		}
 
-		public void setRegion(String region) {
+		public void setRegion(final String region) {
+
 			this.region = region;
 		}
 
 		public String getCountryCode() {
+
 			return countryCode;
 		}
 
-		public void setCountryCode(String countryCode) {
+		public void setCountryCode(final String countryCode) {
+
 			this.countryCode = countryCode;
 		}
 
 		public String getIpAddress() {
+
 			return ipAddress;
 		}
 
-		public void setIpAddress(String ipAddress) {
+		public void setIpAddress(final String ipAddress) {
+
 			this.ipAddress = ipAddress;
 		}
 
 		public void setUserAgent(final String userAgent) {
+
 			this.userAgent = userAgent;
 		}
 
 		public String getUserAgent() {
+
 			return userAgent;
 		}
 
 		public void setReferer(final String referer) {
+
 			this.referer = referer;
 		}
 
-		public void setLanguage(String language) {
+		public void setLanguage(final String language) {
+
 			this.language = language;
 		}
 
-		public void setUserAgentName(String userAgentName) {
+		public void setUserAgentName(final String userAgentName) {
+
 			this.userAgentName = userAgentName;
 		}
 
-		public void setUserAgentVersion(String userAgentVersion) {
+		public void setUserAgentVersion(final String userAgentVersion) {
+
 			this.userAgentVersion = userAgentVersion;
 		}
 
-		public void setUserAgentType(String userAgentType) {
+		public void setUserAgentType(final String userAgentType) {
+
 			this.userAgentType = userAgentType;
 		}
 
-		public void setDeviceType(String deviceType) {
+		public void setDeviceType(final String deviceType) {
+
 			this.deviceType = deviceType;
 		}
 
-		public void setDevice(String device) {
+		public void setDevice(final String device) {
+
 			this.device = device;
 		}
 
-		public void setOperatingSystemName(String operatingSystemName) {
+		public void setOperatingSystemName(final String operatingSystemName) {
+
 			this.operatingSystemName = operatingSystemName;
 		}
 
-		public void setOperatingSystemFamily(String operatingSystemFamily) {
+		public void setOperatingSystemFamily(final String operatingSystemFamily) {
+
 			this.operatingSystemFamily = operatingSystemFamily;
 		}
 
-		public void setOperatingSystemProducer(String operatingSystemProducer) {
+		public void setOperatingSystemProducer(final String operatingSystemProducer) {
+
 			this.operatingSystemProducer = operatingSystemProducer;
 		}
 
-		public void setOperatingSystemVersion(String operatingSystemVersion) {
+		public void setOperatingSystemVersion(final String operatingSystemVersion) {
+
 			this.operatingSystemVersion = operatingSystemVersion;
 		}
 
 		public String getReferer() {
+
 			return referer;
 		}
 
 		public String getLanguage() {
+
 			return language;
 		}
 
 		public String getUserAgentName() {
+
 			return userAgentName;
 		}
 
 		public String getUserAgentVersion() {
+
 			return userAgentVersion;
 		}
 
 		public String getUserAgentType() {
+
 			return userAgentType;
 		}
 
 		public String getDeviceType() {
+
 			return deviceType;
 		}
 
 		public String getDevice() {
+
 			return device;
 		}
 
 		public String getOperatingSystemName() {
+
 			return operatingSystemName;
 		}
 
 		public String getOperatingSystemFamily() {
+
 			return operatingSystemFamily;
 		}
 
 		public String getOperatingSystemProducer() {
+
 			return operatingSystemProducer;
 		}
 
 		public String getOperatingSystemVersion() {
+
 			return operatingSystemVersion;
 		}
 
@@ -323,116 +378,152 @@ public abstract class Action extends TemporalResourceModel {
 
 	private String type;
 	public static final String FIELD_TYPE = "type";
-
 	private String user;
 	public static final String FIELD_USER = "user";
-
 	private EmbeddedLocation location;
-
 	private LocationSource locationSource;
-
 	private String device;
-
 	private Context context;
 	public static final String FIELD_CONTEXT = "context";
-
 	//Note: had to add the constant here (as the ActionDocument is not visible from the model package)
 	//TODO maybe at some point we want to have the gender and userSegments here anyway in the model.
 	public static final String FIELD_GENDER = "gender";
 	public static final String FIELD_USER_SEGMENTS = "userSegments";
-
 	private List<Reaction> reactions;
 	private String createdByProject;
 	private String createdByApp;
 	private String createdByThng;
+	private Map<String, String> identifiers;
 
-	public Action() {
+	protected Action() {
 
 	}
 
-	public Action(String type, String user, EmbeddedLocation location, Context context) {
+	protected Action(final String type, final String user, final EmbeddedLocation location, final Context context) {
+
 		this.type = type;
 		this.user = user;
 		this.location = location;
 		this.context = context;
 	}
 
-	public void copyTo(Action action) {
+	@Override
+	public Map<String, String> getIdentifiers() {
 
+		return identifiers;
+	}
+
+	@Override
+	public void setIdentifiers(final Map<String, String> identifiers) {
+
+		this.identifiers = identifiers;
+	}
+
+	@Override
+	public void addIdentifier(final String type, final String value) {
+
+		if (identifiers == null) {
+			identifiers = new HashMap<>();
+		}
+		identifiers.put(type, value);
+	}
+
+	@Override
+	public String firstIdentifier() {
+
+		return identifiers != null ? identifiers.values().iterator().next() : null;
 	}
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "[type=" + type + ", user=" + user + ", location=" + location + ", context=" + context + ", nb of reactions=" + (reactions != null ? reactions.size() : 0)
-				+ "]";
+
+		return getClass().getSimpleName() + "[type=" + type + ", user=" + user + ", location=" + location + ", context=" + 
+				context
+				+ ", nb of reactions=" + (reactions != null ? reactions.size() : 0) + "]";
 	}
 
 	public String getType() {
+
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(final String type) {
+
 		this.type = type;
 	}
 
 	public String getUser() {
+
 		return user;
 	}
 
-	public void setUser(String user) {
+	public void setUser(final String user) {
+
 		this.user = user;
 	}
 
 	public EmbeddedLocation getLocation() {
+
 		return location;
 	}
 
-	public void setLocation(EmbeddedLocation location) {
+	public void setLocation(final EmbeddedLocation location) {
+
 		this.location = location;
 	}
 
 	@JsonIgnore
 	public boolean hasPosition() {
+
 		return location != null && location.hasPosition();
 	}
 
 	public LocationSource getLocationSource() {
+
 		return locationSource;
 	}
 
-	public void setLocationSource(LocationSource locationSource) {
+	public void setLocationSource(final LocationSource locationSource) {
+
 		this.locationSource = locationSource;
 	}
 
 	public String getDevice() {
+
 		return device;
 	}
 
-	public void setDevice(String device) {
+	public void setDevice(final String device) {
+
 		this.device = device;
 	}
 
 	@CsvTransient
 	public Context getContext() {
+
 		return context;
 	}
 
-	public void setContext(Context context) {
+	public void setContext(final Context context) {
+
 		this.context = context;
 	}
 
 	@CsvTransient
 	public List<Reaction> getReactions() {
+
 		return reactions;
 	}
 
-	public void setReactions(List<Reaction> reactions) {
+	public void setReactions(final List<Reaction> reactions) {
+
 		this.reactions = reactions;
 	}
 
-	public void addReaction(Reaction reaction) {
+	public void addReaction(final Reaction reaction) {
+
 		if (reactions == null) {
-			reactions = new ArrayList<Reaction>();
+			reactions = new ArrayList<>();
 		}
 		reactions.add(reaction);
 	}
@@ -448,24 +539,29 @@ public abstract class Action extends TemporalResourceModel {
 	}
 
 	public String getCreatedByApp() {
+
 		return createdByApp;
 	}
 
-	public void setCreatedByApp(String createdByApp) {
+	public void setCreatedByApp(final String createdByApp) {
+
 		this.createdByApp = createdByApp;
 	}
 
 	public String getCreatedByThng() {
+
 		return createdByThng;
 	}
 
-	public void setCreatedByThng(String createdByThng) {
+	public void setCreatedByThng(final String createdByThng) {
+
 		this.createdByThng = createdByThng;
 	}
 
 	@JsonIgnore
 	@CsvTransient
 	public boolean isCustom() {
+
 		return ActionType.Value.isCustom(type);
 	}
 

@@ -5,6 +5,7 @@
 package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
+import com.evrythng.thng.resource.model.core.Identifiable;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ import java.util.Map;
 /**
  * Class for a product.
  */
-public class Product extends DurableResourceModel implements ResourceWithProperties {
+public class Product extends DurableResourceModel implements ResourceWithProperties, Identifiable {
 
 	private static final long serialVersionUID = -6201425043153000867L;
 	private String brand;
@@ -148,16 +149,19 @@ public class Product extends DurableResourceModel implements ResourceWithPropert
 		this.url = url;
 	}
 
+	@Override
 	public Map<String, String> getIdentifiers() {
 
 		return identifiers;
 	}
 
+	@Override
 	public void setIdentifiers(final Map<String, String> identifiers) {
 
 		this.identifiers = identifiers;
 	}
 
+	@Override
 	public void addIdentifier(final String type, final String value) {
 
 		if (identifiers == null) {
@@ -166,9 +170,10 @@ public class Product extends DurableResourceModel implements ResourceWithPropert
 		identifiers.put(type, value);
 	}
 
+	@Override
 	public String firstIdentifier() {
 
-		return identifiers.values().iterator().next();
+		return identifiers != null ? identifiers.values().iterator().next() : null;
 	}
 
 	@Override
