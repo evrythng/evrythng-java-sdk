@@ -5,13 +5,15 @@
 package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
+import com.evrythng.thng.resource.model.core.Identifiable;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Model representation for <em>batches</em>.
  */
-public class Batch extends DurableResourceModel {
+public class Batch extends DurableResourceModel implements Identifiable {
 
 	private static final long serialVersionUID = -4440334109484551488L;
 	public static final String FIELD_NAME = "name";
@@ -90,14 +92,31 @@ public class Batch extends DurableResourceModel {
 		this.resourceCountsByProduct = resourceCountsByProduct;
 	}
 
+	@Override
 	public Map<String, String> getIdentifiers() {
 
 		return identifiers;
 	}
 
+	@Override
 	public void setIdentifiers(final Map<String, String> identifiers) {
 
 		this.identifiers = identifiers;
+	}
+
+	@Override
+	public void addIdentifier(final String type, final String value) {
+
+		if (identifiers == null) {
+			identifiers = new HashMap<>();
+		}
+		identifiers.put(type, value);
+	}
+
+	@Override
+	public String firstIdentifier() {
+
+		return identifiers != null ? identifiers.values().iterator().next() : null;
 	}
 
 	public Status getStatus() {
