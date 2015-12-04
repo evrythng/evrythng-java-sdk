@@ -11,7 +11,7 @@ public abstract class DurableResourceModel extends ResourceModel {
 
 	private static final long serialVersionUID = -7896990713808718154L;
 	public static final String FIELD_UPDATED_AT = "updatedAt";
-	protected Long updatedAt;
+	private Long updatedAt;
 
 	public Long getUpdatedAt() {
 

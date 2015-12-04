@@ -7,8 +7,10 @@ package com.evrythng.thng.resource.model.store;
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
 import com.evrythng.thng.resource.model.core.Identifiable;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -53,21 +55,22 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 	}
 
 	public Thng(final Thng thng) {
+		
 		this.name = thng.name;
 		this.description = thng.description;
 		this.location = thng.location;
 		this.product = thng.product;
-		this.properties = thng.properties;
-		this.identifiers = thng.identifiers;
-		this.collections = thng.collections;
-		this.updatedAt = thng.updatedAt;
-		this.id = thng.id;
-		this.createdAt = thng.createdAt;
-		this.customFields = thng.customFields;
-		this.tags = thng.tags;
-		this.scopes = thng.scopes;
+		this.properties = thng.properties != null ? new HashMap<>(thng.properties) : null;
+		this.identifiers = thng.identifiers != null ? new HashMap<>(thng.identifiers) : null;
+		this.collections = thng.collections != null ? new HashSet<>(thng.collections) : null;
 		this.batch = thng.batch;
 		this.createdByTask = thng.createdByTask;
+		setUpdatedAt(thng.getUpdatedAt());
+		setId(thng.getId());
+		setCreatedAt(thng.getCreatedAt());
+		setCustomFields(thng.getCustomFields() != null ? new HashMap<>(thng.getCustomFields()) : null);
+		setTags(thng.getTags() != null ? new ArrayList<>(thng.getTags()) : null);
+		setScopes(thng.getScopes());
 	}
 
 	public String getName() {
