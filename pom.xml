@@ -64,7 +64,11 @@
 		<version.httpclient>4.2.1</version.httpclient>
 		<version.jackson-core>2.2.1</version.jackson-core>
 		<version.jackson-module-jaxb-annotations>2.2.0</version.jackson-module-jaxb-annotations>
-		
+
+		<hibernate-validator.version>5.2.1.Final</hibernate-validator.version>
+		<javax.el-api.version>3.0.0</javax.el-api.version>
+		<javax.el.version>2.2.6</javax.el.version>
+		<commons-validator.version>1.4.0</commons-validator.version>
 	</properties>
 
 	<modules>

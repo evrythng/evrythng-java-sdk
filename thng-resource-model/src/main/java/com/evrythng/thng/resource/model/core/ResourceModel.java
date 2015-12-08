@@ -54,10 +54,10 @@ public abstract class ResourceModel implements Serializable, WithScopeResource {
 
 	@CsvTransient
 	public Map<String, Object> getCustomFields() {
-		
+
 		return customFields != null ? Collections.unmodifiableMap(customFields) : null;
 	}
-	
+
 	@JsonIgnore
 	public <T> T getCustomField(final String key){
 
