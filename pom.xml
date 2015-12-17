@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.evrythng</groupId>
@@ -64,7 +65,9 @@
 		<version.httpclient>4.2.1</version.httpclient>
 		<version.jackson-core>2.2.1</version.jackson-core>
 		<version.jackson-module-jaxb-annotations>2.2.0</version.jackson-module-jaxb-annotations>
-		
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+
 	</properties>
 
 	<modules>
@@ -127,8 +130,8 @@
 		<connection>scm:git:git://github.com/evrythng/evrythng-java-sdk.git</connection>
 		<developerConnection>scm:git:git@github.com:evrythng/evrythng-java-sdk.git</developerConnection>
 		<url>https://github.com/evrythng/evrythng-java-sdk</url>
-    <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
 
 	<issueManagement>
 		<url>https://github.com/evrythng/evrythng-java-sdk/issues</url>
