@@ -4,10 +4,8 @@
 .project
 .settings
 
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/dictionaries/
-.idea/libraries/
+.idea/*
+*.iml
 
 nb-configuration.xml
 .DS_Store
@@ -16,4 +14,3 @@ nb-configuration.xml
 /evrythng-commons/target/
 *.versionsBackup
 nbactions*.xml
-*.iml
