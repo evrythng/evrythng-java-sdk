@@ -8,7 +8,6 @@ import com.evrythng.thng.resource.model.core.DurableResourceModel;
 import com.evrythng.thng.resource.model.core.Identifiable;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -17,13 +16,12 @@ import java.util.Set;
 /**
  * Model representation for <em>thngs</em>.
  */
-public class Thng extends DurableResourceModel implements ResourceWithProperties, Identifiable {
+public class Thng extends DurableResourceModel implements Identifiable {
 
 	private static final long serialVersionUID = -5495600871904690325L;
 	public static final String FIELD_DESCRIPTION = "description";
 	public static final String FIELD_PRODUCT = "product";
 	public static final String FIELD_COLLECTIONS = "collections";
-	public static final String FIELD_PROPERTIES = "properties";
 	public static final String FIELD_IDENTIFIERS = "identifiers";
 	private String name;
 	public static final String FIELD_NAME = "name";
@@ -33,7 +31,6 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 	 * Reference to {@link Product#id}.
 	 */
 	private String product;
-	private Map<String, Object> properties;
 	/**
 	 * An array of global identifiers for this thng
 	 */
@@ -60,7 +57,6 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 		this.description = thng.description;
 		this.location = thng.location;
 		this.product = thng.product;
-		this.properties = thng.properties != null ? new HashMap<>(thng.properties) : null;
 		this.identifiers = thng.identifiers != null ? new HashMap<>(thng.identifiers) : null;
 		this.collections = thng.collections != null ? new HashSet<>(thng.collections) : null;
 		this.batch = thng.batch;
@@ -111,18 +107,6 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 	public void setProduct(final String product) {
 
 		this.product = product;
-	}
-
-	@Override
-	public Map<String, Object> getProperties() {
-
-		return properties != null ? Collections.unmodifiableMap(properties) : null;
-	}
-
-	@Override
-	public void setProperties(final Map<String, Object> properties) {
-
-		this.properties = properties != null ? new HashMap<>(properties) : null;
 	}
 
 	@Override
@@ -190,7 +174,6 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 		sb.append(", description='").append(description).append('\'');
 		sb.append(", location=").append(location);
 		sb.append(", product='").append(product).append('\'');
-		sb.append(", properties=").append(properties);
 		sb.append(", identifiers=").append(identifiers);
 		sb.append(", collections=").append(collections);
 		sb.append(", batch='").append(batch).append('\'');
