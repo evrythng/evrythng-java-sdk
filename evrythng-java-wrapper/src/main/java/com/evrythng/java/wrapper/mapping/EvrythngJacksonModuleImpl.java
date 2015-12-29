@@ -13,6 +13,8 @@ import com.evrythng.thng.resource.model.store.action.CustomAction;
 import com.evrythng.thng.resource.model.store.action.ImplicitScanAction;
 import com.evrythng.thng.resource.model.store.action.ScanAction;
 import com.evrythng.thng.resource.model.store.action.ShareAction;
+import com.evrythng.thng.resource.model.store.action.bulk.Content;
+import com.evrythng.thng.resource.model.store.action.bulk.Payload;
 import com.evrythng.thng.resource.model.store.geojson.GeoJson;
 import com.evrythng.thng.resource.model.store.geojson.GeoJsonMultiPoint;
 import com.evrythng.thng.resource.model.store.geojson.GeoJsonPoint;
@@ -62,6 +64,9 @@ public class EvrythngJacksonModuleImpl extends SimpleModule implements EvrythngJ
 		addDeserializer(Reaction.class, reactionDeserializer);
 		addDeserializer(GeoJson.class, geoJSONDeserializer);
 		addDeserializer(Property.class, propertyDeserializer);
+
+		addDeserializer(Content.class, new ActionBulkContentDeserializer());
+		addDeserializer(Payload.class, new ActionBulkPayloadDeserializer());
 	}
 
 	public static ActionDeserializerImpl createActionDeserializer() {

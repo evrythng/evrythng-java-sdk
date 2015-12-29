@@ -8,6 +8,7 @@ package com.evrythng.java.wrapper.service;
 import com.evrythng.java.wrapper.ApiManager;
 import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.EvrythngServiceBase;
+import com.evrythng.java.wrapper.core.api.AcceptedResourceResponse;
 import com.evrythng.java.wrapper.exception.EvrythngClientException;
 import com.evrythng.java.wrapper.mapping.ActionDeserializer;
 import com.evrythng.java.wrapper.mapping.EvrythngJacksonModule;
@@ -15,9 +16,11 @@ import com.evrythng.thng.resource.model.store.action.Action;
 import com.evrythng.thng.resource.model.store.action.ActionType;
 import com.evrythng.thng.resource.model.store.action.Actions;
 import com.evrythng.thng.resource.model.store.action.CustomAction;
+import com.evrythng.thng.resource.model.store.action.bulk.ActionBulk;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Service wrapper for the {@code /actions} endpoint of the EVRYTHNG API.
@@ -29,6 +32,8 @@ public class ActionService extends EvrythngServiceBase {
 	public static final String PATH_ALL_ACTION = PATH_ALL_ACTIONS + "/%s";
 	public static final String PATH_TYPED_ACTIONS = PATH_ACTIONS + "/%s";
 	public static final String PATH_TYPED_ACTION = PATH_TYPED_ACTIONS + "/%s";
+	public static final String PATH_TYPED_BULK_ACTIONS = PATH_TYPED_ACTIONS + "/bulk";
+	public static final String PATH_TYPED_BULK_ACTION = PATH_TYPED_BULK_ACTIONS + "/%s";
 	protected ActionDeserializer deserializer;
 
 	/**
@@ -178,6 +183,19 @@ public class ActionService extends EvrythngServiceBase {
 	public Builder<ActionType> actionTypeUpdater(final String actionTypeName, final ActionType update) throws EvrythngClientException {
 
 		return put(String.format(PATH_TYPED_ACTIONS, actionTypeName), update, new TypeReference<ActionType>() {
+
+		});
+	}
+
+	public Builder<AcceptedResourceResponse> actionBulkCreator(final ActionBulk actionBulk) throws EvrythngClientException {
+
+		final String type = actionBulk.getTemplate().getType();
+		return postAsynchronously(String.format(PATH_TYPED_BULK_ACTIONS, type), actionBulk, Pattern.compile(".*/([^/]*)$"));
+	}
+
+	public Builder<ActionBulk> actionBulkReader(final String type, final String bulkId) throws EvrythngClientException {
+
+		return get(String.format(PATH_TYPED_BULK_ACTION, type, bulkId), new TypeReference<ActionBulk>() {
 
 		});
 	}
