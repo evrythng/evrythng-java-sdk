@@ -15,10 +15,11 @@ public abstract class Job<PROGRESS extends Progress> extends DurableResourceMode
 	private static final long serialVersionUID = 2316724847629568170L;
 	private List<NewStatus> history;
 	private PROGRESS progress;
+	private Long completedAt;
 
-	public final NewStatus getStatus() {
+	public final Status getStatus() {
 
-		return history != null ? history.get(history.size() - 1) : null;
+		return history != null ? history.get(history.size() - 1).getStatus() : null;
 	}
 
 	public final List<NewStatus> getHistory() {
@@ -47,5 +48,15 @@ public abstract class Job<PROGRESS extends Progress> extends DurableResourceMode
 	public final void setProgress(final PROGRESS progress) {
 
 		this.progress = progress;
+	}
+
+	public final Long getCompletedAt() {
+
+		return completedAt;
+	}
+
+	public final void setCompletedAt(final Long completedAt) {
+
+		this.completedAt = completedAt;
 	}
 }
