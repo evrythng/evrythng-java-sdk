@@ -5,18 +5,18 @@
 
 package com.evrythng.thng.resource.model.store.jobs;
 
-public final class StatusHistory {
+public final class NewStatus {
 
 	private Status status;
 	private Long timestamp;
 
-	public StatusHistory(final Status status, final Long timestamp) {
+	public NewStatus(final Status status, final Long timestamp) {
 
 		this.timestamp = timestamp;
 		this.status = status;
 	}
 
-	public StatusHistory() {
+	public NewStatus() {
 
 	}
 
