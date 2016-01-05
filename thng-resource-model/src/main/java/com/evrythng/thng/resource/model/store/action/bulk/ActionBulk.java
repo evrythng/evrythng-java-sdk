@@ -4,10 +4,11 @@
  */
 package com.evrythng.thng.resource.model.store.action.bulk;
 
-import com.evrythng.thng.resource.model.core.DurableResourceModel;
 import com.evrythng.thng.resource.model.store.action.Action;
+import com.evrythng.thng.resource.model.store.jobs.Job;
+import com.evrythng.thng.resource.model.store.jobs.RequestedAmountProgress;
 
-public class ActionBulk extends DurableResourceModel {
+public class ActionBulk extends Job<RequestedAmountProgress> {
 
 	private static final long serialVersionUID = 7631007639064000811L;
 	private boolean notify;
@@ -15,14 +16,9 @@ public class ActionBulk extends DurableResourceModel {
 	private Payload payload;
 	private Action template;
 	private Resource resource;
-	private Status status;
 
 	public enum Resource {
 		THNG, PRODUCT
-	}
-
-	public enum Status {
-		PENDING, EXECUTING, EXECUTED, CANCELING, FAILED
 	}
 
 	public Action getTemplate() {
@@ -63,16 +59,6 @@ public class ActionBulk extends DurableResourceModel {
 	public void setPayload(final Payload payload) {
 
 		this.payload = payload;
-	}
-
-	public Status getStatus() {
-
-		return status;
-	}
-
-	public void setStatus(final Status status) {
-
-		this.status = status;
 	}
 
 	public Resource getResource() {
