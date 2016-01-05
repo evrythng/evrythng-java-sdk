@@ -13,25 +13,25 @@ import java.util.List;
 public abstract class Job<PROGRESS extends Progress> extends DurableResourceModel {
 
 	private static final long serialVersionUID = 2316724847629568170L;
-	private List<Status> history;
+	private List<StatusHistory> history;
 	private PROGRESS progress;
 
-	public final Status getStatus() {
+	public final StatusHistory getStatus() {
 
 		return history != null ? history.get(history.size() - 1) : null;
 	}
 
-	public final List<Status> getHistory() {
+	public final List<StatusHistory> getHistory() {
 
 		return history != null ? new ArrayList<>(history) : null;
 	}
 
-	public final void setHistory(final List<Status> history) {
+	public final void setHistory(final List<StatusHistory> history) {
 
 		this.history = history != null ? new ArrayList<>(history) : null;
 	}
 
-	public final void addHistory(final Status... history) {
+	public final void addHistory(final StatusHistory... history) {
 
 		if (this.history == null) {
 			this.history = new ArrayList<>();
