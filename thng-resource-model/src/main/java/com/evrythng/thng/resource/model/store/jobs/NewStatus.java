@@ -39,4 +39,9 @@ public final class NewStatus {
 
 		this.status = status;
 	}
+
+	public final boolean isTerminal() {
+
+		return status != null && status.isTerminal();
+	}
 }
