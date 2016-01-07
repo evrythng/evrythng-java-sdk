@@ -8,7 +8,7 @@ package com.evrythng.thng.resource.model.store.action.jobs.creation;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ListCreateActionsJobInput extends CreateActionsJob.Input {
+public abstract class ListCreateActionJobInput extends CreateActionJob.Input {
 
 	private List<String> payload;
 

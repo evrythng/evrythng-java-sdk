@@ -5,7 +5,7 @@
 
 package com.evrythng.thng.resource.model.store.action.jobs.creation;
 
-public final class EvrythngIdsListInput extends ListCreateActionsJobInput {
+public final class EvrythngIdsListInput extends ListCreateActionJobInput {
 
 
 }

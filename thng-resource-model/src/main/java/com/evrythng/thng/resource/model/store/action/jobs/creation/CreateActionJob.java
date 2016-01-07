@@ -7,13 +7,13 @@ package com.evrythng.thng.resource.model.store.action.jobs.creation;
 
 import com.evrythng.thng.resource.model.store.action.Action;
 
-public final class CreateActionsJob extends ActionsJob {
+public final class CreateActionJob extends ActionJob {
 
 	private static final long serialVersionUID = -6679521183634195240L;
 
-	public CreateActionsJob() {
+	public CreateActionJob() {
 
-		setType(ActionsJob.Type.CREATION);
+		setType(ActionJob.Type.CREATION);
 	}
 
 	public enum Target {

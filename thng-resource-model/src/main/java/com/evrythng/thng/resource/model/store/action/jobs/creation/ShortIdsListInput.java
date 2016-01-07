@@ -5,7 +5,7 @@
 
 package com.evrythng.thng.resource.model.store.action.jobs.creation;
 
-public final class ShortIdsListInput extends ListCreateActionsJobInput {
+public final class ShortIdsListInput extends ListCreateActionJobInput {
 
 	private String shortDomain;
 

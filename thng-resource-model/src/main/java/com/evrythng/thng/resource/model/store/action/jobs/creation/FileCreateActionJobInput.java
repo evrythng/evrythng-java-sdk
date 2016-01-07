@@ -8,7 +8,7 @@ package com.evrythng.thng.resource.model.store.action.jobs.creation;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class FileCreateActionsJobInput extends CreateActionsJob.Input {
+public abstract class FileCreateActionJobInput extends CreateActionJob.Input {
 
 	private String location;
 	public static final String FIELD_LOCATION = "location";
