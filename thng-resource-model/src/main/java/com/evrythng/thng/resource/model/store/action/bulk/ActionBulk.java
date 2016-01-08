@@ -18,7 +18,7 @@ public class ActionBulk extends Job<RequestedAmountProgress> {
 	private Resource resource;
 
 	public enum Resource {
-		THNG, PRODUCT
+		THNGS
 	}
 
 	public Action getTemplate() {
