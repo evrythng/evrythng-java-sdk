@@ -13,7 +13,7 @@ public final class CreateActionJob extends ActionJob {
 
 	public CreateActionJob() {
 
-		setType(ActionJob.Type.CREATION);
+		setType(ActionJob.Type.ACTION_CREATION);
 	}
 
 	public enum Target {
