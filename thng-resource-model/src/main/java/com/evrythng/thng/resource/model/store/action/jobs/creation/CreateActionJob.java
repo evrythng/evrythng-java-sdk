@@ -17,7 +17,7 @@ public final class CreateActionJob extends ActionJob {
 	}
 
 	public enum Target {
-		target, THNGS
+		THNGS
 	}
 
 	private Action payload;
