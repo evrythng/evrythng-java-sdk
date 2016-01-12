@@ -18,4 +18,16 @@ public final class ExternalIdsFileInput extends FileCreateActionJobInput {
 
 		this.key = key;
 	}
+
+	@Override
+	public Type getType() {
+
+		return Type.FILE;
+	}
+
+	@Override
+	public ContentType getContentType() {
+
+		return ContentType.EXTERNAL_IDS;
+	}
 }

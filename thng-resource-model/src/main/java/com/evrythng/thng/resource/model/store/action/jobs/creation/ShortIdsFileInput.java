@@ -18,4 +18,16 @@ public final class ShortIdsFileInput extends FileCreateActionJobInput {
 
 		this.shortDomain = shortDomain;
 	}
+
+	@Override
+	public Type getType() {
+
+		return Type.FILE;
+	}
+
+	@Override
+	public ContentType getContentType() {
+
+		return ContentType.SHORT_IDS;
+	}
 }

@@ -18,4 +18,16 @@ public final class ExternalIdsListInput extends ListCreateActionJobInput {
 
 		this.key = key;
 	}
+
+	@Override
+	public Type getType() {
+
+		return Type.LIST;
+	}
+
+	@Override
+	public ContentType getContentType() {
+
+		return ContentType.EXTERNAL_IDS;
+	}
 }

@@ -13,12 +13,12 @@ public abstract class ActionJob extends Job<RequestedAmountProgress> {
 	private Type type;
 	public static final String FIELD_TYPE = "type";
 
-	protected Type getType() {
+	public Type getType() {
 
 		return type;
 	}
 
-	protected void setType(final Type type) {
+	public void setType(final Type type) {
 
 		this.type = type;
 	}

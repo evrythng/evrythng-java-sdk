@@ -18,4 +18,16 @@ public final class ShortIdsListInput extends ListCreateActionJobInput {
 
 		this.shortDomain = shortDomain;
 	}
+
+	@Override
+	public Type getType() {
+
+		return Type.LIST;
+	}
+
+	@Override
+	public ContentType getContentType() {
+
+		return ContentType.SHORT_IDS;
+	}
 }
