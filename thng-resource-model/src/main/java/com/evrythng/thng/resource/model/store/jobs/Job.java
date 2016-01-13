@@ -16,6 +16,7 @@ public abstract class Job<PROGRESS extends Progress> extends DurableResourceMode
 	private List<NewStatus> history;
 	private PROGRESS progress;
 	private Long completedAt;
+	private Long failedOperationsAmount;
 
 	public final Status getStatus() {
 
@@ -58,5 +59,15 @@ public abstract class Job<PROGRESS extends Progress> extends DurableResourceMode
 	public final void setCompletedAt(final Long completedAt) {
 
 		this.completedAt = completedAt;
+	}
+
+	public final void setFailedOperationsAmount(final Long failedOperationsAmount) {
+
+		this.failedOperationsAmount = failedOperationsAmount;
+	}
+
+	public final Long getFailedOperationsAmount() {
+
+		return failedOperationsAmount;
 	}
 }
