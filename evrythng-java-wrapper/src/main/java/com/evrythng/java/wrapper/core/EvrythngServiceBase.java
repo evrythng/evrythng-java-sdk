@@ -4,6 +4,18 @@
  */
 package com.evrythng.java.wrapper.core;
 
+import com.evrythng.java.wrapper.ApiManager;
+import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
+import com.evrythng.java.wrapper.core.api.AcceptedResourceResponse;
+import com.evrythng.java.wrapper.core.http.Status;
+import com.evrythng.java.wrapper.exception.EvrythngClientException;
+import com.evrythng.java.wrapper.util.URIBuilder;
+import com.evrythng.thng.commons.config.ApiConfiguration;
+import com.fasterxml.jackson.core.type.TypeReference;
+import org.apache.commons.codec.binary.Base64InputStream;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,18 +24,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.util.regex.Pattern;
-
-import com.evrythng.java.wrapper.core.api.AcceptedResourceResponse;
-import org.apache.commons.codec.binary.Base64InputStream;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpResponse;
-import com.evrythng.java.wrapper.ApiManager;
-import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
-import com.evrythng.java.wrapper.core.http.Status;
-import com.evrythng.java.wrapper.exception.EvrythngClientException;
-import com.evrythng.java.wrapper.util.URIBuilder;
-import com.evrythng.thng.commons.config.ApiConfiguration;
-import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
  * Base definition for EVRYTHNG API services.
@@ -162,6 +162,13 @@ public class EvrythngServiceBase {
 		return builder;
 	}
 
+	public <T> Builder<AcceptedResourceResponse> postAsynchronouslyWithCallback(final String relativePath, final Object data, final Pattern pattern, final String topic, final Class<T> notificationClass, final EvrythngApiBuilder.MqttCallback<T> callback) throws EvrythngClientException {
+
+		Builder<AcceptedResourceResponse> builder = EvrythngApiBuilder.postAsynchronously(config.getKey(), absoluteUri(relativePath), data, pattern, config.getMqttUrl(), topic, notificationClass, callback);
+		onBuilderCreated(builder);
+		return builder;
+	}
+
 	/**
 	 * Returns a preconfigured {@link Builder} for executing GET requests.
 	 *
@@ -283,6 +290,11 @@ public class EvrythngServiceBase {
 
 		String path = relativePath.startsWith("/") ? relativePath : String.format("/%s", relativePath);
 		return URIBuilder.fromUri(String.format("%s%s", config.getUrl(), path)).build();
+	}
+
+	protected String mqttUrl() throws EvrythngClientException {
+
+		return config.getMqttUrl();
 	}
 
 	public ApiConfiguration getConfig() {
