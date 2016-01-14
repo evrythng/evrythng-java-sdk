@@ -24,6 +24,8 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +46,11 @@ public class ApiCommand<T> {
 	private static final Logger logger = LoggerFactory.getLogger(ApiCommand.class);
 	private MultiValueMap queryParams = new MultiValueMap();
 	private Map<String, String> headers = new LinkedHashMap<>();
-	private HttpParams httpParams = null;
+	private HttpParams httpParams = new BasicHttpParams();
+	{
+		HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
+		HttpConnectionParams.setSoTimeout(httpParams, 30000);
+	}
 	private MethodBuilder<?> methodBuilder;
 	private URI uri;
 	private Status responseStatus;
@@ -159,7 +165,7 @@ public class ApiCommand<T> {
 	 */
 	public TypedResponseWithEntity<T> bundle() throws EvrythngException {
 
-		HttpClient client = httpParams == null ? new DefaultHttpClient() : new DefaultHttpClient(httpParams);
+		HttpClient client = new DefaultHttpClient(httpParams);
 		client = wrapClient(client);
 		try {
 			HttpResponse response = performRequest(client, methodBuilder, responseStatus);
@@ -279,7 +285,7 @@ public class ApiCommand<T> {
 
 	private <K> K execute(final MethodBuilder<?> method, final Status expectedStatus, final TypeReference<K> type) throws EvrythngException {
 
-		HttpClient client = httpParams == null ? new DefaultHttpClient() : new DefaultHttpClient(httpParams);
+		HttpClient client = new DefaultHttpClient(httpParams);
 		client = wrapClient(client);
 		try {
 			HttpResponse response = performRequest(client, method, expectedStatus);
