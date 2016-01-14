@@ -7,6 +7,7 @@ package com.evrythng.thng.resource.model.store.action.jobs.creation;
 
 public final class ExternalIdsListInput extends ListCreateActionJobInput {
 
+	public static final String FIELD_KEY = "key";
 	private String key;
 
 	public String getKey() {

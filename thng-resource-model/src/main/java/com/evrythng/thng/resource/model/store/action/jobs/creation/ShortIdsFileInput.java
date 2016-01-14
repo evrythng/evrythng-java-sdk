@@ -7,6 +7,7 @@ package com.evrythng.thng.resource.model.store.action.jobs.creation;
 
 public final class ShortIdsFileInput extends FileCreateActionJobInput {
 
+	public static final String FIELD_SHORT_DOMAIN = "shortDomain";
 	private String shortDomain;
 
 	public String getShortDomain() {

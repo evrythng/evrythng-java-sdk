@@ -10,6 +10,7 @@ import java.util.List;
 
 public abstract class ListCreateActionJobInput extends CreateActionJob.Input {
 
+	public static final String FIELD_PAYLOAD = "payload";
 	private List<String> payload;
 
 	public List<String> getPayload() {
