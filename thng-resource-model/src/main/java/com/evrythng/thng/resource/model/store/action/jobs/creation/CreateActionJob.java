@@ -7,7 +7,10 @@ package com.evrythng.thng.resource.model.store.action.jobs.creation;
 
 import com.evrythng.thng.resource.model.store.action.Action;
 
-public final class CreateActionJob extends ActionJob {
+import java.util.Arrays;
+import java.util.List;
+
+public final class CreateActionJob extends ActionJob<CreateActionJob.OptionType> {
 
 	private static final long serialVersionUID = -6679521183634195240L;
 
@@ -18,6 +21,10 @@ public final class CreateActionJob extends ActionJob {
 
 	public enum Target {
 		THNGS
+	}
+
+	public enum OptionType {
+		SINGLE_RESOURCE_NOTIFICATION, SINGLE_RESOURCE_REACTIONS
 	}
 
 	private Action payload;
@@ -55,6 +62,12 @@ public final class CreateActionJob extends ActionJob {
 	public void setTarget(final Target target) {
 
 		this.target = target;
+	}
+
+	@Override
+	public final List<OptionType> availableOptionTypes() {
+
+		return Arrays.asList(OptionType.values());
 	}
 
 	public abstract static class Input {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Job<PROGRESS extends Progress, TYPE> extends DurableResourceModel {
+public abstract class Job<PROGRESS extends Progress, TYPE, OPTION_TYPE extends Enum<OPTION_TYPE>> extends DurableResourceModel {
 
 	private static final long serialVersionUID = 2316724847629568170L;
 	public static final String FIELD_STATUS = "status";
@@ -22,9 +22,10 @@ public abstract class Job<PROGRESS extends Progress, TYPE> extends DurableResour
 	public static final String FIELD_COMPLETED_AT = "completedAt";
 	private Long failedOperationsAmount;
 	public static final String FIELD_FAILED_OPERATIONS_AMOUNT = "failedOperationsAmount";
-
 	private TYPE type;
 	public static final String FIELD_TYPE = "type";
+	private List<JobOption<OPTION_TYPE>> options;
+	public static final String FIELD_OPTIONS = "options";
 
 	public final TYPE getType() {
 
@@ -88,4 +89,16 @@ public abstract class Job<PROGRESS extends Progress, TYPE> extends DurableResour
 
 		return failedOperationsAmount;
 	}
+
+	public final List<JobOption<OPTION_TYPE>> getOptions() {
+
+		return options != null ? new ArrayList<>(options) : null;
+	}
+
+	public final void setOptions(final List<JobOption<OPTION_TYPE>> options) {
+
+		this.options = options != null ? new ArrayList<>(options) : null;
+	}
+
+	public abstract List<OPTION_TYPE> availableOptionTypes();
 }
