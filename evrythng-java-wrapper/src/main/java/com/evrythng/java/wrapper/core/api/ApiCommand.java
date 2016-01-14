@@ -44,12 +44,16 @@ import com.fasterxml.jackson.core.type.TypeReference;
 public class ApiCommand<T> {
 
 	private static final Logger logger = LoggerFactory.getLogger(ApiCommand.class);
+
+	private static final int DEFAULT_CONNECTION_TIMEOUT = 5000;
+	private static final int DEFAULT_SOCKET_TIMEOUT = 30000;
+
 	private MultiValueMap queryParams = new MultiValueMap();
 	private Map<String, String> headers = new LinkedHashMap<>();
 	private HttpParams httpParams = new BasicHttpParams();
 	{
-		HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
-		HttpConnectionParams.setSoTimeout(httpParams, 30000);
+		HttpConnectionParams.setConnectionTimeout(httpParams, DEFAULT_CONNECTION_TIMEOUT);
+		HttpConnectionParams.setSoTimeout(httpParams, DEFAULT_SOCKET_TIMEOUT);
 	}
 	private MethodBuilder<?> methodBuilder;
 	private URI uri;
