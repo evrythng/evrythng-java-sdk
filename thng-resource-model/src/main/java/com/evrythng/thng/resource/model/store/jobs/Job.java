@@ -10,13 +10,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Job<PROGRESS extends Progress> extends DurableResourceModel {
+public abstract class Job<PROGRESS extends Progress, TYPE> extends DurableResourceModel {
 
 	private static final long serialVersionUID = 2316724847629568170L;
+	public static final String FIELD_STATUS = "status";
 	private List<NewStatus> history;
+	public static final String FIELD_HISTORY = "history";
 	private PROGRESS progress;
+	public static final String FIELD_PROGRESS = "progress";
 	private Long completedAt;
+	public static final String FIELD_COMPLETED_AT = "completedAt";
 	private Long failedOperationsAmount;
+	public static final String FIELD_FAILED_OPERATIONS_AMOUNT = "failedOperationsAmount";
+
+	private TYPE type;
+	public static final String FIELD_TYPE = "type";
+
+	public final TYPE getType() {
+
+		return type;
+	}
+
+	public final void setType(final TYPE type) {
+
+		this.type = type;
+	}
 
 	public final Status getStatus() {
 
