@@ -21,8 +21,11 @@ public final class CreateActionJob extends ActionJob {
 	}
 
 	private Action payload;
+	public static final String FIELD_PAYLOAD = "payload";
 	private Target target;
+	public static final String FIELD_TARGET = "target";
 	private Input input;
+	public static final String FIELD_INPUT = "input";
 
 	public Input getInput() {
 
