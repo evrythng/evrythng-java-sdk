@@ -7,7 +7,7 @@ package com.evrythng.thng.resource.model.store.jobs;
 
 import com.evrythng.thng.resource.model.core.ResourceModel;
 
-public final class JobLogEntryResource extends ResourceModel {
+public final class JobLogEntry extends ResourceModel {
 
 	private static final long serialVersionUID = 7272048986549940726L;
 
