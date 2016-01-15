@@ -37,10 +37,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -265,6 +263,124 @@ public final class EvrythngApiBuilder {
 			}
 		};
 	}
+
+//	static <T> Builder<AcceptedResourceResponse> postAsynchronously(final String apiKey, final URI uri, final Object data, final Pattern pattern, final String mqttUrl, final String topic, final Class<T> notificationClass, final MqttCallback<T> callback) {
+//
+//		return new MqttListenerBuilder<>(apiKey, HttpMethodBuilder.httpPost(data), uri, Status.ACCEPTED, pattern, mqttUrl, topic, notificationClass, callback);
+//	}
+//
+//	public interface MqttCallback<T> {
+//
+//		void apply(T notified);
+//	}
+//
+//	private static final class MqttListenerBuilder<T> extends Builder<AcceptedResourceResponse> {
+//
+//		private final Pattern idLocationExtractor;
+//		private final String topic;
+//		private final String mqttUrl;
+//		private final String apiKey;
+//		private final Class<T> notificationClass;
+//		private final MqttCallback<T> callback;
+//
+//		private MqttListenerBuilder(final String apiKey, final MethodBuilder<?> methodBuilder, final URI uri, final Status responseStatus, final Pattern idLocationExtractor, final String mqttUrl, final String topic, final Class<T> notificationClass, final MqttCallback<T> callback) {
+//
+//			super(apiKey, methodBuilder, uri, responseStatus, new TypeReference<AcceptedResourceResponse>() {});
+//			this.idLocationExtractor = idLocationExtractor;
+//			this.topic = topic;
+//			this.mqttUrl = mqttUrl;
+//			this.apiKey = apiKey;
+//			this.notificationClass = notificationClass;
+//			this.callback = callback;
+//		}
+//
+//		@Override
+//		public AcceptedResourceResponse execute() throws EvrythngException {
+//
+//			// Perform request (response status code will be automatically checked):
+//			// TODO _MS_ get project
+//			String projectId = null;
+//			HttpResponse response = request();
+//			String location = null;
+//			Header header = response.getFirstHeader("location");
+//			String id = null;
+//			if (header != null) {
+//				location = header.getValue();
+//				if (location != null) {
+//					Matcher match = idLocationExtractor.matcher(location);
+//					if (match.matches() && match.groupCount() > 0) {
+//						id = match.group(1);
+//					}
+//				}
+//			}
+//			try {
+//				final MqttClient client = mqttClient(mqttUrl, apiKey, projectId);
+//				client.subscribe(topic);
+//				// TODO _MS_ introduce type
+//				client.setCallback(new org.eclipse.paho.client.mqttv3.MqttCallback() {
+//
+//					@Override
+//					public void connectionLost(final Throwable cause) {
+//
+//						throw new RuntimeException("MQTT connection lost", cause);
+//					}
+//
+//					@Override
+//					public void messageArrived(final String topic, final MqttMessage message) throws Exception {
+//
+//						T notified = JSONUtils.OBJECT_MAPPER.readValue(message.getPayload(), notificationClass);
+//						client.unsubscribe(topic);
+//						client.disconnect();
+//						callback.apply(notified);
+//					}
+//
+//					@Override
+//					public void deliveryComplete(final IMqttDeliveryToken token) {
+//
+//					}
+//				});
+//			} catch (MqttException e) {
+//				// TODO _MS_ create exception type
+//				throw new RuntimeException("Failed to subscribe through MQTT", e);
+//			}
+//			return new AcceptedResourceResponse(id, location);
+//		}
+//	}
+//
+//	private static MqttClient mqttClient(final String url, final String apiKey, final String projectId) throws MqttException {
+//
+//		String clientId = MqttClient.generateClientId();
+//		String username = "authorization";
+//		MqttClient client = new EVTMqttClient(url, clientId, projectId);
+//		MqttConnectOptions options = new MqttConnectOptions();
+//		options.setUserName(username);
+//		options.setPassword(apiKey.toCharArray());
+//		options.setCleanSession(true);
+//		client.connect(options);
+//		return client;
+//	}
+//
+//	private static final class EVTMqttClient extends MqttClient {
+//
+//		private final String projectId;
+//
+//		private EVTMqttClient(final String serverURI, final String clientId, final String projectId) throws MqttException {
+//
+//			super(serverURI, clientId);
+//			this.projectId = projectId;
+//		}
+//
+//		@Override
+//		public void subscribe(final String[] topicFilters, final int[] qos) throws MqttException {
+//
+//			if (projectId != null) {
+//				for (int i = 0; i < topicFilters.length; i++) {
+//					topicFilters[i] += "?project=" + projectId;
+//				}
+//			}
+//			super.subscribe(topicFilters, qos);
+//		}
+//	}
 
 	/**
 	 * Default command builder for the EVRYTHNG API.
