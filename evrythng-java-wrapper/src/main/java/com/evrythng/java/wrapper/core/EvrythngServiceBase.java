@@ -162,12 +162,12 @@ public class EvrythngServiceBase {
 		return builder;
 	}
 
-	public <T> Builder<AcceptedResourceResponse> postAsynchronouslyWithCallback(final String relativePath, final Object data, final Pattern pattern, final String topic, final Class<T> notificationClass, final EvrythngApiBuilder.MqttCallback<T> callback) throws EvrythngClientException {
-
-		Builder<AcceptedResourceResponse> builder = EvrythngApiBuilder.postAsynchronously(config.getKey(), absoluteUri(relativePath), data, pattern, config.getMqttUrl(), topic, notificationClass, callback);
-		onBuilderCreated(builder);
-		return builder;
-	}
+//	public <T> Builder<AcceptedResourceResponse> postAsynchronouslyWithCallback(final String relativePath, final Object data, final Pattern pattern, final String topic, final Class<T> notificationClass, final EvrythngApiBuilder.MqttCallback<T> callback) throws EvrythngClientException {
+//
+//		Builder<AcceptedResourceResponse> builder = EvrythngApiBuilder.postAsynchronously(config.getKey(), absoluteUri(relativePath), data, pattern, config.getMqttUrl(), topic, notificationClass, callback);
+//		onBuilderCreated(builder);
+//		return builder;
+//	}
 
 	/**
 	 * Returns a preconfigured {@link Builder} for executing GET requests.

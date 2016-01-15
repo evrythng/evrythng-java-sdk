@@ -100,17 +100,17 @@ public class ActionJobsService extends EvrythngServiceBase {
 		return get(String.format(LOG_ENTRIES_PATH, jobId), LogsListReference.instance());
 	}
 
-	public EvrythngApiBuilder.Builder<AcceptedResourceResponse> creator(final ActionJob<?> job, final OnActionJobExecuted onActionJobExecuted) throws EvrythngClientException {
-
-		// TODO _MS_
-		return postAsynchronouslyWithCallback(PATH, job, ID_LOCATION_PATTERN, "/jobs/actions", NewStatus.class, new EvrythngApiBuilder.MqttCallback<NewStatus>() {
-
-			@Override
-			public void apply(final NewStatus notified) {
-
-				// TODO _MS_ consider adding here
-				onActionJobExecuted.apply(notified);
-			}
-		});
-	}
+//	public EvrythngApiBuilder.Builder<AcceptedResourceResponse> creator(final ActionJob<?> job, final OnActionJobExecuted onActionJobExecuted) throws EvrythngClientException {
+//
+//		// TODO _MS_
+//		return postAsynchronouslyWithCallback(PATH, job, ID_LOCATION_PATTERN, "/jobs/actions", NewStatus.class, new EvrythngApiBuilder.MqttCallback<NewStatus>() {
+//
+//			@Override
+//			public void apply(final NewStatus notified) {
+//
+//				// TODO _MS_ consider adding here
+//				onActionJobExecuted.apply(notified);
+//			}
+//		});
+//	}
 }

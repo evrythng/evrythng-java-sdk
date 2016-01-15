@@ -16,7 +16,6 @@
 	<properties>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
-		<mqtt-client.version>0.4.0</mqtt-client.version>
 	</properties>
 
 	<dependencies>
@@ -79,11 +78,6 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpmime</artifactId>
 			<version>${version.httpclient}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.paho</groupId>
-			<artifactId>mqtt-client</artifactId>
-			<version>${mqtt-client.version}</version>
 		</dependency>
 	</dependencies>
 
