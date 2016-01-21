@@ -7,13 +7,13 @@ package com.evrythng.java.wrapper.mapping;
 import com.evrythng.java.wrapper.util.JSONUtils;
 import com.evrythng.thng.resource.model.store.ArrayProperty;
 import com.evrythng.thng.resource.model.store.BooleanProperty;
+import com.evrythng.thng.resource.model.store.GenericProperty;
 import com.evrythng.thng.resource.model.store.NumberProperty;
 import com.evrythng.thng.resource.model.store.ObjectProperty;
 import com.evrythng.thng.resource.model.store.Property;
 import com.evrythng.thng.resource.model.store.StringProperty;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
@@ -38,7 +38,7 @@ public class PropertyDeserializer extends StdDeserializer<Property<?>> {
 		JsonNode node = mapper.readTree(jp);
 		JsonNode valueNode = node.get(Property.FIELD_VALUE);
 		if (valueNode == null) {
-			throw new JsonMappingException("Cannot deserialize property without value field");
+			return mapper.readValue(node.toString(), GenericProperty.class);
 		}
 		Object value = getFieldValue(valueNode);
 		Property.Type type = Property.Type.forPropertyValue(value);
