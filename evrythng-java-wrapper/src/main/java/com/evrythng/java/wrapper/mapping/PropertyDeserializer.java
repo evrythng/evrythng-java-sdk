@@ -14,6 +14,7 @@ import com.evrythng.thng.resource.model.store.Property;
 import com.evrythng.thng.resource.model.store.StringProperty;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
@@ -38,9 +39,12 @@ public class PropertyDeserializer extends StdDeserializer<Property<?>> {
 		JsonNode node = mapper.readTree(jp);
 		JsonNode valueNode = node.get(Property.FIELD_VALUE);
 		if (valueNode == null) {
-			return mapper.readValue(node.toString(), GenericProperty.class);
+			throw new JsonMappingException("Cannot deserialize property without value field");
 		}
 		Object value = getFieldValue(valueNode);
+		if (value == null) {
+			return mapper.readValue(node.toString(), GenericProperty.class);
+		}
 		Property.Type type = Property.Type.forPropertyValue(value);
 		Class<? extends Property<?>> propertyClass = propertyClassForType(type);
 		return mapper.readValue(node.toString(), propertyClass);
