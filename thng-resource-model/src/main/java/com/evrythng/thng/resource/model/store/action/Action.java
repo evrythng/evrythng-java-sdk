@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * Rest model for an action.
  */
-public abstract class Action extends TemporalResourceModel implements Identifiable {
+public abstract class Action extends TemporalResourceModel implements Identifiable, Cloneable {
 
 	private static final long serialVersionUID = -7924569012523434017L;
 
@@ -566,4 +566,11 @@ public abstract class Action extends TemporalResourceModel implements Identifiab
 	}
 
 	public abstract void accept(ActionVisitor visitor);
+
+	@Override
+	public Action clone() throws CloneNotSupportedException {
+
+		// TODO _MS_ check
+		return (Action) super.clone();
+	}
 }

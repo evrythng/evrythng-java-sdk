@@ -13,6 +13,11 @@ public class EmailTaskNotificationWay extends TaskNotificationWay {
 	private String address;
 	public static final String FIELD_ADDRESS = "address";
 
+	public EmailTaskNotificationWay() {
+
+		setType(Type.EMAIL);
+	}
+
 	public String getAddress() {
 
 		return address;

@@ -13,6 +13,7 @@ public class ApiConfiguration {
 
 	private String url = "https://api.evrythng.com";
 	private String key = null;
+	private String mqttUrl = "tcp://mqtt.evrythng.net:1883";
 
 	// HTTP
 
@@ -191,6 +192,13 @@ public class ApiConfiguration {
 		this.url = apiUrl;
 	}
 
+	public ApiConfiguration(final String apiKey, final String apiUrl, final String mqttUrl) {
+
+		this.key = apiKey;
+		this.url = apiUrl;
+		this.mqttUrl = mqttUrl;
+	}
+
 	public String getUrl() {
 		return url;
 	}
@@ -215,4 +223,13 @@ public class ApiConfiguration {
 		this.perPage = perPage;
 	}
 
+	public String getMqttUrl() {
+
+		return mqttUrl;
+	}
+
+	public void setMqttUrl(final String mqttUrl) {
+
+		this.mqttUrl = mqttUrl;
+	}
 }
