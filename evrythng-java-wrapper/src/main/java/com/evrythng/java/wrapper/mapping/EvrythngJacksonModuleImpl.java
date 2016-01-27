@@ -5,7 +5,11 @@
 
 package com.evrythng.java.wrapper.mapping;
 
+import com.evrythng.thng.resource.model.store.BatchPopulatingTask;
 import com.evrythng.thng.resource.model.store.Property;
+import com.evrythng.thng.resource.model.store.ShortIdTemplate;
+import com.evrythng.thng.resource.model.store.Task;
+import com.evrythng.thng.resource.model.store.TaskOnBatch;
 import com.evrythng.thng.resource.model.store.action.Action;
 import com.evrythng.thng.resource.model.store.action.Actions;
 import com.evrythng.thng.resource.model.store.action.CheckinAction;
@@ -13,6 +17,8 @@ import com.evrythng.thng.resource.model.store.action.CustomAction;
 import com.evrythng.thng.resource.model.store.action.ImplicitScanAction;
 import com.evrythng.thng.resource.model.store.action.ScanAction;
 import com.evrythng.thng.resource.model.store.action.ShareAction;
+import com.evrythng.thng.resource.model.store.action.jobs.creation.ActionJob;
+import com.evrythng.thng.resource.model.store.action.jobs.creation.CreateActionJob;
 import com.evrythng.thng.resource.model.store.geojson.GeoJson;
 import com.evrythng.thng.resource.model.store.geojson.GeoJsonMultiPoint;
 import com.evrythng.thng.resource.model.store.geojson.GeoJsonPoint;
@@ -62,6 +68,23 @@ public class EvrythngJacksonModuleImpl extends SimpleModule implements EvrythngJ
 		addDeserializer(Reaction.class, reactionDeserializer);
 		addDeserializer(GeoJson.class, geoJSONDeserializer);
 		addDeserializer(Property.class, propertyDeserializer);
+
+		TaskOnBatchDeserializer taskOnBatchDeserializer = new TaskOnBatchDeserializer();
+		BatchPopulatingTaskInputParametersDeserializer batchPopulatingTaskInputParametersDeserializer = new BatchPopulatingTaskInputParametersDeserializer();
+		BatchPopulatingTaskOutputParametersDeserializer batchPopulatingTaskOutputParametersDeserializer = new BatchPopulatingTaskOutputParametersDeserializer();
+		TaskResultDeserializer taskResultDeserializer = new TaskResultDeserializer();
+		TaskNotificationWayDeserializer taskNotificationWayDeserializer = new TaskNotificationWayDeserializer();
+		ShortIdTemplateDeserializer shortIdTemplateDeserializer = new ShortIdTemplateDeserializer();
+
+		addDeserializer(TaskOnBatch.class, taskOnBatchDeserializer);
+		addDeserializer(TaskOnBatch.BaseTaskResult.class, taskResultDeserializer);
+		addDeserializer(BatchPopulatingTask.InputParameters.class, batchPopulatingTaskInputParametersDeserializer);
+		addDeserializer(BatchPopulatingTask.OutputParameters.class, batchPopulatingTaskOutputParametersDeserializer);
+		addDeserializer(Task.Notification.Way.class, taskNotificationWayDeserializer);
+		addDeserializer(ShortIdTemplate.class, shortIdTemplateDeserializer);
+
+		registerActionsJobDeserializers();
+
 	}
 
 	public static ActionDeserializerImpl createActionDeserializer() {
@@ -96,6 +119,16 @@ public class EvrythngJacksonModuleImpl extends SimpleModule implements EvrythngJ
 		geoJSONDeserializer.registerType(GeoJsonType.MULTI_POINT.toString(), GeoJsonMultiPoint.class);
 		geoJSONDeserializer.registerType(GeoJsonType.POLYGON.toString(), GeoJsonPolygon.class);
 		return geoJSONDeserializer;
+	}
+
+	private void registerActionsJobDeserializers() {
+
+		ActionJobDeserializer base = new ActionJobDeserializer();
+		addDeserializer(ActionJob.class, base);
+
+		// Creation
+		CreateActionsJobInputDeserializer creationInput = new CreateActionsJobInputDeserializer();
+		addDeserializer(CreateActionJob.Input.class, creationInput);
 	}
 
 	@Override
