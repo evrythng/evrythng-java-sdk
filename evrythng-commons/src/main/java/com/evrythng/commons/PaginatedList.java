@@ -14,7 +14,7 @@ import java.util.Optional;
  * copied, so any change to the list supplied will be reflected to this list. If
  * the supplied list is changed, the behavior of the instance of this class is
  * undefined.
- * 
+ *
  * @author Michel Yerly (my)
  **/
 public class PaginatedList<E> {
@@ -67,7 +67,7 @@ public class PaginatedList<E> {
 
 	/**
 	 * Constructs a paginated list with zero or one item.
-	 * 
+	 *
 	 * @param item
 	 *            The item. If null, it is not added.
 	 */
