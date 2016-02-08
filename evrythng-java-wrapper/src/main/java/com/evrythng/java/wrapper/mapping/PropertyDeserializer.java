@@ -7,6 +7,7 @@ package com.evrythng.java.wrapper.mapping;
 import com.evrythng.java.wrapper.util.JSONUtils;
 import com.evrythng.thng.resource.model.store.ArrayProperty;
 import com.evrythng.thng.resource.model.store.BooleanProperty;
+import com.evrythng.thng.resource.model.store.GenericProperty;
 import com.evrythng.thng.resource.model.store.NumberProperty;
 import com.evrythng.thng.resource.model.store.ObjectProperty;
 import com.evrythng.thng.resource.model.store.Property;
@@ -41,6 +42,9 @@ public class PropertyDeserializer extends StdDeserializer<Property<?>> {
 			throw new JsonMappingException("Cannot deserialize property without value field");
 		}
 		Object value = getFieldValue(valueNode);
+		if (value == null) {
+			return mapper.readValue(node.toString(), GenericProperty.class);
+		}
 		Property.Type type = Property.Type.forPropertyValue(value);
 		Class<? extends Property<?>> propertyClass = propertyClassForType(type);
 		return mapper.readValue(node.toString(), propertyClass);
