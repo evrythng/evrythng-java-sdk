@@ -46,6 +46,10 @@ public class PaginatedList<E> {
 		this(items, totalCount, pagination.getOffset(), pagination.getPerPage());
 	}
 
+	public PaginatedList(List<E> items, Pagination pagination, Optional<Long> totalCount) {
+		this(items, totalCount.isPresent() ? totalCount.get() : -1, pagination.getOffset(), pagination.getPerPage());
+	}
+
 	public PaginatedList(List<E> items, Optional<Ref<Long>> totalCount, Pagination pagination) {
 
 		this(items, totalCount.isPresent() ? totalCount.get().get() : -1, pagination.getOffset(), pagination.getPerPage());
