@@ -5,18 +5,23 @@
 package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
+import com.evrythng.thng.resource.model.core.Identifiable;
 
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * Model representation for <em>collections</em>.
  */
-public class Collection extends DurableResourceModel {
+public class Collection extends DurableResourceModel implements Identifiable {
 
 	private static final long serialVersionUID = -2064399431964890923L;
 	private String name;
 	private String description;
+	private Map<String, String> identifiers;
+
 	/**
 	 * Collection of {@link Thng#id} references.
 	 */
@@ -71,7 +76,10 @@ public class Collection extends DurableResourceModel {
 		}
 		if (collections != null) {
 			sb.append(", collections=").append(collections);
-				}
+		}
+		if (identifiers != null) {
+			sb.append(", identifiers=").append(identifiers);
+		}
 		sb.append('}');
 		return sb.toString();
 	}
@@ -84,5 +92,31 @@ public class Collection extends DurableResourceModel {
 	public Set<String> getCollections() {
 
 		return collections;
+	}
+
+	@Override
+	public Map<String, String> getIdentifiers() {
+		return this.identifiers;
+	}
+
+	@Override
+	public String firstIdentifier() {
+		if (this.identifiers != null) {
+			return this.identifiers.values().iterator().next();
+		}
+		return null;
+	}
+
+	@Override
+	public void setIdentifiers(final Map<String, String> identifiers) {
+		this.identifiers = identifiers;
+	}
+
+	@Override
+	public void addIdentifier(final String type, final String value) {
+		if (this.identifiers == null) {
+			this.identifiers = new HashMap<>();
+		}
+		this.identifiers.put(type, value);
 	}
 }
