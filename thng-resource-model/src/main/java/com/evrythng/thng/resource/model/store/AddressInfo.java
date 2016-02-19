@@ -159,6 +159,9 @@ public class AddressInfo implements Serializable {
 			names = EnumUtils.createNames(values());
 			softCountryNames.put("Republic of Lithuania", CountryCode.LT.code);
 			softCountryNames.put("Slovak Republic", CountryCode.SK.code);
+			softCountryNames.put("Republic of Korea", CountryCode.KR.code);
+			softCountryNames.put("Iran", CountryCode.IR.code);
+			softCountryNames.put("Republic of Moldova", CountryCode.MD.code);
 		}
 
 		private static void addCountry(final String country, final String softCountry, final String code) {
