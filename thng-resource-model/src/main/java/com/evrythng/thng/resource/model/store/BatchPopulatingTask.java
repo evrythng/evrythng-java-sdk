@@ -125,13 +125,31 @@ public class BatchPopulatingTask extends TaskOnBatch {
 				urlBindings += count;
 			}
 
+			/**
+			 * Alias for {@link #getThngs()}
+			 *
+			 * @return the number of THNGS in this contribution
+			 */
+			@JsonIgnore
 			public Integer getThngsCount() {
-
 				return thngs;
 			}
 
+			/**
+			 * Alias for {@link #getUrlBindings()}
+			 *
+			 * @return the number of URL Bindings in this contribution
+			 */
+			@JsonIgnore
 			public Integer getUrlBindingsCount() {
+				return urlBindings;
+			}
 
+			public Integer getThngs() {
+				return thngs;
+			}
+
+			public Integer getUrlBindings() {
 				return urlBindings;
 			}
 
