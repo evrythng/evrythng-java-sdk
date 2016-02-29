@@ -29,6 +29,11 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		setType(Type.POPULATING);
 	}
 
+	/**
+	 * Container class that holds the sub-tasks of the current task.
+	 * <p>
+	 * The tasks are held as a map of {@link String} => {@link Contribution} instances with the sub-task ID as the key.
+	 */
 	public static final class Progress {
 
 		public static final String FIELD_CONTRIBUTIONS = "contributions";
@@ -48,7 +53,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 				@Override
 				public Integer apply(final Contribution contribution) {
 
-					return contribution.getThngsCount();
+					return contribution.getThngs();
 				}
 			}).collect(Collectors.summingInt(new ToIntFunction<Integer>() {
 
@@ -68,7 +73,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 				@Override
 				public Integer apply(final Contribution contribution) {
 
-					return contribution.getUrlBindingsCount();
+					return contribution.getUrlBindings();
 				}
 			}).collect(Collectors.summingInt(new ToIntFunction<Integer>() {
 
@@ -106,6 +111,9 @@ public class BatchPopulatingTask extends TaskOnBatch {
 			return getThngsCount() >= totalAmount && getUrlBindingsCount() >= totalAmount;
 		}
 
+		/**
+		 * A {@link Contribution} represents a sub-task of {@link BatchPopulatingTask}.
+		 */
 		public static final class Contribution {
 
 			public static final String FIELD_URL_BINDINGS = "urlBindings";
@@ -125,21 +133,67 @@ public class BatchPopulatingTask extends TaskOnBatch {
 				urlBindings += count;
 			}
 
+			/**
+			 * Alias for {@link #getThngs()}
+			 *
+			 * @return the <strong>number</strong> of THNGS created by this sub-task
+			 *
+			 * @see #getThngs()
+			 * @deprecated since 1.21
+			 */
+			@JsonIgnore
+			@Deprecated
 			public Integer getThngsCount() {
 
 				return thngs;
 			}
 
+			/**
+			 * Alias for {@link #getUrlBindings()}
+			 *
+			 * @return the <strong>number</strong> of URL Bindings created by this sub-task
+			 *
+			 * @see #getUrlBindings()
+			 * @deprecated since 1.21
+			 */
+			@JsonIgnore
+			@Deprecated
 			public Integer getUrlBindingsCount() {
 
 				return urlBindings;
 			}
 
+			/**
+			 * @return the <strong>number</strong> of THNGS created by this sub-task
+			 */
+			public Integer getThngs() {
+
+				return thngs;
+			}
+
+			/**
+			 * @return the <strong>number</strong> of URL Bindings created by this sub-task
+			 */
+			public Integer getUrlBindings() {
+
+				return urlBindings;
+			}
+
+			/**
+			 * Sets the <strong>number</strong> of THNGS created by this sub-task
+			 *
+			 * @param thngs the <strong>number</strong> of THNGS
+			 */
 			public void setThngs(final int thngs) {
 
 				this.thngs = thngs;
 			}
 
+			/**
+			 * Sets the <strong>number</strong> of URL Bindings created by this sub-task
+			 *
+			 * @param urlBindings the <strong>number</strong> of URL Bindings
+			 */
 			public void setUrlBindings(final int urlBindings) {
 
 				this.urlBindings = urlBindings;
