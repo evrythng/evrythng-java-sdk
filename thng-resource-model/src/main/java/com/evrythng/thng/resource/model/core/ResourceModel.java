@@ -4,7 +4,6 @@
  */
 package com.evrythng.thng.resource.model.core;
 
-import com.evrythng.commons.LowerCaseKeyMap;
 import com.evrythng.commons.annotations.csv.CsvTransient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.collections.list.SetUniqueList;
@@ -12,6 +11,7 @@ import org.apache.commons.collections.list.SetUniqueList;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,7 +70,7 @@ public abstract class ResourceModel implements Serializable, WithScopeResource {
 			this.customFields = null;
 		}
 		else {
-			this.customFields = new LowerCaseKeyMap<>();
+			this.customFields = new HashMap<>();
 			this.customFields.putAll(customFields);
 		}
 	}
@@ -78,7 +78,7 @@ public abstract class ResourceModel implements Serializable, WithScopeResource {
 	public void addCustomFields(final String key, final Object value) {
 
 		if (customFields == null) {
-			customFields = new LowerCaseKeyMap<>();
+			customFields = new HashMap<>();
 		}
 		customFields.put(key, value);
 	}
