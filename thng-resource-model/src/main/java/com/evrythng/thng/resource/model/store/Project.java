@@ -5,15 +5,18 @@
 package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
+import com.evrythng.thng.resource.model.core.Identifiable;
 import org.apache.commons.collections.list.SetUniqueList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Model representation for <em>projects</em>.
  */
-public class Project extends DurableResourceModel {
+public class Project extends DurableResourceModel implements Identifiable {
 
 	private static final long serialVersionUID = -2362864476419100132L;
 	private String name;
@@ -22,6 +25,7 @@ public class Project extends DurableResourceModel {
 	private Long startsAt;
 	private Long endsAt;
 	private List<String> shortDomains;
+	private Map<String, String> identifiers;
 
 	/**
 	 * @return the name
@@ -114,10 +118,38 @@ public class Project extends DurableResourceModel {
 	}
 
 	@Override
+	public Map<String, String> getIdentifiers() {
+
+		return identifiers;
+	}
+
+	@Override
+	public String firstIdentifier() {
+
+		return identifiers.values().iterator().next();
+	}
+
+	@Override
+	public void setIdentifiers(final Map<String, String> identifiers) {
+
+		this.identifiers = identifiers;
+	}
+
+	@Override
+	public void addIdentifier(final String type, final String value) {
+
+		if (identifiers == null) {
+			identifiers = new HashMap<>();
+		}
+		identifiers.put(type, value);
+	}
+
+	@Override
 	public String toString() {
 
 		StringBuilder sb = new StringBuilder("Project{");
 		sb.append("name='").append(name).append('\'');
+		sb.append(", identifiers=").append(identifiers);
 		sb.append(", description='").append(description).append('\'');
 		sb.append(", imageUrl='").append(imageUrl).append('\'');
 		sb.append(", startsAt=").append(startsAt);
