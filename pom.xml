@@ -4,7 +4,7 @@
 	<groupId>com.evrythng</groupId>
 	<artifactId>evrythng-java-sdk</artifactId>
 	<packaging>pom</packaging>
-	<version>1.21-SNAPSHOT</version>
+	<version>1.21</version>
 
 	<name>evrythng-java-sdk</name>
 	<description>Java tools around the EVRYTHNG API.</description>
@@ -129,7 +129,7 @@
 		<connection>scm:git:git://github.com/evrythng/evrythng-java-sdk.git</connection>
 		<developerConnection>scm:git:git@github.com:evrythng/evrythng-java-sdk.git</developerConnection>
 		<url>https://github.com/evrythng/evrythng-java-sdk</url>
-		<tag>HEAD</tag>
+		<tag>evrythng-java-sdk-1.21</tag>
 	</scm>
 
 	<issueManagement>
