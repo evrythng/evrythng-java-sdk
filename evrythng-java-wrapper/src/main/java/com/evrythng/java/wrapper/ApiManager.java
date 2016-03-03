@@ -12,6 +12,7 @@ import com.evrythng.java.wrapper.service.ApplicationService;
 import com.evrythng.java.wrapper.service.AuthService;
 import com.evrythng.java.wrapper.service.BatchService;
 import com.evrythng.java.wrapper.service.CollectionService;
+import com.evrythng.java.wrapper.service.FileService;
 import com.evrythng.java.wrapper.service.JobsService;
 import com.evrythng.java.wrapper.service.PlaceService;
 import com.evrythng.java.wrapper.service.ProductService;
@@ -50,6 +51,7 @@ public class ApiManager {
 	private final RedirectorService redirectorService;
 	private final BatchService batchService;
 	private final JobsService jobs;
+	private final FileService fileService;
 
 	/**
 	 * Creates a new {@link ApiManager} instance using the provided
@@ -78,6 +80,7 @@ public class ApiManager {
 		this.redirectorService = new RedirectorService(this);
 		this.batchService = new BatchService(this);
 		this.jobs = new JobsService(this, getEvrythngJacksonModule());
+		this.fileService = new FileService(this);
 		createThngService();
 		createProductService();
 		createPlaceService();
@@ -236,6 +239,11 @@ public class ApiManager {
 	public ActionService actionService() {
 
 		return this.actionService;
+	}
+
+	public FileService fileService() {
+
+		return fileService;
 	}
 
 	protected void createEvrythngJacksonModule() {
