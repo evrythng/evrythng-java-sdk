@@ -32,7 +32,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 	/**
 	 * Container class that holds the sub-tasks of the current task.
 	 * <p>
-	 * The tasks are held as a map of {@link String} => {@link Contribution} instances with the sub-task ID as the key.
+	 * The tasks are held as a map of {@link String} =&gt; {@link Contribution} instances with the sub-task ID as the key.
 	 */
 	public static final class Progress {
 
