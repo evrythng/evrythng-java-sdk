@@ -18,6 +18,7 @@ import com.evrythng.thng.resource.model.store.File;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Collections;
@@ -169,6 +170,25 @@ public class FileService extends EvrythngServiceBase {
 		final SignedUploadRequest signedUploadRequest = signedUploadRequests.get(0);
 		final URL url = new URL(signedUploadRequest.getSignedUploadUrl());
 		FileUtils.uploadContent(url, toSign.getType(), content);
+		return signedUploadRequest;
+	}
+
+	/**
+	 * Obtains a signed url where to upload and uploads there data from {@link InputStream} provided.
+	 *
+	 * @param toSign a pair {@code fileName} and {@code contentType}.
+	 * @param stream {@link InputStream} where to read from. Should be closed externally.
+	 *
+	 * @return {@link SignedUploadRequest} instance containing url.
+	 */
+	public SignedUploadRequest uploadSingleFile(final FileToSign toSign, final InputStream stream)
+			throws EvrythngException, IOException {
+
+		final List<FileToSign> toSignList = Collections.singletonList(toSign);
+		final List<SignedUploadRequest> signedUploadRequests = fileUploadRequestsSigner(toSignList).execute();
+		final SignedUploadRequest signedUploadRequest = signedUploadRequests.get(0);
+		final URL url = new URL(signedUploadRequest.getSignedUploadUrl());
+		FileUtils.uploadStream(url, toSign.getType(), stream);
 		return signedUploadRequest;
 	}
 }

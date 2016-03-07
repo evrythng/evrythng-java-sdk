@@ -72,6 +72,22 @@ public class FileUtils {
 		validateConnectionAfterUpload(connection);
 	}
 
+	/**
+	 * Reads from {@link InputStream} provided and uploads data to Cloud as a file with public read access.
+	 *
+	 * @param url         upload url.
+	 * @param contentType content type.
+	 * @param stream      {@link InputStream} where to read from. Should be closed externally.
+	 */
+	public static void uploadStream(final URL url, final String contentType, final InputStream stream) throws IOException {
+
+		HttpURLConnection connection = getConnectionForUpload(url, contentType);
+		try (OutputStream output = connection.getOutputStream()) {
+			IOUtils.copy(stream, output);
+		}
+		validateConnectionAfterUpload(connection);
+	}
+
 	private static HttpURLConnection getConnectionForUpload(final URL url, final String contentType) throws IOException {
 
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
