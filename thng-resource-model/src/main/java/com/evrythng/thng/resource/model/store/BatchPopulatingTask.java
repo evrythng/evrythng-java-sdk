@@ -39,6 +39,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		public static final String FIELD_CONTRIBUTIONS = "contributions";
 		private Map<String, Contribution> contributions;
 		private Integer totalAmount;
+		private int failedOperationsAmount;
 
 		public Progress() {
 
@@ -85,9 +86,55 @@ public class BatchPopulatingTask extends TaskOnBatch {
 			}));
 		}
 
+		@JsonIgnore
+		public Integer getFailedThngsCount() {
+
+			return contributions.values().stream().map(new Function<Contribution, Integer>() {
+
+				@Override
+				public Integer apply(final Contribution contribution) {
+
+					return contribution.getFailedThngs();
+				}
+			}).collect(Collectors.summingInt(new ToIntFunction<Integer>() {
+
+				@Override
+				public int applyAsInt(final Integer value) {
+
+					return value;
+				}
+			}));
+		}
+
+		@JsonIgnore
+		public Integer getFailedUrlBindingsCount() {
+
+			return contributions.values().stream().map(new Function<Contribution, Integer>() {
+
+				@Override
+				public Integer apply(final Contribution contribution) {
+
+					return contribution.getFailedUrlBindings();
+				}
+			}).collect(Collectors.summingInt(new ToIntFunction<Integer>() {
+
+				@Override
+				public int applyAsInt(final Integer value) {
+
+					return value;
+				}
+			}));
+		}
+
 		public Integer getTotalAmount() {
 
 			return totalAmount;
+		}
+
+		@JsonIgnore
+		public Integer getTotalAmountIncludingFailures() {
+
+			return getThngsCount() + getUrlBindingsCount() + getFailedOperationsAmount();
 		}
 
 		public void setTotalAmount(final Integer totalAmount) {
@@ -108,7 +155,13 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		@JsonIgnore
 		public boolean isComplete() {
 
-			return getThngsCount() >= totalAmount && getUrlBindingsCount() >= totalAmount;
+			return getTotalAmountIncludingFailures() >= totalAmount;
+		}
+
+		@JsonIgnore
+		public int getFailedOperationsAmount() {
+
+			return getFailedThngsCount() + getFailedUrlBindingsCount();
 		}
 
 		/**
@@ -120,6 +173,10 @@ public class BatchPopulatingTask extends TaskOnBatch {
 			private int urlBindings;
 			public static final String FIELD_THNGS = "thngs";
 			private int thngs;
+			public static final String FIELD_FAILED_URL_BINDINGS = "failedUrlBindings";
+			private int failedUrlBindings;
+			public static final String FIELD_FAILED_THNGS = "failedThngs";
+			private int failedThngs;
 
 			@JsonIgnore
 			public void addCreatedThngsCount(final int count) {
@@ -131,6 +188,28 @@ public class BatchPopulatingTask extends TaskOnBatch {
 			public void addCreatedUrlBindingsCount(final Integer count) {
 
 				urlBindings += count;
+			}
+
+			@JsonIgnore
+			public void addFailedUrlBindingsCount(final int count) {
+
+				failedUrlBindings += count;
+			}
+
+			@JsonIgnore
+			public void addFailedThngsCount(final int count) {
+
+				failedThngs += count;
+			}
+
+			public Integer getFailedThngs() {
+
+				return failedThngs;
+			}
+
+			public Integer getFailedUrlBindings() {
+
+				return failedUrlBindings;
 			}
 
 			/**
@@ -231,20 +310,20 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		this.outputParameters = outputParameters;
 	}
 
-	public static interface InputParameters {
+	public interface InputParameters {
 
 		String FIELD_TYPE = "type";
-		public static final String FIELD_SHORT_DOMAIN = "shortDomain";
-		public static final String FIELD_GENERATE_THNGS = "generateThngs";
-		public static final String FIELD_GENERATE_REDIRECTIONS = "generateRedirections";
-		public static final String FIELD_DEFAULT_REDIRECT_URL = "defaultRedirectUrl";
-		public static final String FIELD_THNG_TEMPLATE = "thngTemplate";
+		String FIELD_SHORT_DOMAIN = "shortDomain";
+		String FIELD_GENERATE_THNGS = "generateThngs";
+		String FIELD_GENERATE_REDIRECTIONS = "generateRedirections";
+		String FIELD_DEFAULT_REDIRECT_URL = "defaultRedirectUrl";
+		String FIELD_THNG_TEMPLATE = "thngTemplate";
 
 		Type getType();
 
 		void setType(final Type type);
 
-		public static enum Type {
+		enum Type {
 
 			FIXED_AMOUNT, FILE_BASED, LIST_BASED
 		}
@@ -266,7 +345,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		void setThngTemplate(ThngTemplate thngTemplate);
 	}
 
-	public static interface OutputParameters {
+	public interface OutputParameters {
 
 		String FIELD_TYPE = "type";
 		String FIELD_COLUMNS = "columns";
@@ -275,12 +354,12 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 		void setType(final Type type);
 
-		public static enum Type {
+		enum Type {
 
 			CSV(Format.CSV);
 			private final Format format;
 
-			private Type(final Format format) {
+			Type(final Format format) {
 
 				this.format = format;
 			}
@@ -291,13 +370,13 @@ public class BatchPopulatingTask extends TaskOnBatch {
 			}
 		}
 		
-		public static enum Format {
+		enum Format {
 			
 			CSV("csv", "text/csv");
 			private final String extension;
 			private final String mimeType;
 
-			private Format(final String extension, final String mimeType) {
+			Format(final String extension, final String mimeType) {
 
 				this.extension = extension;
 				this.mimeType = mimeType;
@@ -314,12 +393,12 @@ public class BatchPopulatingTask extends TaskOnBatch {
 			}
 		}
 
-		public static enum Column {
+		enum Column {
 
 			SHORT_ID("shortId"), THNG("thng");
 			private final String name;
 
-			private Column(final String name) {
+			Column(final String name) {
 
 				this.name = name;
 			}

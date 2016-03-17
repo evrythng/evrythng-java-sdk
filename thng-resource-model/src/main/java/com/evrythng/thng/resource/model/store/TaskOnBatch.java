@@ -17,8 +17,8 @@ public abstract class TaskOnBatch extends Task {
     public static final String FIELD_RESULT = "result";
 
 	// Might be promoted to a super class !
-	public static enum Status {
-		PENDING, EXECUTING, EXECUTED, CANCELING, FAILED;
+	public enum Status {
+		PENDING, EXECUTING, EXECUTED, EXECUTED_WITH_FAILURES, CANCELING, FAILED
 	}
 
 	public Status getStatus() {
@@ -56,20 +56,34 @@ public abstract class TaskOnBatch extends Task {
         return result;
     }
 
-    public void setResult(BaseTaskResult result) {
+    public void setResult(final BaseTaskResult result) {
 
         this.result = result;
     }
 
-    public static enum Type {
+    public enum Type {
 
-		POPULATING, SHORT_ID_GENERATION;
-	}
+		POPULATING, SHORT_ID_GENERATION
+    }
 
 	public abstract static class BaseTaskResult {
 		
 		public static String FIELD_TYPE = "type";
 		private Type type;
+
+		public static final String FIELD_FAILED_OPERATIONS_AMOUNT = "failedOperationsAmount";
+
+		private Long failedOperationsAmount = 0L;
+
+		public final void setFailedOperationsAmount(final Long failedOperationsAmount) {
+
+			this.failedOperationsAmount = failedOperationsAmount;
+		}
+
+		public final Long getFailedOperationsAmount() {
+
+			return failedOperationsAmount;
+		}
 
 		public Type getType() {
 
@@ -81,9 +95,9 @@ public abstract class TaskOnBatch extends Task {
 			this.type = type;
 		}
 
-        public static enum Type {
+        public enum Type {
 
-            POPULATING, SHORT_ID_GENERATION, ERROR;
+            POPULATING, SHORT_ID_GENERATION, ERROR
         }
 	}
 
