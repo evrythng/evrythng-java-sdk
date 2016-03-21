@@ -170,4 +170,15 @@ public class UrlBinding extends AbstractUrlBinding {
 		}
 		return sb.toString();
 	}
+
+	@Override
+	public String toString() {
+
+		StringBuilder sb = new StringBuilder("{");
+		sb.append("shortDomain='").append(getShortDomain()).append('\'');
+		sb.append(", shortId='").append(shortId).append('\'');
+		sb.append(", defaultRedirectUrl='").append(getDefaultRedirectUrl()).append('\'');
+		sb.append(", evrythngId='").append(evrythngId).append('\'');
+		return sb.toString();
+	}
 }

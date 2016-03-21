@@ -5,17 +5,16 @@
 
 package com.evrythng.thng.resource.model.store.thng.jobs.creation;
 
-import com.evrythng.thng.resource.model.store.Thng;
 import com.evrythng.thng.resource.model.store.jobs.creation.CreateResourcesJob;
 import com.evrythng.thng.resource.model.store.thng.jobs.ThngJob;
 
 import java.util.Arrays;
 import java.util.List;
 
-public final class CreateThngsJob extends ThngJob<CreateThngsJob.OptionType> implements CreateResourcesJob<Thng> {
+public final class CreateThngsJob extends ThngJob<CreateThngsJob.OptionType> implements CreateResourcesJob<ThngCreationBundle> {
 
 	private static final long serialVersionUID = -6679521183634195240L;
-	private Thng template;
+	private ThngCreationBundle template;
 	private Input input;
 
 	public CreateThngsJob() {
@@ -24,13 +23,13 @@ public final class CreateThngsJob extends ThngJob<CreateThngsJob.OptionType> imp
 	}
 
 	@Override
-	public void setTemplate(final Thng template) {
+	public void setTemplate(final ThngCreationBundle template) {
 
 		this.template = template;
 	}
 
 	@Override
-	public Thng getTemplate() {
+	public ThngCreationBundle getTemplate() {
 
 		return template;
 	}
