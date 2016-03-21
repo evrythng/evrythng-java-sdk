@@ -47,7 +47,7 @@ public final class CreateThngsJob extends ThngJob<CreateThngsJob.OptionType> imp
 	}
 
 	public enum OptionType {
-		OVERRIDE_TEMPLATE
+		SINGLE_RESOURCE_NOTIFICATION, SINGLE_RESOURCE_REACTIONS
 	}
 
 	@Override

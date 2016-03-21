@@ -46,13 +46,13 @@ public abstract class Job<PROGRESS extends Progress, TYPE, OPTION_TYPE extends E
 	@Override
 	public final List<NewStatus> getHistory() {
 
-		return history != null ? new ArrayList<>(history) : null;
+		return history != null ? new ArrayList<>(history) : new ArrayList<NewStatus>();
 	}
 
 	@Override
 	public final void setHistory(final List<NewStatus> history) {
 
-		this.history = history != null ? new ArrayList<>(history) : null;
+		this.history = history != null ? new ArrayList<>(history) : new ArrayList<NewStatus>();
 	}
 
 	@Override
@@ -103,12 +103,12 @@ public abstract class Job<PROGRESS extends Progress, TYPE, OPTION_TYPE extends E
 	@Override
 	public final List<JobOption<OPTION_TYPE>> getOptions() {
 
-		return options != null ? new ArrayList<>(options) : null;
+		return options != null ? new ArrayList<>(options) : new ArrayList<JobOption<OPTION_TYPE>>();
 	}
 
 	@Override
 	public final void setOptions(final List<JobOption<OPTION_TYPE>> options) {
 
-		this.options = options != null ? new ArrayList<>(options) : null;
+		this.options = options != null ? new ArrayList<>(options) : new ArrayList<JobOption<OPTION_TYPE>>();
 	}
 }
