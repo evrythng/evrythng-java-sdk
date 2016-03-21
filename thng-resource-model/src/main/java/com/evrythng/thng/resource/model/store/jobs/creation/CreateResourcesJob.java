@@ -11,7 +11,7 @@ public interface CreateResourcesJob<RESOURCE> {
 	void setTemplate(RESOURCE template);
 	RESOURCE getTemplate();
 
-	String FIELD_INPUT = "template";
+	String FIELD_INPUT = "input";
 	void setInput(Input input);
 	Input getInput();
 
@@ -21,7 +21,7 @@ public interface CreateResourcesJob<RESOURCE> {
 			FILE_BASED, LIST_BASED
 		}
 
-		String FIELD_TYPE = "template";
+		String FIELD_TYPE = "type";
 		void setType(Type type);
 		Type getType();
 	}

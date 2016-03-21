@@ -34,6 +34,8 @@ import com.evrythng.thng.resource.model.store.rule.reaction.Reaction;
 import com.evrythng.thng.resource.model.store.rule.reaction.RedirectionReaction;
 import com.evrythng.thng.resource.model.store.rule.reaction.TextAddedReaction;
 import com.evrythng.thng.resource.model.store.rule.reaction.TierLevelChangedReaction;
+import com.evrythng.thng.resource.model.store.thng.jobs.ThngJob;
+import com.evrythng.thng.resource.model.store.thng.jobs.creation.CreateThngsJob;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -84,7 +86,7 @@ public class EvrythngJacksonModuleImpl extends SimpleModule implements EvrythngJ
 		addDeserializer(ShortIdTemplate.class, shortIdTemplateDeserializer);
 
 		registerActionsJobDeserializers();
-
+		registerThngJobDeserializers();
 	}
 
 	public static ActionDeserializerImpl createActionDeserializer() {
@@ -129,6 +131,16 @@ public class EvrythngJacksonModuleImpl extends SimpleModule implements EvrythngJ
 		// Creation
 		CreateActionsJobInputDeserializer creationInput = new CreateActionsJobInputDeserializer();
 		addDeserializer(CreateActionJob.Input.class, creationInput);
+	}
+
+	private void registerThngJobDeserializers() {
+
+		ThngJobDeserializer base = new ThngJobDeserializer();
+		addDeserializer(ThngJob.class, base);
+
+		// Creation
+		CreateThngsJobInputDeserializer creationInput = new CreateThngsJobInputDeserializer();
+		addDeserializer(CreateThngsJob.Input.class, creationInput);
 	}
 
 	@Override
