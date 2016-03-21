@@ -21,4 +21,34 @@ public class FileLocationResource {
 	public enum Format {
 		JSON, JSON_ZIP
 	}
+
+	public Map<String, String> getHeaders() {
+
+		return headers;
+	}
+
+	public void setHeaders(final Map<String, String> headers) {
+
+		this.headers = headers;
+	}
+
+	public String getLocation() {
+
+		return location;
+	}
+
+	public void setLocation(final String location) {
+
+		this.location = location;
+	}
+
+	public Format getFormat() {
+
+		return format;
+	}
+
+	public void setFormat(final Format format) {
+
+		this.format = format;
+	}
 }
