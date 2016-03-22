@@ -7,6 +7,8 @@ package com.evrythng.thng.resource.model.store.jobs;
 
 public final class RequestedAmountProgress extends Progress {
 
+	public static final String FIELD_AMOUNT_REQUESTED = "amountRequested";
+
 	private Long amountRequested;
 	private Long amountCompleted;
 
