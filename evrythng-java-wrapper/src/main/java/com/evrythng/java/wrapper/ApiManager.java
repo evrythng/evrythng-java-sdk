@@ -22,6 +22,7 @@ import com.evrythng.java.wrapper.service.ScanService;
 import com.evrythng.java.wrapper.service.SearchService;
 import com.evrythng.java.wrapper.service.ThngService;
 import com.evrythng.java.wrapper.service.TimeService;
+import com.evrythng.java.wrapper.service.UrlBindingService;
 import com.evrythng.java.wrapper.util.JSONUtils;
 import com.evrythng.thng.commons.config.ApiConfiguration;
 import org.apache.commons.lang3.StringUtils;
@@ -52,6 +53,7 @@ public class ApiManager {
 	private final BatchService batchService;
 	private final JobsService jobs;
 	private final FileService fileService;
+	private UrlBindingService urlBindingService;
 
 	/**
 	 * Creates a new {@link ApiManager} instance using the provided
@@ -85,6 +87,7 @@ public class ApiManager {
 		createProductService();
 		createPlaceService();
 		createActionService();
+		createUrlBindingService();
 	}
 
 	/**
@@ -260,4 +263,15 @@ public class ApiManager {
 
 		return evrythngJacksonModule;
 	}
+
+	protected void createUrlBindingService() {
+
+		urlBindingService = new UrlBindingService(this);
+	}
+
+	public UrlBindingService urlBindingService() {
+
+		return urlBindingService;
+	}
+
 }
