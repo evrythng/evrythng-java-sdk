@@ -54,20 +54,6 @@ public class ActionJobsService extends EvrythngServiceBase {
 		}
 	}
 
-	private static final class LogsListReference extends TypeReference<List<JobLogEntry>> {
-
-		private static final LogsListReference INSTANCE = new LogsListReference();
-
-		private static LogsListReference instance() {
-
-			return INSTANCE;
-		}
-
-		private LogsListReference() {
-
-		}
-	}
-
 	public ActionJobsService(final ApiManager apiManager, final EvrythngJacksonModule module) {
 
 		super(apiManager);

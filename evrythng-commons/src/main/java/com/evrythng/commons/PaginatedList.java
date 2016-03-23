@@ -7,7 +7,6 @@ package com.evrythng.commons;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * List that represent only a portion of the full list. The items are not
@@ -46,13 +45,13 @@ public class PaginatedList<E> {
 		this(items, totalCount, pagination.getOffset(), pagination.getPerPage());
 	}
 
-	public PaginatedList(List<E> items, Pagination pagination, Optional<Long> totalCount) {
-		this(items, totalCount.isPresent() ? totalCount.get() : -1, pagination.getOffset(), pagination.getPerPage());
+	public PaginatedList(List<E> items, Pagination pagination, Long totalCount) {
+		this(items, totalCount != null ? totalCount : -1, pagination.getOffset(), pagination.getPerPage());
 	}
 
-	public PaginatedList(List<E> items, Optional<Ref<Long>> totalCount, Pagination pagination) {
+	public PaginatedList(List<E> items, Ref<Long> totalCount, Pagination pagination) {
 
-		this(items, totalCount.isPresent() ? totalCount.get().get() : -1, pagination.getOffset(), pagination.getPerPage());
+		this(items, totalCount != null ? totalCount.get() : -1, pagination.getOffset(), pagination.getPerPage());
 	}
 
 	/**
