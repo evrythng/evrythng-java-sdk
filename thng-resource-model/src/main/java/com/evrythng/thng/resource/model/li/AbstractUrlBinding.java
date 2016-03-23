@@ -7,6 +7,8 @@ package com.evrythng.thng.resource.model.li;
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
 import com.evrythng.thng.resource.model.core.EvrythngType;
 
+import java.util.Map;
+
 /**
  * URL binding model.
  */
@@ -19,6 +21,7 @@ public abstract class AbstractUrlBinding extends DurableResourceModel {
 	private String shortDomain;
 	private String defaultRedirectUrl;
 	private String redirectUrl;
+	private Map<String, Object> redirectionContext;
 	private EvrythngType type;
 	private String evrythngUrl;
 
@@ -95,5 +98,15 @@ public abstract class AbstractUrlBinding extends DurableResourceModel {
 	 */
 	public void setEvrythngUrl(final String evrythngUrl) {
 		this.evrythngUrl = evrythngUrl;
+	}
+
+	public Map<String, Object> getRedirectionContext() {
+
+		return redirectionContext;
+	}
+
+	public void setRedirectionContext(final Map<String, Object> redirectionContext) {
+
+		this.redirectionContext = redirectionContext;
 	}
 }
