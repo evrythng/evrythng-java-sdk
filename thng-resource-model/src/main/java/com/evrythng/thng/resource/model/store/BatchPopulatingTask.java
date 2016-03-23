@@ -9,9 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.function.ToIntFunction;
-import java.util.stream.Collectors;
 
 public class BatchPopulatingTask extends TaskOnBatch {
 
@@ -39,7 +36,6 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		public static final String FIELD_CONTRIBUTIONS = "contributions";
 		private Map<String, Contribution> contributions;
 		private Integer totalAmount;
-		private int failedOperationsAmount;
 
 		public Progress() {
 
@@ -49,81 +45,49 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		@JsonIgnore
 		public Integer getThngsCount() {
 
-			return contributions.values().stream().map(new Function<Contribution, Integer>() {
+			int thngs = 0;
+			for (Contribution contribution : contributions.values()) {
 
-				@Override
-				public Integer apply(final Contribution contribution) {
+				thngs += contribution.getThngs();
+			}
 
-					return contribution.getThngs();
-				}
-			}).collect(Collectors.summingInt(new ToIntFunction<Integer>() {
-
-				@Override
-				public int applyAsInt(final Integer value) {
-
-					return value;
-				}
-			}));
+			return thngs;
 		}
 
 		@JsonIgnore
 		public Integer getUrlBindingsCount() {
 
-			return contributions.values().stream().map(new Function<Contribution, Integer>() {
+			int urlBindings = 0;
+			for (Contribution contribution : contributions.values()) {
 
-				@Override
-				public Integer apply(final Contribution contribution) {
+				urlBindings += contribution.getUrlBindings();
+			}
 
-					return contribution.getUrlBindings();
-				}
-			}).collect(Collectors.summingInt(new ToIntFunction<Integer>() {
-
-				@Override
-				public int applyAsInt(final Integer value) {
-
-					return value;
-				}
-			}));
+			return urlBindings;
 		}
 
 		@JsonIgnore
 		public Integer getFailedThngsCount() {
 
-			return contributions.values().stream().map(new Function<Contribution, Integer>() {
+			int failedThngs = 0;
+			for (Contribution contribution : contributions.values()) {
 
-				@Override
-				public Integer apply(final Contribution contribution) {
+				failedThngs += contribution.getFailedThngs();
+			}
 
-					return contribution.getFailedThngs();
-				}
-			}).collect(Collectors.summingInt(new ToIntFunction<Integer>() {
-
-				@Override
-				public int applyAsInt(final Integer value) {
-
-					return value;
-				}
-			}));
+			return failedThngs;
 		}
 
 		@JsonIgnore
 		public Integer getFailedUrlBindingsCount() {
 
-			return contributions.values().stream().map(new Function<Contribution, Integer>() {
+			int failedUrlBindings = 0;
+			for (Contribution contribution : contributions.values()) {
 
-				@Override
-				public Integer apply(final Contribution contribution) {
+				failedUrlBindings += contribution.getFailedUrlBindings();
+			}
 
-					return contribution.getFailedUrlBindings();
-				}
-			}).collect(Collectors.summingInt(new ToIntFunction<Integer>() {
-
-				@Override
-				public int applyAsInt(final Integer value) {
-
-					return value;
-				}
-			}));
+			return failedUrlBindings;
 		}
 
 		public Integer getTotalAmount() {
