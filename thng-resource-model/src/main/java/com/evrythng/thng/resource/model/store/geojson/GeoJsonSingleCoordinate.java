@@ -51,7 +51,7 @@ public abstract class GeoJsonSingleCoordinate extends GeoJson implements Traceab
 	}
 
 	@JsonProperty(FIELD_COORDINATES)
-	public double[] getCoordinatesArr() {
+	public Double[] getCoordinatesArr() {
 
 		return coordinates.getCoordinates();
 	}
@@ -63,7 +63,7 @@ public abstract class GeoJsonSingleCoordinate extends GeoJson implements Traceab
 		this.coordinates = coordinates;
 	}
 
-	public void setCoordinatesArr(final double... coordinates) {
+	public void setCoordinatesArr(final Double... coordinates) {
 
 		this.coordinates.setCoordinates(coordinates);
 	}

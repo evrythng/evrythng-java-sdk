@@ -16,16 +16,16 @@ import java.util.Arrays;
 public class GeoJsonLocation implements Traceable, Serializable {
 
 	private static final long serialVersionUID = -2750554873532665915L;
-	private double[] coordinates;
+	private Double[] coordinates;
 
 	public GeoJsonLocation() {
 
-		this(0, 0);
+		this(null, null);
 	}
 
-	public GeoJsonLocation(final double latitude, final double longitude) {
+	public GeoJsonLocation(final Double latitude, final Double longitude) {
 
-		this.coordinates = new double[] { longitude, latitude };
+		this.coordinates = new Double[] { longitude, latitude };
 	}
 
 	@Override
@@ -52,12 +52,12 @@ public class GeoJsonLocation implements Traceable, Serializable {
 		coordinates[GeoJson.LON_IDX] = longitude;
 	}
 
-	public double[] getCoordinates() {
+	public Double[] getCoordinates() {
 
 		return coordinates;
 	}
 
-	public void setCoordinates(final double... coordinates) {
+	public void setCoordinates(final Double... coordinates) {
 
 		this.coordinates = coordinates;
 	}

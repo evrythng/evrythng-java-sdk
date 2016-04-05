@@ -9,13 +9,13 @@ public class GeoJsonHelper {
 
 	public static Double getLatitude(final GeoJsonPoint loc) {
 
-		double[] coordinates = loc.getCoordinatesArr();
+		Double[] coordinates = loc.getCoordinatesArr();
 		return coordinates == null ? null : loc.getCoordinatesArr()[GeoJson.LAT_IDX];
 	}
 
 	public static Double getLongitude(final GeoJsonPoint loc) {
 
-		double[] coordinates = loc.getCoordinatesArr();
+		Double[] coordinates = loc.getCoordinatesArr();
 		return coordinates == null ? null : loc.getCoordinatesArr()[GeoJson.LON_IDX];
 	}
 
@@ -28,7 +28,7 @@ public class GeoJsonHelper {
 				throw new IllegalArgumentException("latitude and longitude must either be both null, or both non null.");
 			}
 		} else {
-			double[] coordinates = loc.getCoordinatesArr();
+			Double[] coordinates = loc.getCoordinatesArr();
 			if (coordinates == null) {
 				loc.setCoordinatesArr(longitude, latitude);
 			} else {

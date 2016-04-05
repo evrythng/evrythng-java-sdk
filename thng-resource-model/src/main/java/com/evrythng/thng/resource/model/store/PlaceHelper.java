@@ -11,10 +11,10 @@ import com.evrythng.thng.resource.model.store.geojson.GeoJsonPoint;
  */
 public class PlaceHelper {
 
-	public static double[] getCoordinates(final GeoJsonPoint location) {
+	public static Double[] getCoordinates(final GeoJsonPoint location) {
 
 		try {
-			return new double[] { location.getLongitude(), location.getLatitude() };
+			return new Double[] { location.getLongitude(), location.getLatitude() };
 		} catch (NullPointerException e) {
 			return null;
 		}

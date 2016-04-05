@@ -6,7 +6,7 @@ public class GeoJsonPoint extends GeoJsonSingleCoordinate {
 
 	public GeoJsonPoint() {
 
-		this(0d, 0d);
+		this(null, null);
 	}
 
 	public GeoJsonPoint(final Double latitude, final Double longitude) {
