@@ -16,8 +16,10 @@ import com.evrythng.thng.resource.model.store.Thng;
 import com.evrythng.thng.resource.model.store.action.Action;
 import com.evrythng.thng.resource.model.store.action.CustomAction;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.common.collect.ImmutableList;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -73,6 +75,13 @@ public class ThngService extends EvrythngServiceBase {
 	public Builder<List<Thng>> thngsReader() throws EvrythngClientException {
 
 		return get(PATH_THNGS, new TypeReference<List<Thng>>() {
+
+		});
+	}
+
+	public final Builder<Iterator<ImmutableList<Thng>>> iterator() throws EvrythngClientException {
+
+		return iterator(PATH_THNGS, new TypeReference<List<Thng>>() {
 
 		});
 	}
@@ -228,7 +237,7 @@ public class ThngService extends EvrythngServiceBase {
 	 * @return a pre-configured {@link Builder}
 	 */
 	public Builder<List<Property<?>>> propertyUpdater(final String thngId, final String key,
-	                                                          final Property<?> update)
+	                                                         final Property<?> update)
 			throws EvrythngClientException {
 
 		return put(String.format(PATH_THNG_PROPERTY, thngId, key), Collections.singletonList(update),
@@ -429,7 +438,7 @@ public class ThngService extends EvrythngServiceBase {
 	public <T extends Action> Builder<T> actionCreator(final String thngId, final T action) throws EvrythngClientException {
 
 		return (Builder<T>) post(String.format(PATH_THNG_TYPED_ACTIONS, thngId, action.getType()), action,
-		                         new TypeReference<Action>() {
+		                                new TypeReference<Action>() {
 
 		                         });
 	}

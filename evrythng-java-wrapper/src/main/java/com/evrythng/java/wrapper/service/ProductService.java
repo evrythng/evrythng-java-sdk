@@ -152,7 +152,7 @@ public class ProductService extends EvrythngServiceBase {
 	 * @return a pre-configured {@link Builder}
 	 */
 	public Builder<List<Property<?>>> propertiesCreator(final String productId,
-	                                                            final List<Property<?>> properties)
+	                                                           final List<Property<?>> properties)
 			throws EvrythngClientException {
 
 		return put(String.format(PATH_PRODUCT_PROPERTIES, productId), properties, new TypeReference<List<Property<?>>>
@@ -213,7 +213,7 @@ public class ProductService extends EvrythngServiceBase {
 	 * @return a pre-configured {@link Builder}
 	 */
 	public Builder<List<Property<?>>> propertyUpdater(final String productId, final String key,
-	                                                          final Property<?> update)
+	                                                         final Property<?> update)
 			throws EvrythngClientException {
 
 		return put(String.format(PATH_PRODUCT_PROPERTY, productId, key), Collections.singletonList(update),
@@ -356,7 +356,7 @@ public class ProductService extends EvrythngServiceBase {
 			throws EvrythngClientException {
 
 		return (Builder<T>) post(String.format(PATH_PRODUCT_TYPED_ACTIONS, productId, action.getType()), action,
-		                         new TypeReference<Action>() {
+		                                new TypeReference<Action>() {
 
 		                         });
 	}

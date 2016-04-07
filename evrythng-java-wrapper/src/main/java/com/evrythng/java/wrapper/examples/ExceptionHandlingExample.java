@@ -5,15 +5,15 @@
  */
 package com.evrythng.java.wrapper.examples;
 
-import com.evrythng.thng.commons.config.ApiConfiguration;
 import com.evrythng.java.wrapper.ApiManager;
-import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
+import com.evrythng.java.wrapper.core.EvrythngApiBuilder;
 import com.evrythng.java.wrapper.core.ExampleRunner;
 import com.evrythng.java.wrapper.exception.BadRequestException;
 import com.evrythng.java.wrapper.exception.EvrythngException;
 import com.evrythng.java.wrapper.exception.ForbiddenException;
 import com.evrythng.java.wrapper.exception.NotFoundException;
 import com.evrythng.java.wrapper.service.ThngService;
+import com.evrythng.thng.commons.config.ApiConfiguration;
 import com.evrythng.thng.resource.model.store.Thng;
 
 /**
@@ -65,7 +65,7 @@ public class ExceptionHandlingExample extends ExampleRunner {
 
 		// Let's try to create a Thng with invalid data:
 		Thng thng = new Thng(); // Missing required 'name' field
-		Builder<Thng> thngCreator = thngService.thngCreator(thng);
+		EvrythngApiBuilder.Builder<Thng> thngCreator = thngService.thngCreator(thng);
 		try {
 			echo("Trying to create a new Thng: [input={}]", thng);
 			thngCreator.execute();
@@ -85,7 +85,7 @@ public class ExceptionHandlingExample extends ExampleRunner {
 		echo("Thng deleted: [output={}]", deleted);
 
 		// Let's try to retrieve deleted Thng:
-		Builder<Thng> thngReader = thngService.thngReader(thng.getId());
+		EvrythngApiBuilder.Builder<Thng> thngReader = thngService.thngReader(thng.getId());
 		try {
 			echo("Trying to retrieve deleted Thng: [id={}]", thng.getId());
 			thngReader.execute();

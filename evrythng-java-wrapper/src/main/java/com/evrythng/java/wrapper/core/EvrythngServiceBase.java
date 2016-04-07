@@ -7,11 +7,16 @@ package com.evrythng.java.wrapper.core;
 import com.evrythng.java.wrapper.ApiManager;
 import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.api.AcceptedResourceResponse;
+import com.evrythng.java.wrapper.core.api.ApiCommand;
+import com.evrythng.java.wrapper.core.api.QueryParamValue;
+import com.evrythng.java.wrapper.core.api.TypedResponseWithEntity;
 import com.evrythng.java.wrapper.core.http.Status;
 import com.evrythng.java.wrapper.exception.EvrythngClientException;
+import com.evrythng.java.wrapper.exception.EvrythngException;
 import com.evrythng.java.wrapper.util.URIBuilder;
 import com.evrythng.thng.commons.config.ApiConfiguration;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.common.collect.ImmutableList;
 import org.apache.commons.codec.binary.Base64InputStream;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
@@ -23,6 +28,9 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -43,6 +51,272 @@ public class EvrythngServiceBase {
 
 		this.api = api;
 		this.config = api.getConfig();
+	}
+
+	protected final <T> Builder<Iterator<ImmutableList<T>>> iterator(final String relativePath, final TypeReference<List<T>> pageType) throws EvrythngClientException {
+
+		EvrythngApiBuilder.UncheckedBuilder<Iterator<ImmutableList<T>>> builder = EvrythngApiBuilder.iterate(config.getKey(), absoluteUri(relativePath), Status.OK, pageType);
+
+		Builder<Iterator<ImmutableList<T>>> adapter = new BuilderUncheckedAdapter<>(builder);
+		onBuilderCreated(adapter);
+		return adapter;
+	}
+
+	private static final class BuilderUncheckedAdapter<TYPE> implements Builder<TYPE> {
+
+		private final EvrythngApiBuilder.UncheckedBuilder<TYPE> internal;
+
+		private BuilderUncheckedAdapter(final EvrythngApiBuilder.UncheckedBuilder<TYPE> internal) {
+
+			this.internal = internal;
+		}
+
+		@Override
+		public final TypedResponseWithEntity<TYPE> executeWithResponse() throws EvrythngException {
+
+			return internal.executeWithResponse();
+		}
+
+		@Override
+		public final Builder<TYPE> queryParam(final String name, final String value) {
+
+			internal.queryParam(name, value);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> placeHolder(final Boolean placeHolder) {
+
+			internal.placeHolder(placeHolder);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> queryParam(final QueryParamValue qpv) {
+
+			internal.queryParam(qpv);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> queryParam(final String name, final List<String> values) {
+
+			internal.queryParam(name, values);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> queryParamList(final String name, final List<String> values) {
+
+			internal.queryParamList(name, values);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> queryParamList(final String name, final String... values) {
+
+			internal.queryParamList(name, values);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> queryParams(final Map<String, String> params) {
+
+			internal.queryParams(params);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> header(final String name, final String value) {
+
+			internal.header(name, value);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> accept(final String mediaType) {
+
+			internal.accept(mediaType);
+			return this;
+		}
+
+		@Override
+		public final TYPE execute() throws EvrythngException {
+
+			return internal.execute();
+		}
+
+		@Override
+		public final String content() throws EvrythngException {
+
+			return internal.content();
+		}
+
+		@Override
+		public final HttpResponse request() throws EvrythngException {
+
+			return internal.request();
+		}
+
+		@Override
+		public final InputStream stream() throws EvrythngException {
+
+			return internal.stream();
+		}
+
+		@Override
+		public final ApiCommand<TYPE> getCommand() {
+
+			return internal.getCommand();
+		}
+
+		@Override
+		public final Builder<TYPE> apiKey(final String apiKey) {
+
+			internal.apiKey(apiKey);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> search(final String pattern) {
+
+			internal.search(pattern);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> withScopes(final boolean withScopes) {
+
+			internal.withScopes(withScopes);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> withPagination(final int page, final int perPage) {
+
+			internal.withPagination(page, perPage);
+			return this;
+		}
+
+		// TODO _MS_ remove it!
+		@Override
+		@Deprecated
+		public final Builder<TYPE> page(final int page) {
+
+			internal.page(page);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> perPage(final int perPage) {
+
+			internal.perPage(perPage);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> from(final long from) {
+
+			internal.from(from);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> from(final String from) {
+
+			internal.from(from);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> from(final ApiConfiguration.QueryKeyword queryKeyword) {
+
+			internal.from(queryKeyword);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> to(final long to) {
+
+			internal.to(to);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> to(final String to) {
+
+			internal.to(to);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> to(final ApiConfiguration.QueryKeyword queryKeyword) {
+
+			internal.to(queryKeyword);
+			return this;
+		}
+
+		@Override
+		@Deprecated
+		public final Builder<TYPE> app(final String appId) {
+
+			internal.app(appId);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> userScope(final Iterable<String> scope) {
+
+			internal.userScope(scope);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> userScopeAll() {
+
+			internal.userScopeAll();
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> ids(final List<String> ids) {
+
+			internal.ids(ids);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> filter(final String filter) {
+
+			internal.filter(filter);
+			return this;
+		}
+
+		@Override
+		public final Builder<TYPE> project(final String projectId) {
+
+			internal.project(projectId);
+			return this;
+		}
+
+		@Override
+		@Deprecated
+		public final int count() throws EvrythngException {
+
+			return internal.count();
+		}
+
+		@Override
+		public final Result<TYPE> list() throws EvrythngException {
+
+			return internal.list();
+		}
+
+		@Override
+		public final String jsonp(final String callback) throws EvrythngException {
+
+			return internal.jsonp(callback);
+		}
 	}
 
 	/**

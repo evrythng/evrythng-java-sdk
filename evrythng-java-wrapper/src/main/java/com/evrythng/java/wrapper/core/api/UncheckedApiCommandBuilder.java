@@ -1,5 +1,5 @@
 /*
- * (c) Copyright 2012 EVRYTHNG Ltd London / Zurich
+ * (c) Copyright 2016 EVRYTHNG Ltd London / Zurich
  * www.evrythng.com
  */
 package com.evrythng.java.wrapper.core.api;
@@ -22,9 +22,9 @@ import java.util.Map.Entry;
  * Generic API command builder.
  */
 @SuppressWarnings("rawtypes")
-public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
+public class UncheckedApiCommandBuilder<T, B extends UncheckedApiCommandBuilder> {
 
-	private final ApiCommand<T> command;
+	private final ApiCommand<?> command;
 
 	/**
 	 * @param methodBuilder  the {@link MethodBuilder} used for creating the
@@ -34,7 +34,7 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	 * @param responseType   the native type to which the {@link HttpResponse} will be
 	 *                       mapped to
 	 */
-	public ApiCommandBuilder(final MethodBuilder<?> methodBuilder, final URI uri, final Status responseStatus, final TypeReference<T> responseType) {
+	public <X> UncheckedApiCommandBuilder(final MethodBuilder<?> methodBuilder, final URI uri, final Status responseStatus, final TypeReference<X> responseType) {
 
 		this.command = new ApiCommand<>(methodBuilder, uri, responseStatus, responseType);
 	}
@@ -188,11 +188,6 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 		return header(ApiConfiguration.HTTP_HEADER_ACCEPT, mediaType);
 	}
 
-	public TypedResponseWithEntity<T> executeWithResponse() throws EvrythngException {
-
-		return command.bundle();
-	}
-
 	/**
 	 * Executes the current command and maps the {@link HttpResponse} entity to
 	 * {@code T} specified by {@link ApiCommand#responseType}.
@@ -200,9 +195,9 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	 * @return the {@link HttpResponse} entity mapped to {@code T}
 	 * @see ApiCommand#execute()
 	 */
-	public T execute() throws EvrythngException {
+	public <X> X execute() throws EvrythngException {
 
-		return command.execute();
+		return (X) command.execute();
 	}
 
 	/**
@@ -243,8 +238,8 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	/**
 	 * @return {@link ApiCommand} instance
 	 */
-	public ApiCommand<T> getCommand() {
+	public <X> ApiCommand<X> getCommand() {
 
-		return command;
+		return (ApiCommand<X>) command;
 	}
 }

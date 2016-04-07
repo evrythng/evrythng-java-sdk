@@ -202,7 +202,7 @@ public class CollectionService extends EvrythngServiceBase {
 			throws EvrythngClientException {
 
 		return (Builder<T>) post(String.format(PATH_COLLECTIONS_TYPED_ACTIONS, collectionId, actionToCreate.getType()),
-		                         actionToCreate, new TypeReference<Action>() {
+		                                actionToCreate, new TypeReference<Action>() {
 
 				});
 	}
