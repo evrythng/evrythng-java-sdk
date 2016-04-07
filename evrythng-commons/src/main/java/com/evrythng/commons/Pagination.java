@@ -4,12 +4,15 @@
  */
 package com.evrythng.commons;
 
+import com.evrythng.commons.domain.Size;
+import com.evrythng.commons.domain.SortOrder;
+
 /**
  * Class to hold zero-based pagination information.
- * 
+ *
  * This class is thread-safe.
  * This class is immutable.
- * 
+ *
  * @author Michel Yerly (my)
  **/
 public final class Pagination {
@@ -44,5 +47,20 @@ public final class Pagination {
 	@Override
 	public String toString() {
 		return String.format("Pagination [page=%s, perPage=%s, offset=%s]", page, perPage, offset);
+	}
+
+	public Integer token() {
+
+		return page;
+	}
+
+	public Size size() {
+
+		return Size.of(getPageOneBased());
+	}
+
+	public SortOrder sortOrder() {
+
+		return SortOrder.descending();
 	}
 }

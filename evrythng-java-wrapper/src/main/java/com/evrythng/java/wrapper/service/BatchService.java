@@ -6,7 +6,6 @@
 package com.evrythng.java.wrapper.service;
 
 import com.evrythng.java.wrapper.ApiManager;
-import com.evrythng.java.wrapper.core.EvrythngApiBuilder;
 import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.EvrythngServiceBase;
 import com.evrythng.java.wrapper.core.api.AcceptedResourceResponse;
@@ -162,7 +161,7 @@ public class BatchService extends EvrythngServiceBase {
 	 * @param taskId task id
 	 * @return a preconfigured {@link Builder}
 	 */
-	public EvrythngApiBuilder.Builder<List<JobLogEntry>> logsReader(final String batchId, final String taskId) throws EvrythngClientException {
+	public Builder<List<JobLogEntry>> logsReader(final String batchId, final String taskId) throws EvrythngClientException {
 
 		return get(String.format(PATH_BATCH_TASK_LOGS, batchId, taskId), LogsListReference.instance());
 	}

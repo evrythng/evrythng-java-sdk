@@ -12,13 +12,23 @@ import org.apache.http.HttpResponse;
  **/
 public class TypedResponseWithEntity<T> {
 
-	public final HttpResponse httpResponse;
+	private final HttpResponse httpResponse;
 
-	public final T entity;
+	private final T entity;
 
 	public TypedResponseWithEntity(final HttpResponse httpResponse, final T entity) {
+
 		this.httpResponse = httpResponse;
 		this.entity = entity;
 	}
 
+	public final HttpResponse response() {
+
+		return httpResponse;
+	}
+
+	public final T entity() {
+
+		return entity;
+	}
 }

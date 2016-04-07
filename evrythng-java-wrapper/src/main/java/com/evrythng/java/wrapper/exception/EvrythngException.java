@@ -8,7 +8,7 @@ package com.evrythng.java.wrapper.exception;
 /**
  * Root definition for handling any exception thrown by the wrapper.
  **/
-public abstract class EvrythngException extends Exception {
+public abstract class EvrythngException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
