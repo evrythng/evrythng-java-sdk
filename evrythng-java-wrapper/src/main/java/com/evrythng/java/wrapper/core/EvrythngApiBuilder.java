@@ -33,6 +33,8 @@ import com.evrythng.thng.commons.config.ApiConfiguration;
 import com.evrythng.thng.commons.config.ApiConfiguration.QueryKeyword;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.ImmutableList;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.net.URLCodec;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
@@ -168,6 +170,7 @@ public final class EvrythngApiBuilder {
 
 	private static class IteratorBuilder<T> extends UncheckedBuilder<Iterator<ImmutableList<T>>> {
 
+		private static final URLCodec CODEC = new URLCodec();
 		private final String apiKey;
 		private final Status responseStatus;
 		private final TypeReference<List<T>> pageType;
@@ -220,10 +223,19 @@ public final class EvrythngApiBuilder {
 				for (HeaderElement linkValue : link.getElements()) {
 					NameValuePair rel = linkValue.getParameterByName("rel");
 					if (rel != null && "next".equals(rel.getValue())) {
-						nextPageLink = linkValue.getName();
+						nextPageLink = linkValue.getName().substring(1, linkValue.getName().length() - 1);
 					}
 				}
-				return nextPageLink != null ? URI.create(nextPageLink.substring(1, nextPageLink.length() - 1)) : null;
+				return nextPageLink != null ? toURI(nextPageLink) : null;
+			}
+
+			private URI toURI(final String unEncodedRawURI) {
+
+				try {
+					return URI.create(CODEC.decode(unEncodedRawURI));
+				} catch (DecoderException e) {
+					throw new IllegalStateException(e);
+				}
 			}
 		}
 	}
