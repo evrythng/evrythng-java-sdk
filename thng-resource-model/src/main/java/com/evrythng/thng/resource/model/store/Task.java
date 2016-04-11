@@ -48,6 +48,31 @@ public class Task extends DurableResourceModel {
 
 				this.completion = completion != null ? SetUniqueList.decorate(new ArrayList(completion)) : null;
 			}
+
+			@Override
+			public boolean equals(final Object o) {
+
+				if (this == o) {
+					return true;
+				}
+				if (o == null || getClass() != o.getClass()) {
+					return false;
+				}
+
+				Policy policy = (Policy) o;
+
+				if (completion != null ? !completion.equals(policy.completion) : policy.completion != null) {
+					return false;
+				}
+
+				return true;
+			}
+
+			@Override
+			public int hashCode() {
+
+				return completion != null ? completion.hashCode() : 0;
+			}
 		}
 
 		public static interface Way {
