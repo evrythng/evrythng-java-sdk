@@ -10,7 +10,6 @@ import com.evrythng.java.wrapper.core.EvrythngServiceBase;
 import com.evrythng.java.wrapper.core.api.param.EvrythngIdQueryParamValue;
 import com.evrythng.java.wrapper.core.http.Status;
 import com.evrythng.java.wrapper.exception.EvrythngClientException;
-import com.evrythng.java.wrapper.exception.EvrythngException;
 import com.evrythng.thng.resource.model.li.UrlBinding;
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -42,7 +41,7 @@ public class UrlBindingService extends EvrythngServiceBase {
 	 *
 	 * @return a preconfigured {@link Builder}.
 	 */
-	public Builder<UrlBinding> bindingCreator(final UrlBinding binding) throws EvrythngException {
+	public Builder<UrlBinding> bindingCreator(final UrlBinding binding) throws EvrythngClientException {
 
 		return post(PATH_URLS, binding, new TypeReference<UrlBinding>() {
 
@@ -54,7 +53,7 @@ public class UrlBindingService extends EvrythngServiceBase {
 	 *
 	 * @return a preconfigured {@link Builder}.
 	 */
-	public Builder<List<UrlBinding>> bindingsReader() throws EvrythngException {
+	public Builder<List<UrlBinding>> bindingsReader() throws EvrythngClientException {
 
 		return get(PATH_URLS, new TypeReference<List<UrlBinding>>() {
 
@@ -68,7 +67,7 @@ public class UrlBindingService extends EvrythngServiceBase {
 	 *
 	 * @return a preconfigured {@link Builder}.
 	 */
-	public Builder<InputStream> bindingCreatorReturnQr(final UrlBinding binding) throws EvrythngException {
+	public Builder<InputStream> bindingCreatorReturnQr(final UrlBinding binding) throws EvrythngClientException {
 
 		return post(PATH_URLS, binding, Status.OK, new TypeReference<InputStream>() {
 
@@ -82,7 +81,7 @@ public class UrlBindingService extends EvrythngServiceBase {
 	 *
 	 * @return a preconfigured {@link Builder}.
 	 */
-	public Builder<List<UrlBinding>> bindingsReader(final String evrythngId) throws EvrythngException {
+	public Builder<List<UrlBinding>> bindingsReader(final String evrythngId) throws EvrythngClientException {
 
 		return super.get(PATH_URLS, new TypeReference<List<UrlBinding>>() {
 
@@ -96,7 +95,7 @@ public class UrlBindingService extends EvrythngServiceBase {
 	 *
 	 * @return a preconfigured {@link Builder}.
 	 */
-	public Builder<UrlBinding> bindingReader(final String shortId) throws EvrythngException {
+	public Builder<UrlBinding> bindingReader(final String shortId) throws EvrythngClientException {
 
 		return get(String.format(PATH_URL_BINDING, shortId), new TypeReference<UrlBinding>() {
 
@@ -111,7 +110,7 @@ public class UrlBindingService extends EvrythngServiceBase {
 	 *
 	 * @return a preconfigured {@link Builder}.
 	 */
-	public Builder<UrlBinding> bindingUpdater(final String shortId, final UrlBinding binding) throws EvrythngException {
+	public Builder<UrlBinding> bindingUpdater(final String shortId, final UrlBinding binding) throws EvrythngClientException {
 
 		return put(String.format(PATH_URL_BINDING, shortId), binding, new TypeReference<UrlBinding>() {
 
@@ -138,7 +137,7 @@ public class UrlBindingService extends EvrythngServiceBase {
 	 *
 	 * @return a preconfigured {@link Builder}.
 	 */
-	public Builder<InputStream> bindingQrCodeReader(final String shortId, final QrCodeType type) throws EvrythngException {
+	public Builder<InputStream> bindingQrCodeReader(final String shortId, final QrCodeType type) throws EvrythngClientException {
 
 		String accept;
 		switch (type) {
@@ -158,4 +157,27 @@ public class UrlBindingService extends EvrythngServiceBase {
 		}).accept(accept);
 	}
 
+	/**
+	 * Updates url bindings by ids. Use query parameter ?ids.
+	 *
+	 * @param update {@link UrlBinding} instance.
+	 *
+	 * @return a preconfigured {@link Builder}.
+	 */
+	public Builder<Long> bindingsUpdater(final UrlBinding update) throws EvrythngClientException {
+
+		return put(PATH_URLS, update, new TypeReference<Long>() {
+
+		});
+	}
+
+	/**
+	 * Deletes bindings. Select the {@link UrlBinding}s to delete using query parameters ?ids or ?filter.
+	 *
+	 * @return a preconfigured {@link Builder}.
+	 */
+	public Builder<Long> bindingsDeleter() throws EvrythngClientException {
+
+		return deleteMultiple(PATH_URLS);
+	}
 }
