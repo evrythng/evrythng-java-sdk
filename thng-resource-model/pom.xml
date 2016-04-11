@@ -4,6 +4,7 @@
 		<commons-collections.version>3.2.1</commons-collections.version>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
+		<guava.version>19.0</guava.version>
 	</properties>
 
 	<parent>
@@ -48,6 +49,12 @@
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
 			<version>${commons-collections.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
 		</dependency>
 
 	</dependencies>
