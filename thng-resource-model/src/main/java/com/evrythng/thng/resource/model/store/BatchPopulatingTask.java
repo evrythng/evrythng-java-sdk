@@ -431,7 +431,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 		public Integer getTotalThngsCreated() {
 
-			return totalThngsCreated != null ? totalThngsCreated : null;
+			return totalThngsCreated != null ? totalThngsCreated : 0;
 		}
 
 		public void setTotalUrlBindingsCreated(final Integer totalUrlBindingsCreated) {
@@ -441,7 +441,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 		public Integer getTotalUrlBindingsCreated() {
 
-			return totalUrlBindingsCreated != null ? totalUrlBindingsCreated : null;
+			return totalUrlBindingsCreated != null ? totalUrlBindingsCreated : 0;
 		}
 	}
 }
