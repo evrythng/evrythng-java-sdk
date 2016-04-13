@@ -6,6 +6,7 @@ package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.commons.EnumUtils;
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
+import com.evrythng.thng.resource.model.store.security.passwords.WithPassword;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -16,7 +17,7 @@ import java.util.Map;
 /**
  * Parent class for {@link User} and {@link Operator}
  */
-public abstract class AbstractUser extends DurableResourceModel {
+public abstract class AbstractUser extends DurableResourceModel implements WithPassword {
 
 	private static final long serialVersionUID = -1375779857541642147L;
 	/**

@@ -4,8 +4,6 @@
  */
 package com.evrythng.thng.resource.model.store;
 
-import java.util.Date;
-
 /**
  * Model representation for <em>operator</em>.
  */
