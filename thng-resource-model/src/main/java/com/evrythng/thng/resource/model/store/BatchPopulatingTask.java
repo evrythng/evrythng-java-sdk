@@ -378,24 +378,20 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 	public static final class Result extends BaseTaskResult {
 
-		private Integer totalCount;
 		private String location;
 		private OutputParameters.Format format;
 		private Map<String, String> headers;
+		private Integer totalThngsCreated;
+		private Integer totalUrlBindingsCreated;
 
-        public Result() {
+		public Result() {
 
             setType(Type.POPULATING);
         }
 
 		public Integer getTotalCount() {
 
-			return totalCount;
-		}
-
-		public void setTotalCount(final Integer totalCount) {
-
-			this.totalCount = totalCount;
+			return getTotalThngsCreated() + getTotalUrlBindingsCreated();
 		}
 
 		public String getLocation() {
@@ -426,6 +422,26 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		public void setHeaders(final Map<String, String> headers) {
 
 			this.headers = headers;
+		}
+
+		public void setTotalThngsCreated(final Integer totalThngsCreated) {
+
+			this.totalThngsCreated = totalThngsCreated;
+		}
+
+		public Integer getTotalThngsCreated() {
+
+			return totalThngsCreated != null ? totalThngsCreated : 0;
+		}
+
+		public void setTotalUrlBindingsCreated(final Integer totalUrlBindingsCreated) {
+
+			this.totalUrlBindingsCreated = totalUrlBindingsCreated;
+		}
+
+		public Integer getTotalUrlBindingsCreated() {
+
+			return totalUrlBindingsCreated != null ? totalUrlBindingsCreated : 0;
 		}
 	}
 }
