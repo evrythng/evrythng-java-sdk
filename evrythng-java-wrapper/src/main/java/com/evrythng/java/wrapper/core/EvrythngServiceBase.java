@@ -38,6 +38,10 @@ import java.util.regex.Pattern;
  */
 public class EvrythngServiceBase {
 
+	private static final boolean BASE64_ENCODE = true;
+	private static final int     BASE64_ENCODE_NO_LINE_LENGTH = 0;
+	private static final byte[]  BASE64_ENCODE_NO_LINE_SEPARATOR = new byte[0];
+
 	private final ApiManager api;
 	private final ApiConfiguration config;
 
@@ -595,7 +599,8 @@ public class EvrythngServiceBase {
 		Base64InputStream b64is = null;
 		StringWriter sw = null;
 		try {
-			b64is = new Base64InputStream(image, true);
+			// Base64 encoding WITHOUT line separators
+			b64is = new Base64InputStream(image, BASE64_ENCODE, BASE64_ENCODE_NO_LINE_LENGTH, BASE64_ENCODE_NO_LINE_SEPARATOR);
 			sw = new StringWriter();
 			IOUtils.copy(b64is, sw);
 			return mime + "," + sw.toString();

@@ -6,6 +6,7 @@ package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
 import com.evrythng.thng.resource.model.core.Identifiable;
+import com.google.common.base.MoreObjects;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -185,17 +186,24 @@ public class Thng extends DurableResourceModel implements ResourceWithProperties
 	@Override
 	public String toString() {
 
-		final StringBuilder sb = new StringBuilder("Thng{");
-		sb.append("name='").append(name).append('\'');
-		sb.append(", description='").append(description).append('\'');
-		sb.append(", location=").append(location);
-		sb.append(", product='").append(product).append('\'');
-		sb.append(", properties=").append(properties);
-		sb.append(", identifiers=").append(identifiers);
-		sb.append(", collections=").append(collections);
-		sb.append(", batch='").append(batch).append('\'');
-		sb.append(", createdByTask='").append(createdByTask).append('\'');
-		sb.append('}');
-		return sb.toString();
+		MoreObjects.ToStringHelper toString = MoreObjects.toStringHelper(this).omitNullValues();
+
+		toString.add("id", getId());
+		toString.add("name", getName());
+		toString.add("description", getDescription());
+		toString.add("createdAt", getCreatedAt());
+		toString.add("updatedAt", getUpdatedAt());
+		toString.add("product", getProduct());
+		toString.add("batch", getBatch());
+		toString.add("createdByTask", getCreatedByTask());
+		toString.add("collections", getCollections());
+		toString.add("identifiers", getIdentifiers());
+		toString.add("tags", getTags());
+		toString.add("customFields", getCustomFields());
+		toString.add("properties", getProperties());
+		toString.add("location", getLocation());
+		toString.add("scopes", getScopes());
+
+		return toString.toString();
 	}
 }

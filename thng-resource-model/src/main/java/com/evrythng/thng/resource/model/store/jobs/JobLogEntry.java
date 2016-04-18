@@ -16,10 +16,9 @@ public final class JobLogEntry extends ResourceModel {
 	}
 
 	private String jobId;
-
 	private Object payload;
-
 	private Type type;
+	private String message;
 
 	public Type getType() {
 
@@ -49,5 +48,15 @@ public final class JobLogEntry extends ResourceModel {
 	public String getJobId() {
 
 		return jobId;
+	}
+
+	public void setMessage(final String message) {
+
+		this.message = message;
+	}
+
+	public String getMessage() {
+
+		return message;
 	}
 }
