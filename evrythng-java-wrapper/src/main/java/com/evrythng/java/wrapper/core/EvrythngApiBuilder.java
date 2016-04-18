@@ -193,6 +193,7 @@ public final class EvrythngApiBuilder {
 
 			private ImmutableList<T> currentPage;
 			private URI nextPageURI;
+			private ImmutableList<T> nextPage;
 
 			private RemotePagingIterator() {
 
@@ -202,13 +203,23 @@ public final class EvrythngApiBuilder {
 			@Override
 			public final boolean hasNext() {
 
-				return nextPageURI != null;
+				nextPage = _next();
+				return nextPage != null && !nextPage.isEmpty();
 			}
 
 			@SuppressWarnings("ReturnOfCollectionOrArrayField")
 			@Override
 			public final ImmutableList<T> next() {
 
+				return nextPage;
+			}
+
+			@SuppressWarnings("ReturnOfCollectionOrArrayField")
+			public final ImmutableList<T> _next() {
+
+				if (nextPageURI == null) {
+					return null;
+				}
 				// TODO _MS_ investigate here, maybe need to decode URI
 				TypedResponseWithEntity<List<T>> response = EvrythngApiBuilder.get(apiKey, nextPageURI, responseStatus, pageType).executeWithResponse();
 				currentPage = response.entity() != null ? ImmutableList.copyOf(response.entity()) : ImmutableList.<T>of();

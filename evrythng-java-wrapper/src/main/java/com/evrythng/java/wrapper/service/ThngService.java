@@ -79,6 +79,11 @@ public class ThngService extends EvrythngServiceBase {
 		});
 	}
 
+	/**
+	 * Retrieves {@link Thng}s, whether all, by filter, or by ids, in an iterative way.
+	 * @return A remote iterator that keeps returning a page, with size specified by the {@link Builder#perPage(int)} method, until all matching resources are returned.
+	 * @throws EvrythngClientException When server communication fails.
+	 */
 	public final Builder<Iterator<ImmutableList<Thng>>> iterator() throws EvrythngClientException {
 
 		return iterator(PATH_THNGS, new TypeReference<List<Thng>>() {

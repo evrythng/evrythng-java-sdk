@@ -12,11 +12,14 @@ import com.evrythng.thng.resource.model.store.Product;
 import com.evrythng.thng.resource.model.store.Property;
 import com.evrythng.thng.resource.model.store.Redirector;
 import com.evrythng.thng.resource.model.store.StringProperty;
+import com.evrythng.thng.resource.model.store.Thng;
 import com.evrythng.thng.resource.model.store.action.Action;
 import com.evrythng.thng.resource.model.store.action.CustomAction;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.common.collect.ImmutableList;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -56,6 +59,18 @@ public class ProductService extends EvrythngServiceBase {
 	public Builder<Product> productCreator(final Product product) throws EvrythngClientException {
 
 		return post(PATH_PRODUCTS, product, new TypeReference<Product>() {
+
+		});
+	}
+
+	/**
+	 * Retrieves {@link Thng}s, whether all, by filter, or by ids, in an iterative way.
+	 * @return A remote iterator that keeps returning a page, with size specified by the {@link Builder#perPage(int)} method, until all matching resources are returned.
+	 * @throws EvrythngClientException When server communication fails.
+	 */
+	public final Builder<Iterator<ImmutableList<Product>>> iterator() throws EvrythngClientException {
+
+		return iterator(PATH_PRODUCTS, new TypeReference<List<Product>>() {
 
 		});
 	}
