@@ -242,6 +242,15 @@ public class ApiCommand<T> {
 		queryParams.put(name, value);
 	}
 
+	public void setQueryParam(final QueryParamValue queryParam) {
+
+		// Ensure uniqueness of parameter:
+		queryParams.remove(queryParam.getKey());
+
+		logger.debug("Setting query parameter: [name={}, value={}]", queryParam.getKey(), queryParam.getValue());
+		queryParams.put(queryParam.getKey(), queryParam.getValue());
+	}
+
 	/**
 	 * Sets (adds or overwrittes) the multi-value of specified query parameter.
 	 *

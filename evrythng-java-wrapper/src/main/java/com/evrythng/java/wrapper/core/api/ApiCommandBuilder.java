@@ -4,10 +4,12 @@
  */
 package com.evrythng.java.wrapper.core.api;
 
+import com.evrythng.java.wrapper.core.api.param.SortOrderQueryParamValue;
 import com.evrythng.java.wrapper.core.http.HttpMethodBuilder.MethodBuilder;
 import com.evrythng.java.wrapper.core.http.Status;
 import com.evrythng.java.wrapper.exception.EvrythngException;
 import com.evrythng.thng.commons.config.ApiConfiguration;
+import com.evrythng.thng.resource.model.core.SortOrder;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.http.HttpResponse;
 
@@ -22,9 +24,9 @@ import java.util.Map.Entry;
  * Generic API command builder.
  */
 @SuppressWarnings("rawtypes")
-public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
+public class ApiCommandBuilder<TYPE, BUILDER extends ApiCommandBuilder> {
 
-	private final ApiCommand<T> command;
+	private final ApiCommand<TYPE> command;
 
 	/**
 	 * @param methodBuilder  the {@link MethodBuilder} used for creating the
@@ -34,7 +36,7 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	 * @param responseType   the native type to which the {@link HttpResponse} will be
 	 *                       mapped to
 	 */
-	public ApiCommandBuilder(final MethodBuilder<?> methodBuilder, final URI uri, final Status responseStatus, final TypeReference<T> responseType) {
+	public ApiCommandBuilder(final MethodBuilder<?> methodBuilder, final URI uri, final Status responseStatus, final TypeReference<TYPE> responseType) {
 
 		this.command = new ApiCommand<>(methodBuilder, uri, responseStatus, responseType);
 	}
@@ -48,25 +50,36 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	 * @return the current {@code B} instance
 	 */
 	@SuppressWarnings("unchecked")
-	public B queryParam(final String name, final String value) {
+	public BUILDER queryParam(final String name, final String value) {
 
 		if (value != null) {
 			command.setQueryParam(name, value);
 		} else {
 			command.removeQueryParam(name);
 		}
-		return (B) this;
+		return (BUILDER) this;
 	}
 
 	@SuppressWarnings("unchecked")
-	public B placeHolder(final Boolean placeHolder) {
+	public BUILDER placeHolder(final Boolean placeHolder) {
 
 		if (placeHolder != null) {
 			command.setQueryParam("placeHolder", String.valueOf(placeHolder));
 		} else {
 			command.setQueryParam("placeHolder", "both");
 		}
-		return (B) this;
+		return (BUILDER) this;
+	}
+
+	@SuppressWarnings("unchecked")
+	public final BUILDER sortOrder(final SortOrder sortOrder) {
+
+		if (sortOrder != null) {
+			command.setQueryParam(SortOrderQueryParamValue.of(sortOrder));
+		} else {
+			command.removeQueryParam(SortOrderQueryParamValue.name());
+		}
+		return (BUILDER) this;
 	}
 
 	/**
@@ -76,7 +89,7 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	 * @param qpv the name and the value of the query parameter.
 	 * @return the current {@code B} instance
 	 */
-	public B queryParam(final QueryParamValue qpv) {
+	public BUILDER queryParam(final QueryParamValue qpv) {
 
 		return queryParam(qpv.getKey(), qpv.getValue());
 	}
@@ -90,14 +103,14 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	 * @return the current {@code B} instance
 	 */
 	@SuppressWarnings("unchecked")
-	public B queryParam(final String name, final List<String> value) {
+	public BUILDER queryParam(final String name, final List<String> value) {
 
 		if (value != null) {
 			command.setQueryParam(name, value);
 		} else {
 			command.removeQueryParam(name);
 		}
-		return (B) this;
+		return (BUILDER) this;
 	}
 
 	/**
@@ -109,14 +122,14 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	 * @return the current {@code B} instance
 	 */
 	@SuppressWarnings("unchecked")
-	public B queryParamList(final String name, final List<String> values) {
+	public BUILDER queryParamList(final String name, final List<String> values) {
 
 		if (values != null) {
 			command.setQueryParam(name, concatenateList(values));
 		} else {
 			command.removeQueryParam(name);
 		}
-		return (B) this;
+		return (BUILDER) this;
 	}
 
 	/**
@@ -127,7 +140,7 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	 * @param values parameter values or {@code null}
 	 * @return the current {@code B} instance
 	 */
-	public B queryParamList(final String name, final String... values) {
+	public BUILDER queryParamList(final String name, final String... values) {
 
 		return queryParamList(name, values == null ? null : Arrays.asList(values));
 	}
@@ -151,12 +164,12 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	 * @see #queryParam(String, String)
 	 */
 	@SuppressWarnings("unchecked")
-	public B queryParams(final Map<String, String> params) {
+	public BUILDER queryParams(final Map<String, String> params) {
 
 		for (Entry<String, String> entry : params.entrySet()) {
 			queryParam(entry.getKey(), entry.getValue());
 		}
-		return (B) this;
+		return (BUILDER) this;
 	}
 
 	/**
@@ -167,14 +180,14 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	 * @return the current {@code B} instance
 	 */
 	@SuppressWarnings("unchecked")
-	public B header(final String name, final String value) {
+	public BUILDER header(final String name, final String value) {
 
 		if (value != null) {
 			command.setHeader(name, value);
 		} else {
 			command.removeHeader(name);
 		}
-		return (B) this;
+		return (BUILDER) this;
 	}
 
 	/**
@@ -183,12 +196,12 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	 * @param mediaType a valid media type for the {@code Accept} HTTP header
 	 * @return the current {@code B} instance
 	 */
-	public B accept(final String mediaType) {
+	public BUILDER accept(final String mediaType) {
 
 		return header(ApiConfiguration.HTTP_HEADER_ACCEPT, mediaType);
 	}
 
-	public TypedResponseWithEntity<T> executeWithResponse() throws EvrythngException {
+	public TypedResponseWithEntity<TYPE> executeWithResponse() throws EvrythngException {
 
 		return command.bundle();
 	}
@@ -200,7 +213,7 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	 * @return the {@link HttpResponse} entity mapped to {@code T}
 	 * @see ApiCommand#execute()
 	 */
-	public T execute() throws EvrythngException {
+	public TYPE execute() throws EvrythngException {
 
 		return command.execute();
 	}
@@ -243,7 +256,7 @@ public class ApiCommandBuilder<T, B extends ApiCommandBuilder> {
 	/**
 	 * @return {@link ApiCommand} instance
 	 */
-	public ApiCommand<T> getCommand() {
+	public ApiCommand<TYPE> getCommand() {
 
 		return command;
 	}
