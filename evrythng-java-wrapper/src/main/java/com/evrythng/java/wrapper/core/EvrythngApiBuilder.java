@@ -32,6 +32,7 @@ import com.evrythng.java.wrapper.exception.EvrythngException;
 import com.evrythng.thng.commons.config.ApiConfiguration;
 import com.evrythng.thng.commons.config.ApiConfiguration.QueryKeyword;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.net.URLCodec;
@@ -184,47 +185,30 @@ public final class EvrythngApiBuilder {
 		}
 
 		@Override
-		public Iterator<ImmutableList<T>> execute() throws EvrythngException {
+		public final Iterator<ImmutableList<T>> execute() throws EvrythngException {
 
 			return new RemotePagingIterator();
 		}
 
-		private final class RemotePagingIterator implements Iterator<ImmutableList<T>> {
+		private final class RemotePagingIterator extends AbstractIterator<ImmutableList<T>> {
 
-			private ImmutableList<T> currentPage;
 			private URI nextPageURI;
-			private ImmutableList<T> nextPage;
 
 			private RemotePagingIterator() {
 
 				this.nextPageURI = getCommand().uri();
 			}
 
-			@Override
-			public final boolean hasNext() {
-
-				nextPage = _next();
-				return nextPage != null && !nextPage.isEmpty();
-			}
-
 			@SuppressWarnings("ReturnOfCollectionOrArrayField")
 			@Override
-			public final ImmutableList<T> next() {
-
-				return nextPage;
-			}
-
-			@SuppressWarnings("ReturnOfCollectionOrArrayField")
-			public final ImmutableList<T> _next() {
+			protected final ImmutableList<T> computeNext() {
 
 				if (nextPageURI == null) {
-					return null;
+					return endOfData();
 				}
-				// TODO _MS_ investigate here, maybe need to decode URI
 				TypedResponseWithEntity<List<T>> response = EvrythngApiBuilder.get(apiKey, nextPageURI, responseStatus, pageType).executeWithResponse();
-				currentPage = response.entity() != null ? ImmutableList.copyOf(response.entity()) : ImmutableList.<T>of();
 				nextPageURI = nextPageURI(response);
-				return currentPage;
+				return response.entity() != null ? ImmutableList.copyOf(response.entity()) : ImmutableList.<T>of();
 			}
 
 			private URI nextPageURI(final TypedResponseWithEntity<List<T>> response) {
