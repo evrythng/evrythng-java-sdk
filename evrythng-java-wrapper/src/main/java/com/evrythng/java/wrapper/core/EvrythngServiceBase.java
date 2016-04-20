@@ -4,6 +4,7 @@
  */
 package com.evrythng.java.wrapper.core;
 
+import com.evrythng.commons.domain.SortOrder;
 import com.evrythng.java.wrapper.ApiManager;
 import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.api.AcceptedResourceResponse;
@@ -185,6 +186,13 @@ public class EvrythngServiceBase {
 		public final Builder<TYPE> search(final String pattern) {
 
 			internal.search(pattern);
+			return this;
+		}
+
+		@Override
+		public Builder<TYPE> sortOrder(final SortOrder sortOrder) {
+
+			internal.sortOrder(sortOrder);
 			return this;
 		}
 

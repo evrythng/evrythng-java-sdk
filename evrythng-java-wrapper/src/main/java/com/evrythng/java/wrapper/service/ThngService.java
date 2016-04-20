@@ -1,5 +1,6 @@
 package com.evrythng.java.wrapper.service;
 
+import com.evrythng.commons.domain.SortOrder;
 import com.evrythng.java.wrapper.ApiManager;
 import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.EvrythngServiceBase;
@@ -88,7 +89,7 @@ public class ThngService extends EvrythngServiceBase {
 
 		return iterator(PATH_THNGS, new TypeReference<List<Thng>>() {
 
-		});
+		}).sortOrder(SortOrder.descending());
 	}
 
 	/* ***** /thngs/{id} ***** */

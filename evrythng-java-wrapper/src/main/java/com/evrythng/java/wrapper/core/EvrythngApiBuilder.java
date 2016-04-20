@@ -6,6 +6,7 @@ package com.evrythng.java.wrapper.core;
 
 import com.evrythng.api.wrapper.param.FilterQueryParamValue;
 import com.evrythng.api.wrapper.param.IdsQueryParamValue;
+import com.evrythng.commons.domain.SortOrder;
 import com.evrythng.java.wrapper.core.api.AcceptedResourceResponse;
 import com.evrythng.java.wrapper.core.api.ApiCommand;
 import com.evrythng.java.wrapper.core.api.ApiCommandBuilder;
@@ -20,6 +21,7 @@ import com.evrythng.java.wrapper.core.api.param.PerPageQueryParamValue;
 import com.evrythng.java.wrapper.core.api.param.ProjectQueryParamValue;
 import com.evrythng.java.wrapper.core.api.param.QSearchQueryParamValue;
 import com.evrythng.java.wrapper.core.api.param.ScopeQueryParamValue;
+import com.evrythng.java.wrapper.core.api.param.SortOrderQueryParamValue;
 import com.evrythng.java.wrapper.core.api.param.ToQueryParamValue;
 import com.evrythng.java.wrapper.core.api.param.UserScopeQueryParamValue;
 import com.evrythng.java.wrapper.core.api.param.WithScopesQueryParamValue;
@@ -216,10 +218,13 @@ public final class EvrythngApiBuilder {
 
 				String nextPageLink = null;
 				Header link = response.response().getFirstHeader("Link");
-				for (HeaderElement linkValue : link.getElements()) {
-					NameValuePair rel = linkValue.getParameterByName("rel");
-					if (rel != null && "next".equals(rel.getValue())) {
-						nextPageLink = linkValue.getName().substring(1, linkValue.getName().length() - 1);
+				if (link != null) {
+					for (HeaderElement linkValue : link.getElements()) {
+						NameValuePair rel = linkValue.getParameterByName("rel");
+						if (rel != null && "next".equals(rel.getValue())) {
+							nextPageLink = linkValue.getName();
+							nextPageLink = nextPageLink.substring(1, nextPageLink.length() - 1);
+						}
 					}
 				}
 				return nextPageLink != null ? toURI(nextPageLink) : null;
@@ -855,6 +860,15 @@ public final class EvrythngApiBuilder {
 		Builder<TYPE> search(String pattern);
 
 		/**
+		 * @param sortOrder "{@value SortOrderQueryParamValue#NAME}" query parameter value
+		 *
+		 * @return an EVRYTHNG API-ready {@link Builder}
+		 *
+		 * @see SortOrderQueryParamValue
+		 */
+		Builder<TYPE> sortOrder(SortOrder sortOrder);
+
+		/**
 		 * @param withScopes "{@value WithScopesQueryParamValue#NAME}" query parameter value
 		 *
 		 * @return an EVRYTHNG API-ready {@link Builder}
@@ -1200,6 +1214,11 @@ public final class EvrythngApiBuilder {
 			queryParam(CallbackQueryParamValue.empty());
 
 			return jsonp;
+		}
+
+		UncheckedBuilder<T> sortOrder(final SortOrder sortOrder) {
+
+			return queryParam(SortOrderQueryParamValue.NAME, sortOrder.direction().name());
 		}
 	}
 }
