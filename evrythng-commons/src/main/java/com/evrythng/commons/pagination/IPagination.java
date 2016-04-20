@@ -5,9 +5,14 @@
 
 package com.evrythng.commons.pagination;
 
+import com.evrythng.commons.domain.Size;
+import com.evrythng.commons.domain.SortOrder;
+
 public interface IPagination<TOKEN> {
 
 	TOKEN token();
 
-	PageSize size();
+	Size size();
+
+	SortOrder sortOrder();
 }

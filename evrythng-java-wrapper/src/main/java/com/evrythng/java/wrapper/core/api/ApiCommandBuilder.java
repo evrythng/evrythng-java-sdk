@@ -4,12 +4,12 @@
  */
 package com.evrythng.java.wrapper.core.api;
 
+import com.evrythng.commons.domain.SortOrder;
 import com.evrythng.java.wrapper.core.api.param.SortOrderQueryParamValue;
 import com.evrythng.java.wrapper.core.http.HttpMethodBuilder.MethodBuilder;
 import com.evrythng.java.wrapper.core.http.Status;
 import com.evrythng.java.wrapper.exception.EvrythngException;
 import com.evrythng.thng.commons.config.ApiConfiguration;
-import com.evrythng.thng.resource.model.core.SortOrder;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.http.HttpResponse;
 
@@ -77,7 +77,7 @@ public class ApiCommandBuilder<TYPE, BUILDER extends ApiCommandBuilder> {
 		if (sortOrder != null) {
 			command.setQueryParam(SortOrderQueryParamValue.of(sortOrder));
 		} else {
-			command.removeQueryParam(SortOrderQueryParamValue.name());
+			command.removeQueryParam(SortOrderQueryParamValue.NAME);
 		}
 		return (BUILDER) this;
 	}

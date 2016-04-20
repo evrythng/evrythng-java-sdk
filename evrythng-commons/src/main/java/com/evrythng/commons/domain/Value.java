@@ -24,7 +24,7 @@ public abstract class Value<V> {
 		this.value = value;
 	}
 
-	protected final V value() {
+	protected final V internalValue() {
 
 		return value;
 	}

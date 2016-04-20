@@ -80,6 +80,11 @@
 			<artifactId>guava</artifactId>
 			<version>${version.com.google.guava}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.pcollections</groupId>
+			<artifactId>pcollections</artifactId>
+			<version>${pcollections.version}</version>
+		</dependency>
 		<!-- Use instead of all the Java.commons.logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

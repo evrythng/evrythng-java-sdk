@@ -56,7 +56,11 @@
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.pcollections</groupId>
+			<artifactId>pcollections</artifactId>
+			<version>${pcollections.version}</version>
+		</dependency>
 	</dependencies>
 
 </project>

@@ -3,7 +3,7 @@
  * www.evrythng.com
  */
 
-package com.evrythng.thng.resource.model.template;
+package com.evrythng.commons.domain;
 
 public interface WithId {
 

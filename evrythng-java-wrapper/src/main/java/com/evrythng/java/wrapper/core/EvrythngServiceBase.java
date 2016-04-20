@@ -16,10 +16,10 @@ import com.evrythng.java.wrapper.exception.EvrythngException;
 import com.evrythng.java.wrapper.util.URIBuilder;
 import com.evrythng.thng.commons.config.ApiConfiguration;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.common.collect.ImmutableList;
 import org.apache.commons.codec.binary.Base64InputStream;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
+import org.pcollections.PVector;
 
 import java.io.File;
 import java.io.IOException;
@@ -57,11 +57,11 @@ public class EvrythngServiceBase {
 		this.config = api.getConfig();
 	}
 
-	protected final <T> Builder<Iterator<ImmutableList<T>>> iterator(final String relativePath, final TypeReference<List<T>> pageType) throws EvrythngClientException {
+	protected final <T> Builder<Iterator<PVector<T>>> iterator(final String relativePath, final TypeReference<List<T>> pageType) throws EvrythngClientException {
 
-		EvrythngApiBuilder.UncheckedBuilder<Iterator<ImmutableList<T>>> builder = EvrythngApiBuilder.iterate(config.getKey(), absoluteUri(relativePath), Status.OK, pageType);
+		EvrythngApiBuilder.UncheckedBuilder<Iterator<PVector<T>>> builder = EvrythngApiBuilder.iterate(config.getKey(), absoluteUri(relativePath), Status.OK, pageType);
 
-		Builder<Iterator<ImmutableList<T>>> adapter = new BuilderUncheckedAdapter<>(builder);
+		Builder<Iterator<PVector<T>>> adapter = new BuilderUncheckedAdapter<>(builder);
 		onBuilderCreated(adapter);
 		return adapter;
 	}

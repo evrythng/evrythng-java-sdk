@@ -33,7 +33,6 @@ import com.evrythng.thng.commons.config.ApiConfiguration;
 import com.evrythng.thng.commons.config.ApiConfiguration.QueryKeyword;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.AbstractIterator;
-import com.google.common.collect.ImmutableList;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.net.URLCodec;
 import org.apache.commons.lang3.StringUtils;
@@ -41,6 +40,8 @@ import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.pcollections.PVector;
+import org.pcollections.TreePVector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -169,7 +170,7 @@ public final class EvrythngApiBuilder {
 		return new IteratorBuilder<>(apiKey, HttpMethodBuilder.httpGet(), uri, responseStatus, pageType);
 	}
 
-	private static class IteratorBuilder<T> extends UncheckedBuilder<Iterator<ImmutableList<T>>> {
+	private static class IteratorBuilder<T> extends UncheckedBuilder<Iterator<PVector<T>>> {
 
 		private static final URLCodec CODEC = new URLCodec();
 		private final String apiKey;
@@ -185,12 +186,12 @@ public final class EvrythngApiBuilder {
 		}
 
 		@Override
-		public final Iterator<ImmutableList<T>> execute() throws EvrythngException {
+		public final Iterator<PVector<T>> execute() throws EvrythngException {
 
 			return new RemotePagingIterator();
 		}
 
-		private final class RemotePagingIterator extends AbstractIterator<ImmutableList<T>> {
+		private final class RemotePagingIterator extends AbstractIterator<PVector<T>> {
 
 			private URI nextPageURI;
 
@@ -201,14 +202,14 @@ public final class EvrythngApiBuilder {
 
 			@SuppressWarnings("ReturnOfCollectionOrArrayField")
 			@Override
-			protected final ImmutableList<T> computeNext() {
+			protected final PVector<T> computeNext() {
 
 				if (nextPageURI == null) {
 					return endOfData();
 				}
 				TypedResponseWithEntity<List<T>> response = EvrythngApiBuilder.get(apiKey, nextPageURI, responseStatus, pageType).executeWithResponse();
 				nextPageURI = nextPageURI(response);
-				return response.entity() != null ? ImmutableList.copyOf(response.entity()) : ImmutableList.<T>of();
+				return response.entity() != null ? TreePVector.from(response.entity()) : TreePVector.<T>empty();
 			}
 
 			private URI nextPageURI(final TypedResponseWithEntity<List<T>> response) {

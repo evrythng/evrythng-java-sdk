@@ -5,7 +5,7 @@
 package com.evrythng.thng.resource.model.core;
 
 import com.evrythng.commons.annotations.csv.CsvTransient;
-import com.evrythng.thng.resource.model.template.WithId;
+import com.evrythng.commons.domain.WithId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.collections.list.SetUniqueList;
 

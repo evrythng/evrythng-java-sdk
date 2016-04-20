@@ -4,8 +4,9 @@
  */
 package com.evrythng.commons;
 
+import com.evrythng.commons.domain.Size;
+import com.evrythng.commons.domain.SortOrder;
 import com.evrythng.commons.pagination.IPagination;
-import com.evrythng.commons.pagination.PageSize;
 
 /**
  * Class to hold zero-based pagination information.
@@ -56,8 +57,14 @@ public final class Pagination implements IPagination<Integer> {
 	}
 
 	@Override
-	public PageSize size() {
+	public Size size() {
 
-		return PageSize.of(getPageOneBased());
+		return Size.of(getPageOneBased());
+	}
+
+	@Override
+	public SortOrder sortOrder() {
+
+		return SortOrder.descending();
 	}
 }

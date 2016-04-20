@@ -16,7 +16,7 @@ import com.evrythng.thng.resource.model.store.Thng;
 import com.evrythng.thng.resource.model.store.action.Action;
 import com.evrythng.thng.resource.model.store.action.CustomAction;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.common.collect.ImmutableList;
+import org.pcollections.PVector;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -68,7 +68,7 @@ public class ProductService extends EvrythngServiceBase {
 	 * @return A remote iterator that keeps returning a page, with size specified by the {@link Builder#perPage(int)} method, until all matching resources are returned.
 	 * @throws EvrythngClientException When server communication fails.
 	 */
-	public final Builder<Iterator<ImmutableList<Product>>> iterator() throws EvrythngClientException {
+	public final Builder<Iterator<PVector<Product>>> iterator() throws EvrythngClientException {
 
 		return iterator(PATH_PRODUCTS, new TypeReference<List<Product>>() {
 
