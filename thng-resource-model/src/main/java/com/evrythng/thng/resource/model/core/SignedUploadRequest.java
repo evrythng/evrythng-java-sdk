@@ -37,4 +37,15 @@ public class SignedUploadRequest implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+
+		final StringBuilder sb = new StringBuilder("SignedUploadRequest{");
+		sb.append("signedUploadUrl='").append(signedUploadUrl).append('\'');
+		sb.append(", contentUrl='").append(contentUrl).append('\'');
+		sb.append(", name='").append(name).append('\'');
+		sb.append('}');
+		return sb.toString();
+	}
 }

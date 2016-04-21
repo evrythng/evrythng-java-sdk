@@ -9,6 +9,7 @@ import com.evrythng.thng.resource.model.store.BatchPopulatingTask;
 import com.evrythng.thng.resource.model.store.FileBasedAdiInputParameters;
 import com.evrythng.thng.resource.model.store.FixedAmountAdiInputParameters;
 import com.evrythng.thng.resource.model.store.ListBasedAdiInputParameters;
+import com.evrythng.thng.resource.model.store.PrivateFileBasedAdiInputParameters;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -53,6 +54,8 @@ public class BatchPopulatingTaskInputParametersDeserializer extends StdDeseriali
 				return FixedAmountAdiInputParameters.class;
 			case FILE_BASED:
 				return FileBasedAdiInputParameters.class;
+			case PRIVATE_FILE_BASED:
+				return PrivateFileBasedAdiInputParameters.class;
 			case LIST_BASED:
 				return ListBasedAdiInputParameters.class;
 		}

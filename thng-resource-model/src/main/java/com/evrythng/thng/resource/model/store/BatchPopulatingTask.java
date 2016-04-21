@@ -289,7 +289,7 @@ public class BatchPopulatingTask extends TaskOnBatch {
 
 		enum Type {
 
-			FIXED_AMOUNT, FILE_BASED, LIST_BASED
+			FIXED_AMOUNT, FILE_BASED, PRIVATE_FILE_BASED, LIST_BASED
 		}
 
 		Boolean getGenerateThngs();

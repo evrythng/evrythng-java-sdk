@@ -52,8 +52,20 @@ public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 		this.headers = headers;
 	}
 
-	public static enum Format {
-		
-		CSV, ZIP
+	@Override
+	public String toString() {
+
+		final StringBuilder sb = new StringBuilder("FileBasedAdiInputParameters{");
+		sb.append("generateThngs=").append(this.getGenerateThngs());
+		sb.append(", generateRedirections=").append(this.getGenerateRedirections());
+		sb.append(", shortDomain='").append(this.getShortDomain()).append('\'');
+		sb.append(", defaultRedirectUrl='").append(this.getDefaultRedirectUrl()).append('\'');
+		sb.append(", thngTemplate=").append(this.getThngTemplate());
+		sb.append(", type=").append(this.getType());
+		sb.append(", location='").append(location).append('\'');
+		sb.append(", format=").append(format);
+		sb.append(", headers=").append(headers);
+		sb.append('}');
+		return sb.toString();
 	}
 }
