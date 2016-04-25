@@ -83,7 +83,7 @@ public class ThngService extends EvrythngServiceBase {
 	/**
 	 * Retrieves {@link Thng}s, whether all, by filter, or by ids, in an iterative way.
 	 * @return A remote iterator that keeps returning a page, with size specified by the {@link Builder#perPage(int)} method, until all matching resources are returned.
-	 * @throws EvrythngClientException When server communication fails.
+	 * @throws EvrythngClientException in case server communication fails.
 	 */
 	public final Builder<Iterator<PVector<Thng>>> iterator() throws EvrythngClientException {
 
@@ -197,6 +197,18 @@ public class ThngService extends EvrythngServiceBase {
 		return get(String.format(PATH_THNG_PROPERTIES, thngId), new TypeReference<List<Property<?>>>() {
 
 		});
+	}
+
+	/**
+	 * Retrieves {@link Property} updates with specified key, for a {@link Thng}, in an iterative way.
+	 * @return A remote iterator that keeps returning a page, with size specified by the {@link Builder#perPage(int)} method, until all matching resources are returned.
+	 * @throws EvrythngClientException in case server communication fails.
+	 */
+	public final Builder<Iterator<PVector<Property<?>>>> propertiesIterator(final String thngId, final String key) throws EvrythngClientException {
+
+		return iterator(String.format(PATH_THNG_PROPERTY, thngId, key), new TypeReference<List<Property<?>>>() {
+
+		}).sortOrder(SortOrder.descending());
 	}
 
 	/**

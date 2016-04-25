@@ -37,7 +37,6 @@ public abstract class Value<V> {
 		}
 		Value<V> that = (Value<V>) other;
 		EqualsBuilder equals = new EqualsBuilder();
-		equals.appendSuper(super.equals(other));
 		equals.append(value, that.value);
 		return equals.build();
 	}

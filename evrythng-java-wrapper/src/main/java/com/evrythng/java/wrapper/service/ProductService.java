@@ -1,5 +1,6 @@
 package com.evrythng.java.wrapper.service;
 
+import com.evrythng.commons.domain.SortOrder;
 import com.evrythng.java.wrapper.ApiManager;
 import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.EvrythngServiceBase;
@@ -12,7 +13,6 @@ import com.evrythng.thng.resource.model.store.Product;
 import com.evrythng.thng.resource.model.store.Property;
 import com.evrythng.thng.resource.model.store.Redirector;
 import com.evrythng.thng.resource.model.store.StringProperty;
-import com.evrythng.thng.resource.model.store.Thng;
 import com.evrythng.thng.resource.model.store.action.Action;
 import com.evrythng.thng.resource.model.store.action.CustomAction;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -64,9 +64,9 @@ public class ProductService extends EvrythngServiceBase {
 	}
 
 	/**
-	 * Retrieves {@link Thng}s, whether all, by filter, or by ids, in an iterative way.
+	 * Retrieves {@link Product}s, whether all, by filter, or by ids, in an iterative way.
 	 * @return A remote iterator that keeps returning a page, with size specified by the {@link Builder#perPage(int)} method, until all matching resources are returned.
-	 * @throws EvrythngClientException When server communication fails.
+	 * @throws EvrythngClientException in case server communication fails.
 	 */
 	public final Builder<Iterator<PVector<Product>>> iterator() throws EvrythngClientException {
 
@@ -188,6 +188,18 @@ public class ProductService extends EvrythngServiceBase {
 		return get(String.format(PATH_PRODUCT_PROPERTIES, productId), new TypeReference<List<Property<?>>>() {
 
 		});
+	}
+
+	/**
+	 * Retrieves {@link Property} updates with specified key, for a {@link Product}, in an iterative way.
+	 * @return A remote iterator that keeps returning a page, with size specified by the {@link Builder#perPage(int)} method, until all matching resources are returned.
+	 * @throws EvrythngClientException in case server communication fails.
+	 */
+	public final Builder<Iterator<PVector<Property<?>>>> propertiesIterator(final String productId, final String key) throws EvrythngClientException {
+
+		return iterator(String.format(PATH_PRODUCT_PROPERTY, productId, key), new TypeReference<List<Property<?>>>() {
+
+		}).sortOrder(SortOrder.descending());
 	}
 
 	/**

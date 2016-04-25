@@ -6,7 +6,6 @@ package com.evrythng.commons;
 
 import com.evrythng.commons.domain.Size;
 import com.evrythng.commons.domain.SortOrder;
-import com.evrythng.commons.pagination.IPagination;
 
 /**
  * Class to hold zero-based pagination information.
@@ -16,7 +15,7 @@ import com.evrythng.commons.pagination.IPagination;
  *
  * @author Michel Yerly (my)
  **/
-public final class Pagination implements IPagination<Integer> {
+public final class Pagination {
 
 	private final int page;
 	private final int perPage;
@@ -50,19 +49,16 @@ public final class Pagination implements IPagination<Integer> {
 		return String.format("Pagination [page=%s, perPage=%s, offset=%s]", page, perPage, offset);
 	}
 
-	@Override
 	public Integer token() {
 
 		return page;
 	}
 
-	@Override
 	public Size size() {
 
 		return Size.of(getPageOneBased());
 	}
 
-	@Override
 	public SortOrder sortOrder() {
 
 		return SortOrder.descending();
