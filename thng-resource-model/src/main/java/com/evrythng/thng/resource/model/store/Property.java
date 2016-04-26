@@ -5,9 +5,12 @@
 package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.thng.resource.model.core.TemporalResourceModel;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +18,7 @@ import java.util.Map;
 /**
  * Model representation for <em>properties</em>.
  */
-public abstract class Property<V> extends TemporalResourceModel {
+public abstract class Property<VALUE_TYPE> extends TemporalResourceModel {
 
 	public enum Type {
 
@@ -65,7 +68,7 @@ public abstract class Property<V> extends TemporalResourceModel {
 
 	private static final long serialVersionUID = 4241830003414536087L;
 	private String key;
-	private V value;
+	private VALUE_TYPE value;
 	public static final String FIELD_VALUE = "value";
 
 	/**
@@ -78,7 +81,7 @@ public abstract class Property<V> extends TemporalResourceModel {
 	/**
 	 * Creates a new instance of {@link Property}.
 	 */
-	Property(final String key, final V value) {
+	Property(final String key, final VALUE_TYPE value) {
 
 		this.key = key;
 		this.value = value;
@@ -87,7 +90,7 @@ public abstract class Property<V> extends TemporalResourceModel {
 	/**
 	 * Creates a new instance of {@link Property}.
 	 */
-	Property(final String key, final V value, final Long timestamp) {
+	Property(final String key, final VALUE_TYPE value, final Long timestamp) {
 
 		super(timestamp);
 		this.key = key;
@@ -104,58 +107,47 @@ public abstract class Property<V> extends TemporalResourceModel {
 		this.key = key;
 	}
 
-	public V getValue() {
+	public VALUE_TYPE getValue() {
 
 		return value;
 	}
 
-	public void setValue(final V value) {
+	public void setValue(final VALUE_TYPE value) {
 
 		this.value = value;
 	}
 
 	@Override
-	public boolean equals(final Object o) {
+	public boolean equals(final Object other) {
 
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
+		if (other == null || other.getClass() != getClass()) {
 			return false;
 		}
-
-		Property that = (Property) o;
-
-		if (key != null ? !key.equals(that.key) : that.key != null) {
-			return false;
-		}
-		if (value != null ? !value.equals(that.value) : that.value != null) {
-			return false;
-		}
-
-		return true;
+		Property<VALUE_TYPE> that = (Property<VALUE_TYPE>) other;
+		EqualsBuilder equals = new EqualsBuilder();
+		equals.append(key, that.key);
+		equals.append(value, that.value);
+		equals.append(getTimestamp(), that.getTimestamp());
+		return equals.build();
 	}
 
 	@Override
 	public int hashCode() {
 
-		int result = super.hashCode();
-		result = 31 * result + (key != null ? key.hashCode() : 0);
-		result = 31 * result + (value != null ? value.hashCode() : 0);
-		return result;
+		HashCodeBuilder hashCode = new HashCodeBuilder();
+		hashCode.append(key);
+		hashCode.append(value);
+		hashCode.append(getTimestamp());
+		return hashCode.build();
 	}
 
 	@Override
 	public String toString() {
 
-		StringBuilder sb = new StringBuilder("{");
-		sb.append("<").append(key).append(">: ");
-		sb.append(value);
-		if (getTimestamp() != null) {
-			sb.append(" - at ");
-			sb.append(new Date(getTimestamp()));
-		}
-		sb.append('}');
-		return sb.toString();
+		ToStringBuilder toString = new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE);
+		toString.append("key", key);
+		toString.append("value", value);
+		toString.append("timestamp", getTimestamp());
+		return toString.build();
 	}
 }
