@@ -5,6 +5,7 @@
 
 package com.evrythng.java.wrapper.service;
 
+import com.evrythng.commons.domain.SortOrder;
 import com.evrythng.java.wrapper.ApiManager;
 import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.EvrythngServiceBase;
@@ -200,8 +201,7 @@ public class ActionService extends EvrythngServiceBase {
 
 	public Builder<Iterator<PVector<Action>>> iterator() {
 
-		// TODO _MS_ add .sortOrder(SortOrder.descending());
-		return iterator(PATH_ALL_ACTIONS, ACTIONS_TYPE);
+		return iterator(PATH_ALL_ACTIONS, ACTIONS_TYPE).sortOrder(SortOrder.descending());
 	}
 
 	public Builder<Iterator<PVector<Action>>> iterator(final String actionTypeName) {
