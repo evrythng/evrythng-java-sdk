@@ -4,7 +4,7 @@
 	<groupId>com.evrythng</groupId>
 	<artifactId>evrythng-java-sdk</artifactId>
 	<packaging>pom</packaging>
-	<version>1.24-SNAPSHOT</version>
+	<version>1.25-SNAPSHOT</version>
 
 	<name>evrythng-java-sdk</name>
 	<description>Java tools around the EVRYTHNG API.</description>
