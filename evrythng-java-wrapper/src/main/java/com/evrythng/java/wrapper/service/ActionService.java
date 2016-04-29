@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class ActionService extends EvrythngServiceBase {
 
-	private static final TypeReference<List<Action>> ACTIONS_TYPE = new TypeReference<List<Action>>() {};
+	private static final TypeReference<List<Action>> ACTIONS_TYPE_REFERENCE = new TypeReference<List<Action>>() {};
 
 	public static final String PATH_ACTIONS = "/actions";
 	public static final String PATH_ALL_ACTIONS = PATH_ACTIONS + "/all";
@@ -98,7 +98,7 @@ public class ActionService extends EvrythngServiceBase {
 	 */
 	public Builder<List<Action>> actionsReader() throws EvrythngClientException {
 
-		return get(PATH_ALL_ACTIONS, ACTIONS_TYPE);
+		return get(PATH_ALL_ACTIONS, ACTIONS_TYPE_REFERENCE);
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class ActionService extends EvrythngServiceBase {
 	public <T extends Action> Builder<List<T>> actionsReader(final Class<T> actionClass) throws EvrythngClientException {
 
 		String type = getType(actionClass);
-		return (Builder<List<T>>) (Builder<?>) get(String.format(PATH_TYPED_ACTIONS, type), ACTIONS_TYPE);
+		return (Builder<List<T>>) (Builder<?>) get(String.format(PATH_TYPED_ACTIONS, type), ACTIONS_TYPE_REFERENCE);
 	}
 
 	/**
@@ -201,12 +201,11 @@ public class ActionService extends EvrythngServiceBase {
 
 	public Builder<Iterator<PVector<Action>>> iterator() {
 
-		return iterator(PATH_ALL_ACTIONS, ACTIONS_TYPE).sortOrder(SortOrder.descending());
+		return iterator(PATH_ALL_ACTIONS, ACTIONS_TYPE_REFERENCE).sortOrder(SortOrder.descending());
 	}
 
 	public Builder<Iterator<PVector<Action>>> iterator(final String actionTypeName) {
 
-		// TODO _MS_
-		return null;
+		return iterator(String.format(PATH_TYPED_ACTIONS, actionTypeName), ACTIONS_TYPE_REFERENCE).sortOrder(SortOrder.descending());
 	}
 }
