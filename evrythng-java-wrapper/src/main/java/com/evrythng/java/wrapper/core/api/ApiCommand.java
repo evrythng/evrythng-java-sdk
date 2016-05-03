@@ -4,16 +4,16 @@
  */
 package com.evrythng.java.wrapper.core.api;
 
-import java.io.InputStream;
-import java.net.URI;
-import java.security.KeyStore;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
+import com.evrythng.java.wrapper.core.http.HttpMethodBuilder;
+import com.evrythng.java.wrapper.core.http.HttpMethodBuilder.Method;
+import com.evrythng.java.wrapper.core.http.HttpMethodBuilder.MethodBuilder;
+import com.evrythng.java.wrapper.core.http.Status;
+import com.evrythng.java.wrapper.exception.EvrythngClientException;
+import com.evrythng.java.wrapper.exception.EvrythngException;
 import com.evrythng.java.wrapper.util.LogUtils;
+import com.evrythng.java.wrapper.util.URIBuilder;
 import com.evrythng.thng.commons.config.ApiConfiguration;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.commons.collections.map.MultiValueMap;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -29,14 +29,14 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.evrythng.java.wrapper.core.http.HttpMethodBuilder;
-import com.evrythng.java.wrapper.core.http.HttpMethodBuilder.Method;
-import com.evrythng.java.wrapper.core.http.HttpMethodBuilder.MethodBuilder;
-import com.evrythng.java.wrapper.core.http.Status;
-import com.evrythng.java.wrapper.exception.EvrythngClientException;
-import com.evrythng.java.wrapper.exception.EvrythngException;
-import com.evrythng.java.wrapper.util.URIBuilder;
-import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.InputStream;
+import java.net.URI;
+import java.security.KeyStore;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Generic definition for API commands.
@@ -242,6 +242,15 @@ public class ApiCommand<T> {
 		queryParams.put(name, value);
 	}
 
+	public void setQueryParam(final QueryParamValue queryParam) {
+
+		// Ensure uniqueness of parameter:
+		queryParams.remove(queryParam.getKey());
+
+		logger.debug("Setting query parameter: [name={}, value={}]", queryParam.getKey(), queryParam.getValue());
+		queryParams.put(queryParam.getKey(), queryParam.getValue());
+	}
+
 	/**
 	 * Sets (adds or overwrittes) the multi-value of specified query parameter.
 	 *
@@ -343,7 +352,7 @@ public class ApiCommand<T> {
 	private HttpUriRequest buildRequest(final MethodBuilder<?> method) throws EvrythngClientException {
 
 		// Build request method:
-		HttpUriRequest request = method.build(buildUri());
+		HttpUriRequest request = method.build(uri());
 
 		// Define client headers:
 		for (Entry<String, String> header : headers.entrySet()) {
@@ -359,7 +368,7 @@ public class ApiCommand<T> {
 	 *
 	 * @return the absolute URI
 	 */
-	private URI buildUri() throws EvrythngClientException {
+	public final URI uri() throws EvrythngClientException {
 
 		return URIBuilder.fromUri(uri.toString()).queryParams(queryParams).build();
 	}

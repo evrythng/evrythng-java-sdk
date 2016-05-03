@@ -1,5 +1,6 @@
 package com.evrythng.java.wrapper.service;
 
+import com.evrythng.commons.domain.SortOrder;
 import com.evrythng.java.wrapper.ApiManager;
 import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.EvrythngServiceBase;
@@ -16,8 +17,10 @@ import com.evrythng.thng.resource.model.store.Thng;
 import com.evrythng.thng.resource.model.store.action.Action;
 import com.evrythng.thng.resource.model.store.action.CustomAction;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.pcollections.PVector;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -75,6 +78,18 @@ public class ThngService extends EvrythngServiceBase {
 		return get(PATH_THNGS, new TypeReference<List<Thng>>() {
 
 		});
+	}
+
+	/**
+	 * Retrieves {@link Thng}s, whether all, by filter, or by ids, in an iterative way.
+	 * @return A remote iterator that keeps returning a page, with size specified by the {@link Builder#perPage(int)} method, until all matching resources are returned.
+	 * @throws EvrythngClientException in case server communication fails.
+	 */
+	public final Builder<Iterator<PVector<Thng>>> iterator() throws EvrythngClientException {
+
+		return iterator(PATH_THNGS, new TypeReference<List<Thng>>() {
+
+		}).sortOrder(SortOrder.descending());
 	}
 
 	/* ***** /thngs/{id} ***** */
@@ -185,6 +200,18 @@ public class ThngService extends EvrythngServiceBase {
 	}
 
 	/**
+	 * Retrieves {@link Property} updates with specified key, for a {@link Thng}, in an iterative way.
+	 * @return A remote iterator that keeps returning a page, with size specified by the {@link Builder#perPage(int)} method, until all matching resources are returned.
+	 * @throws EvrythngClientException in case server communication fails.
+	 */
+	public final Builder<Iterator<PVector<Property<?>>>> propertiesIterator(final String thngId, final String key) throws EvrythngClientException {
+
+		return iterator(String.format(PATH_THNG_PROPERTY, thngId, key), new TypeReference<List<Property<?>>>() {
+
+		}).sortOrder(SortOrder.descending());
+	}
+
+	/**
 	 * Deletes all {@link com.evrythng.thng.resource.model.store.StringProperty} resources from the referenced {@link Thng}.
 	 * <p>
 	 * DELETE {@value #PATH_THNG_PROPERTIES}
@@ -228,7 +255,7 @@ public class ThngService extends EvrythngServiceBase {
 	 * @return a pre-configured {@link Builder}
 	 */
 	public Builder<List<Property<?>>> propertyUpdater(final String thngId, final String key,
-	                                                          final Property<?> update)
+	                                                         final Property<?> update)
 			throws EvrythngClientException {
 
 		return put(String.format(PATH_THNG_PROPERTY, thngId, key), Collections.singletonList(update),
@@ -429,7 +456,7 @@ public class ThngService extends EvrythngServiceBase {
 	public <T extends Action> Builder<T> actionCreator(final String thngId, final T action) throws EvrythngClientException {
 
 		return (Builder<T>) post(String.format(PATH_THNG_TYPED_ACTIONS, thngId, action.getType()), action,
-		                         new TypeReference<Action>() {
+		                                new TypeReference<Action>() {
 
 		                         });
 	}
