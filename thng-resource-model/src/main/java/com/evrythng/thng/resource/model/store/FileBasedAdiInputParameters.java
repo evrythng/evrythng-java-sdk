@@ -52,6 +52,11 @@ public class FileBasedAdiInputParameters extends BaseAdiInputParameters {
 		this.headers = headers;
 	}
 
+	public enum Format {
+
+		CSV, ZIP
+	}
+
 	@Override
 	public String toString() {
 

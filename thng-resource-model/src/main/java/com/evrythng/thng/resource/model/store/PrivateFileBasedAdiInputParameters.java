@@ -10,7 +10,7 @@ public class PrivateFileBasedAdiInputParameters extends BaseAdiInputParameters {
 	private String fileRelativePath;
 
 	public static final String FIELD_FORMAT = "format";
-	private Format format;
+	private FileBasedAdiInputParameters.Format format;
 
 	public String getFileRelativePath() {
 
@@ -22,12 +22,12 @@ public class PrivateFileBasedAdiInputParameters extends BaseAdiInputParameters {
 		this.fileRelativePath = fileRelativePath;
 	}
 
-	public Format getFormat() {
+	public FileBasedAdiInputParameters.Format getFormat() {
 
 		return format;
 	}
 
-	public void setFormat(final Format format) {
+	public void setFormat(final FileBasedAdiInputParameters.Format format) {
 
 		this.format = format;
 	}
