@@ -1,11 +1,6 @@
-/*
- * (c) Copyright 2016 EVRYTHNG Ltd London / Zurich
- * www.evrythng.com
- */
-
 package com.evrythng.thng.resource.model.store.action.jobs.creation;
 
-public final class ExternalIdsFileInput extends FileCreateActionJobInput {
+public class ExternalIdsPrivateFileInput extends PrivateFileCreateActionJobInput {
 
 	public static final String FIELD_KEY = "key";
 	private String key;

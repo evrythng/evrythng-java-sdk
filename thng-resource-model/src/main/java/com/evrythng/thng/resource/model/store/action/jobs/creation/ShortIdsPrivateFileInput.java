@@ -1,11 +1,6 @@
-/*
- * (c) Copyright 2016 EVRYTHNG Ltd London / Zurich
- * www.evrythng.com
- */
-
 package com.evrythng.thng.resource.model.store.action.jobs.creation;
 
-public final class ShortIdsFileInput extends FileCreateActionJobInput {
+public class ShortIdsPrivateFileInput extends PrivateFileCreateActionJobInput {
 
 	public static final String FIELD_SHORT_DOMAIN = "shortDomain";
 	private String shortDomain;

@@ -78,7 +78,7 @@ public final class CreateActionJob extends ActionJob<CreateActionJob.OptionType>
 		public static final String FIELD_CONTENT_TYPE = "contentType";
 
 		public enum Type {
-			LIST, FILE
+			LIST, FILE, PRIVATE_FILE
 		}
 
 		public enum ContentType {
@@ -103,6 +103,11 @@ public final class CreateActionJob extends ActionJob<CreateActionJob.OptionType>
 		public void setType(final Type type) {
 
 			this.type = type;
+		}
+
+		public enum Format {
+
+			CSV, ZIP
 		}
 	}
 }

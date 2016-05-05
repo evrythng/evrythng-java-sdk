@@ -9,10 +9,13 @@ import com.evrythng.java.wrapper.util.JSONUtils;
 import com.evrythng.thng.resource.model.store.action.jobs.creation.CreateActionJob;
 import com.evrythng.thng.resource.model.store.action.jobs.creation.EvrythngIdsFileInput;
 import com.evrythng.thng.resource.model.store.action.jobs.creation.EvrythngIdsListInput;
+import com.evrythng.thng.resource.model.store.action.jobs.creation.EvrythngIdsPrivateFileInput;
 import com.evrythng.thng.resource.model.store.action.jobs.creation.ExternalIdsFileInput;
 import com.evrythng.thng.resource.model.store.action.jobs.creation.ExternalIdsListInput;
+import com.evrythng.thng.resource.model.store.action.jobs.creation.ExternalIdsPrivateFileInput;
 import com.evrythng.thng.resource.model.store.action.jobs.creation.ShortIdsFileInput;
 import com.evrythng.thng.resource.model.store.action.jobs.creation.ShortIdsListInput;
+import com.evrythng.thng.resource.model.store.action.jobs.creation.ShortIdsPrivateFileInput;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -63,6 +66,15 @@ public final class CreateActionsJobInputDeserializer extends StdDeserializer<Cre
 						return ExternalIdsFileInput.class;
 					case SHORT_IDS:
 						return ShortIdsFileInput.class;
+				}
+			case PRIVATE_FILE:
+				switch (contentType) {
+					case EVRYTHNG_IDS:
+						return EvrythngIdsPrivateFileInput.class;
+					case EXTERNAL_IDS:
+						return ExternalIdsPrivateFileInput.class;
+					case SHORT_IDS:
+						return ShortIdsPrivateFileInput.class;
 				}
 			case LIST:
 				switch (contentType) {

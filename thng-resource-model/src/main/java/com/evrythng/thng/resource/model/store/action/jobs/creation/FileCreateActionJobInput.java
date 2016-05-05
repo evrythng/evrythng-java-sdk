@@ -20,6 +20,12 @@ public abstract class FileCreateActionJobInput extends CreateActionJob.Input {
 	private Map<String, String> headers;
 	public static final String FIELD_HEADERS = "headers";
 
+	@Override
+	public Type getType() {
+
+		return Type.FILE;
+	}
+
 	public Format getFormat() {
 
 		return format;
@@ -48,10 +54,5 @@ public abstract class FileCreateActionJobInput extends CreateActionJob.Input {
 	public void setHeaders(final Map<String, String> headers) {
 
 		this.headers = headers != null ? new HashMap<>(headers) : null;
-	}
-
-	public enum Format {
-
-		CSV, ZIP
 	}
 }

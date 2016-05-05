@@ -11,6 +11,7 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -38,9 +39,9 @@ public class FileUtils {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileUtils.class);
 
-	private static final String X_AMZ_ACL_HEADER_NAME = "x-amz-acl";
-	private static final String X_AMZ_ACL_HEADER_VALUE_PUBLIC_READ = "public-read";
-	private static final String X_AMZ_ACL_HEADER_VALUE_PRIVATE = "private";
+	public static final String X_AMZ_ACL_HEADER_NAME = "x-amz-acl";
+	public static final String X_AMZ_ACL_HEADER_VALUE_PUBLIC_READ = "public-read";
+	public static final String X_AMZ_ACL_HEADER_VALUE_PRIVATE = "private";
 
 
 	/**
@@ -113,6 +114,29 @@ public class FileUtils {
 		}
 
 		LOGGER.info("uploadPrivateContent END: uri: [{}]; content type: [{}], content length: [{}]", new Object[] { uri, contentTypeString, contentString.length() });
+	}
+
+	public static void uploadPrivateContent(final URI uri, final String contentTypeString, final File contentFile) throws IOException {
+
+		LOGGER.info("uploadPrivateContent START: uri: [{}]; content type: [{}], content file: [{}]", new Object[] { uri, contentTypeString, contentFile });
+
+		CloseableHttpClient closeableHttpClient = HttpClients.createDefault();
+
+		HttpPut httpPut = new HttpPut(uri);
+		httpPut.addHeader(HttpHeaders.CONTENT_TYPE, contentTypeString);
+
+		ContentType contentType = ContentType.create(contentTypeString);
+		FileEntity fileEntity = new FileEntity(contentFile, contentType);
+		httpPut.setEntity(fileEntity);
+
+		CloseableHttpResponse response = closeableHttpClient.execute(httpPut);
+		StatusLine statusLine = response.getStatusLine();
+
+		if (!(statusLine.getStatusCode() == HttpStatus.SC_OK)) {
+			throw new IOException(String.format("An error occurred while trying to upload private file - %d: %s", statusLine.getStatusCode(), statusLine.getReasonPhrase()));
+		}
+
+		LOGGER.info("uploadPrivateContent END: uri: [{}]; content type: [{}], content file: [{}]", new Object[] { uri, contentTypeString, contentFile });
 	}
 
 	/**

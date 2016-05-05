@@ -224,6 +224,24 @@ public class FileService extends EvrythngServiceBase {
 		return privateSignedUploadRequest;
 	}
 
+	public PrivateSignedUploadRequest uploadSinglePrivateFile(final FileToSign toSign, final java.io.File contentFile) throws EvrythngException, IOException, URISyntaxException {
+
+		LOGGER.debug("uploadSinglePrivateFile START: file to sign: {}; content file: {}", toSign, contentFile);
+
+		final List<FileToSign> toSignList = Collections.singletonList(toSign);
+
+
+		final List<PrivateSignedUploadRequest> privateSignedUploadRequests = privateFileUploadRequestsSigner(toSignList).execute();
+
+
+		final PrivateSignedUploadRequest privateSignedUploadRequest = privateSignedUploadRequests.get(0);
+		FileUtils.uploadPrivateContent(privateSignedUploadRequest.getSignedUploadUri(), toSign.getType(), contentFile);
+
+		LOGGER.debug("uploadSinglePrivateFile END: file to sign: {}; content file: {} => PrivateSignedUploadRequest: {}", new Object[] {toSign, contentFile, privateSignedUploadRequest});
+
+		return privateSignedUploadRequest;
+	}
+
 	/**
 	 * Obtains a signed url where to upload and uploads there data from {@link InputStream} provided.
 	 *
