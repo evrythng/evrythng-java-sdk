@@ -43,6 +43,16 @@ public class FileUtils {
 	public static final String X_AMZ_ACL_HEADER_VALUE_PUBLIC_READ = "public-read";
 	public static final String X_AMZ_ACL_HEADER_VALUE_PRIVATE = "private";
 
+	/**
+	 * Uploads file with public read access. Alias for {@link #uploadPublicFile(URL, File)}
+	 *
+	 * @param url         upload url.
+	 * @param contentType content type.
+	 * @param file        file for upload.
+	 */
+	public static void uploadFile(final URL url, final String contentType, final File file) throws IOException {
+		uploadPublicFile(url, contentType, file);
+	}
 
 	/**
 	 * Uploads file with public read access.
@@ -73,6 +83,17 @@ public class FileUtils {
 
 		String contentType = URLConnection.guessContentTypeFromName(file.getName());
 		uploadPublicFile(url, contentType, file);
+	}
+
+	/**
+	 * Uploads text as a file content with public read access. Alias for {@link #uploadPublicContent(URL, String, String)}
+	 *
+	 * @param url         upload url.
+	 * @param contentType content type.
+	 * @param content     text content.
+	 */
+	public static void uploadContent(final URL url, final String contentType, final String content) throws IOException {
+		uploadPublicContent(url, contentType, content);
 	}
 
 	/**
@@ -137,6 +158,19 @@ public class FileUtils {
 		}
 
 		LOGGER.info("uploadPrivateContent END: uri: [{}]; content type: [{}], content file: [{}]", new Object[] { uri, contentTypeString, contentFile });
+	}
+
+	/**
+	 * Reads from {@link InputStream} provided and uploads data to Cloud as a file with public read access.
+	 *
+	 * Alias for {@link #uploadPublicStream(URL, String, InputStream)}
+	 *
+	 * @param url         upload url.
+	 * @param contentType content type.
+	 * @param stream      {@link InputStream} where to read from. Should be closed externally.
+	 */
+	public static void uploadStream(final URL url, final String contentType, final InputStream stream) throws IOException {
+		uploadPublicStream(url, contentType, stream);
 	}
 
 	/**

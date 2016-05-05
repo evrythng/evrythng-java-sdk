@@ -183,7 +183,7 @@ public class FileService extends EvrythngServiceBase {
 		final List<SignedUploadRequest> signedUploadRequests = fileUploadRequestsSigner(toSignList).execute();
 		final SignedUploadRequest signedUploadRequest = signedUploadRequests.get(0);
 		final URL url = new URL(signedUploadRequest.getSignedUploadUrl());
-		FileUtils.uploadPublicFile(url, toSign.getType(), file);
+		FileUtils.uploadFile(url, toSign.getType(), file);
 		return signedUploadRequest;
 	}
 
@@ -202,7 +202,7 @@ public class FileService extends EvrythngServiceBase {
 		final List<SignedUploadRequest> signedUploadRequests = fileUploadRequestsSigner(toSignList).execute();
 		final SignedUploadRequest signedUploadRequest = signedUploadRequests.get(0);
 		final URL url = new URL(signedUploadRequest.getSignedUploadUrl());
-		FileUtils.uploadPublicContent(url, toSign.getType(), content);
+		FileUtils.uploadContent(url, toSign.getType(), content);
 		return signedUploadRequest;
 	}
 
@@ -257,7 +257,7 @@ public class FileService extends EvrythngServiceBase {
 		final List<SignedUploadRequest> signedUploadRequests = fileUploadRequestsSigner(toSignList).execute();
 		final SignedUploadRequest signedUploadRequest = signedUploadRequests.get(0);
 		final URL url = new URL(signedUploadRequest.getSignedUploadUrl());
-		FileUtils.uploadPublicStream(url, toSign.getType(), stream);
+		FileUtils.uploadStream(url, toSign.getType(), stream);
 		return signedUploadRequest;
 	}
 }
