@@ -71,8 +71,10 @@ public class ThngService extends EvrythngServiceBase {
 	 * <p>
 	 * GET {@value #PATH_THNGS}
 	 *
+	 * @deprecated use {@link #iterator()} instead.
 	 * @return a pre-configured {@link Builder}
 	 */
+	@Deprecated
 	public Builder<List<Thng>> thngsReader() throws EvrythngClientException {
 
 		return get(PATH_THNGS, new TypeReference<List<Thng>>() {
@@ -230,11 +232,14 @@ public class ThngService extends EvrythngServiceBase {
 	 * <p>
 	 * GET {@value #PATH_THNG_PROPERTY}
 	 *
+	 * @deprecated use {@link #propertiesIterator(String, String)} instead.
+	 *
 	 * @param thngId thng id
 	 * @param key    key
 	 *
 	 * @return a pre-configured {@link Builder}
 	 */
+	@Deprecated
 	public Builder<List<Property<?>>> propertyReader(final String thngId, final String key)
 			throws EvrythngClientException {
 

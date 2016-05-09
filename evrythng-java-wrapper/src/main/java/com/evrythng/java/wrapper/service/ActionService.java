@@ -95,6 +95,7 @@ public class ActionService extends EvrythngServiceBase {
 
 	/**
 	 * Gets all the actions.
+	 * @deprecated use {@link #iterator()} instead.
 	 */
 	public Builder<List<Action>> actionsReader() throws EvrythngClientException {
 
@@ -113,6 +114,7 @@ public class ActionService extends EvrythngServiceBase {
 
 	/**
 	 * Gets all the action of a type.
+	 * @deprecated use {@link #iterator(String)} instead.
 	 */
 	public Builder<List<CustomAction>> actionsReader(final String customType) throws EvrythngClientException {
 

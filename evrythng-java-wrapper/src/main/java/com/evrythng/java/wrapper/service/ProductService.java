@@ -77,7 +77,7 @@ public class ProductService extends EvrythngServiceBase {
 
 	/**
 	 * GET {@value #PATH_PRODUCTS}
-	 *
+	 * @deprecated use {@link #iterator()} instead.
 	 * @return a pre-configured {@link Builder}
 	 */
 	public Builder<List<Product>> productsReader() throws EvrythngClientException {
@@ -217,6 +217,7 @@ public class ProductService extends EvrythngServiceBase {
 	/**
 	 * GET {@value #PATH_PRODUCT_PROPERTY}
 	 *
+	 * @deprecated use {@link #propertiesIterator(String, String)} instead.
 	 * @param productId product id
 	 * @param key       key
 	 *
