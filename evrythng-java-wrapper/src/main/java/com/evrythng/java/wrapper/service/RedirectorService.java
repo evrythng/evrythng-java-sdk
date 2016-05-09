@@ -90,7 +90,7 @@ public class RedirectorService extends EvrythngServiceBase {
 	 * @return a preconfigured {@link Builder}.
 	 */
 	public Builder<RedirectorRules> redirectorRulesUpdater(final String projectId, final String appId,
-	                                                       final RedirectorRules redirectorRules) throws
+	                                                              final RedirectorRules redirectorRules) throws
 	                                                                                              EvrythngClientException {
 
 		return put(String.format(PATH_APPLICATION_REDIRECTOR, projectId, appId), redirectorRules,

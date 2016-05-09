@@ -15,7 +15,7 @@ public class Actions extends ArrayList<Action> {
 
 	private static final long serialVersionUID = -6314117222194081181L;
 
-	public Actions(final List<Action> actions) {
+	public Actions(final List<? extends Action> actions) {
 
 		addAll(actions);
 	}

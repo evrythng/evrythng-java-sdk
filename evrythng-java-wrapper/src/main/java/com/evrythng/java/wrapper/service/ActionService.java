@@ -5,6 +5,7 @@
 
 package com.evrythng.java.wrapper.service;
 
+import com.evrythng.commons.domain.SortOrder;
 import com.evrythng.java.wrapper.ApiManager;
 import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.EvrythngServiceBase;
@@ -16,13 +17,17 @@ import com.evrythng.thng.resource.model.store.action.ActionType;
 import com.evrythng.thng.resource.model.store.action.Actions;
 import com.evrythng.thng.resource.model.store.action.CustomAction;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.pcollections.PVector;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Service wrapper for the {@code /actions} endpoint of the EVRYTHNG API.
  */
 public class ActionService extends EvrythngServiceBase {
+
+	private static final TypeReference<List<Action>> ACTIONS_TYPE_REFERENCE = new TypeReference<List<Action>>() {};
 
 	public static final String PATH_ACTIONS = "/actions";
 	public static final String PATH_ALL_ACTIONS = PATH_ACTIONS + "/all";
@@ -93,9 +98,7 @@ public class ActionService extends EvrythngServiceBase {
 	 */
 	public Builder<List<Action>> actionsReader() throws EvrythngClientException {
 
-		return get(PATH_ALL_ACTIONS, new TypeReference<List<Action>>() {
-
-		});
+		return get(PATH_ALL_ACTIONS, ACTIONS_TYPE_REFERENCE);
 	}
 
 	/**
@@ -105,9 +108,7 @@ public class ActionService extends EvrythngServiceBase {
 	public <T extends Action> Builder<List<T>> actionsReader(final Class<T> actionClass) throws EvrythngClientException {
 
 		String type = getType(actionClass);
-		return (Builder<List<T>>) (Builder<?>) get(String.format(PATH_TYPED_ACTIONS, type), new TypeReference<List<Action>>() {
-
-		});
+		return (Builder<List<T>>) (Builder<?>) get(String.format(PATH_TYPED_ACTIONS, type), ACTIONS_TYPE_REFERENCE);
 	}
 
 	/**
@@ -198,4 +199,13 @@ public class ActionService extends EvrythngServiceBase {
 		return type;
 	}
 
+	public Builder<Iterator<PVector<Action>>> iterator() {
+
+		return iterator(PATH_ALL_ACTIONS, ACTIONS_TYPE_REFERENCE).sortOrder(SortOrder.descending());
+	}
+
+	public Builder<Iterator<PVector<Action>>> iterator(final String actionTypeName) {
+
+		return iterator(String.format(PATH_TYPED_ACTIONS, actionTypeName), ACTIONS_TYPE_REFERENCE).sortOrder(SortOrder.descending());
+	}
 }

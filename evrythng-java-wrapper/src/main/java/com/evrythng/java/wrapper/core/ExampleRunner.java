@@ -4,15 +4,14 @@
  */
 package com.evrythng.java.wrapper.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.evrythng.java.wrapper.exception.EvrythngException;
 import com.evrythng.java.wrapper.util.JSONUtils;
 import com.evrythng.thng.commons.config.ApiConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Base definition for implementing examples on top of the EVRYTHNG API wrapper.

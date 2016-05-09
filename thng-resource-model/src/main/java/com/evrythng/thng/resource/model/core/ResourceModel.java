@@ -5,6 +5,7 @@
 package com.evrythng.thng.resource.model.core;
 
 import com.evrythng.commons.annotations.csv.CsvTransient;
+import com.evrythng.commons.domain.WithId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.collections.list.SetUniqueList;
 
@@ -18,7 +19,7 @@ import java.util.Map;
 /**
  * Abstract model representation for resources.
  */
-public abstract class ResourceModel implements Serializable, WithScopeResource {
+public abstract class ResourceModel implements Serializable, WithScopeResource, WithId.Mutable {
 
 	private static final long serialVersionUID = -2842591513551534611L;
 	public static final String FIELD_ID = "id";
@@ -32,11 +33,13 @@ public abstract class ResourceModel implements Serializable, WithScopeResource {
 	public static final String FIELD_SCOPES = "scopes";
 	private ScopeResource scopes;
 
+	@Override
 	public String getId() {
 
 		return id;
 	}
 
+	@Override
 	public void setId(final String id) {
 
 		this.id = id;

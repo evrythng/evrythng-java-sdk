@@ -34,7 +34,7 @@ public class PaginatedList<E> {
 	 * Creates a list with the items specified. {@code items} represent the
 	 * entire list.
 	 */
-	public PaginatedList(List<E> items) {
+	public PaginatedList(final List<E> items) {
 		this(items, items.size(), 0, items.size());
 	}
 
