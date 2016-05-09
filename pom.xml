@@ -33,25 +33,33 @@
 			</roles>
 		</developer>
 		<developer>
-			<id>pedro</id>
-			<email>pedro@evrythng.com</email>
-			<name>Pedro de Almeida</name>
+			<id>dorogusha</id>
+			<email>aleksandr.dorogush@evrythng.com</email>
+			<name>Aleksandr Dorogush</name>
 			<roles>
-				<role>Lead Developer</role>
+				<role>Senior Backend Developer</role>
 			</roles>
 		</developer>
 		<developer>
-			<id>thomas</id>
-			<email>thomas@evrythng.com</email>
-			<name>Thomas Pham</name>
+			<id>sollecitom</id>
+			<email>michele.sollecito@evrythng.com</email>
+			<name>Michele Sollecito</name>
 			<roles>
-				<role>Lead Infrastructure / Developer</role>
+				<role>Senior Backend Developer</role>
 			</roles>
 		</developer>
 		<developer>
-			<id>my</id>
-			<email>my@evrythng.com</email>
-			<name>Michel Yerly</name>
+			<id>khanf</id>
+			<email>faisal.khan@evrythng.com</email>
+			<name>Faisal Khan</name>
+			<roles>
+				<role>Senior Backend Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<id>dragum</id>
+			<email>Matei.Dragu@evrythng.com</email>
+			<name>Matei Dragu</name>
 			<roles>
 				<role>Senior Backend Developer</role>
 			</roles>
