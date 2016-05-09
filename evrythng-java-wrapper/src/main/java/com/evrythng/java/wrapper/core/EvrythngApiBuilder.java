@@ -221,7 +221,7 @@ public final class EvrythngApiBuilder {
 				if (link != null) {
 					for (HeaderElement linkValue : link.getElements()) {
 						NameValuePair rel = linkValue.getParameterByName("rel");
-						if (rel != null && "\"next\"".equals(rel.getValue())) {
+						if (rel != null && "next".equals(rel.getValue())) {
 							nextPageLink = linkValue.getName();
 							nextPageLink = nextPageLink.substring(1, nextPageLink.length() - 1);
 						}
