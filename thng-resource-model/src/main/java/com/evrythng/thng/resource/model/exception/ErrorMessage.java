@@ -5,6 +5,9 @@
  */
 package com.evrythng.thng.resource.model.exception;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -109,5 +112,11 @@ public class ErrorMessage {
 	public void setErrors(final List<String> errors) {
 
 		this.errors = errors;
+	}
+
+	@JsonIgnore
+	public String errorsAsString() {
+
+		return StringUtils.join(errors, "," + System.lineSeparator());
 	}
 }
