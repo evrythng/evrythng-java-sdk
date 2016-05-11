@@ -56,7 +56,7 @@ public final class Pagination {
 
 	public Size size() {
 
-		return Size.of(getPageOneBased());
+		return Size.of(getPerPage());
 	}
 
 	public SortOrder sortOrder() {

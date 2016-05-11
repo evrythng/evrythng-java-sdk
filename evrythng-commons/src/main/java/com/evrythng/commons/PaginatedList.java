@@ -23,6 +23,11 @@ public class PaginatedList<E> {
 	private long itemStart;
 	private long itemsPerPage;
 
+	public final <T> PaginatedList<T> withElements(final List<T> elements) {
+
+		return new PaginatedList<>(elements, totalCount, itemStart, itemsPerPage);
+	}
+
 	/**
 	 * Creates an empty list.
 	 */
