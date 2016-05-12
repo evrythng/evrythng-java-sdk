@@ -178,7 +178,7 @@ Iterator<PVector<Thng>> redThngsOnly = client.thngService().iterator().perPage(1
 
 ## License
 
- Copyright EVRYTHNG Ltd London / Zurich
+ Copyright EVRYTHNG Ltd London
 
    The EVRYTHNG API wrapper is licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
