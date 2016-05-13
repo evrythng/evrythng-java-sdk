@@ -35,7 +35,7 @@ import java.io.InputStream;
  */
 public class Utils {
 
-	private static final Logger logger = LoggerFactory.getLogger(Utils.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
 
 	private Utils() {
 
@@ -55,7 +55,7 @@ public class Utils {
 
 		K result;
 
-		logger.debug("Performing conversion: [type={}]", type.getType());
+		LOGGER.debug("Performing conversion: [type={}]", type.getType());
 		if (type.getType().equals(Void.class)) {
 			return null;
 		}
@@ -96,7 +96,7 @@ public class Utils {
 	 */
 	private static InputStream entityStream(final HttpResponse response) throws EvrythngClientException {
 
-		logger.debug("Reading response content stream...");
+		LOGGER.debug("Reading response content stream...");
 
 		InputStream result;
 		try {
@@ -117,7 +117,7 @@ public class Utils {
 	 */
 	private static String entityString(final HttpResponse response) throws EvrythngClientException {
 
-		logger.debug("Reading response entity...");
+		LOGGER.debug("Reading response entity...");
 
 		String result;
 		try {
@@ -147,22 +147,32 @@ public class Utils {
 		if (actual == null) {
 			throw new EvrythngUnexpectedException(new ErrorMessage(Status.INTERNAL_SERVER_ERROR.getStatusCode(), "Unknown status code " + response.getStatusLine().getStatusCode()));
 		}
-		logger.debug("Checking response status: [expected={}, actual={}]", expected.getStatusCode(), actual.getStatusCode());
+		LOGGER.debug("Checking response status: [expected={}, actual={}]", expected.getStatusCode(), actual.getStatusCode());
 
 		if (actual != expected) {
-			logger.debug("Unexpected response status!");
+			LOGGER.debug("Unexpected response status!");
 
 			// Map entity to ErrorMessage:
 			String entity = entityString(response);
 			ErrorMessage message;
 			try {
-				logger.debug("Mapping response to ErrorMessage: [entity={}]", entity);
+				LOGGER.debug("Mapping response to ErrorMessage: [entity={}]", entity);
 				// API should always return an ErrorMessage as JSON:
 				message = JSONUtils.read(entity, new TypeReference<ErrorMessage>() {
 
 				});
 			} catch (Exception e) {
-				throw new EvrythngClientException("Unable to retrieve ErrorMessage from response!", e);
+
+				StringBuilder builder = new StringBuilder();
+				builder.append("Unable to retrieve ErrorMessage from response! ");
+				builder.append(response.getStatusLine().getStatusCode());
+				builder.append(": ");
+				builder.append(response.getStatusLine().getReasonPhrase());
+				builder.append("; Entity String: [");
+				builder.append(entity);
+				builder.append("]");
+
+				throw new EvrythngClientException(builder.toString(), e);
 			}
 
 			// Handle unexpected status:
