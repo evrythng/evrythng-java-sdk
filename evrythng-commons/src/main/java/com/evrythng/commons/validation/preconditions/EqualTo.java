@@ -1,8 +1,8 @@
 /*
- * (c) Copyright 2016 EVRYTHNG Ltd London / Zurich
- * www.evrythng.com
+ * (c) Copyright Reserved EVRYTHNG Limited 2016. All rights reserved.
+ * Use of this material is subject to license.
+ * Copying and unauthorised use of this material strictly prohibited.
  */
-
 package com.evrythng.commons.validation.preconditions;
 
 public final class EqualTo<TARGET> extends AbstractPrecondition<TARGET> {
