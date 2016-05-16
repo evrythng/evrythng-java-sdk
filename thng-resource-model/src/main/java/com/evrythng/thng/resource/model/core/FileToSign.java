@@ -26,4 +26,14 @@ public class FileToSign implements Serializable {
 	public String getType() {
 		return type;
 	}
+
+	@Override
+	public String toString() {
+
+		final StringBuilder sb = new StringBuilder("FileToSign{");
+		sb.append("name='").append(name).append('\'');
+		sb.append(", type='").append(type).append('\'');
+		sb.append('}');
+		return sb.toString();
+	}
 }

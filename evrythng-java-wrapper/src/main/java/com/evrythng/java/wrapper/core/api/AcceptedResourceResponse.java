@@ -45,9 +45,9 @@ public class AcceptedResourceResponse {
 	@Override
 	public String toString() {
 
-		StringBuilder sb = new StringBuilder("{");
-		sb.append("location='").append(location).append('\'');
-		sb.append(", resourceId='").append(resourceId).append('\'');
+		final StringBuilder sb = new StringBuilder("AcceptedResourceResponse{");
+		sb.append("resourceId='").append(resourceId).append('\'');
+		sb.append(", location='").append(location).append('\'');
 		sb.append('}');
 		return sb.toString();
 	}

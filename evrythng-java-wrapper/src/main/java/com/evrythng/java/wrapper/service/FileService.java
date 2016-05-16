@@ -14,12 +14,16 @@ import com.evrythng.java.wrapper.exception.EvrythngClientException;
 import com.evrythng.java.wrapper.exception.EvrythngException;
 import com.evrythng.java.wrapper.util.FileUtils;
 import com.evrythng.thng.resource.model.core.FileToSign;
+import com.evrythng.thng.resource.model.core.PrivateSignedUploadRequest;
 import com.evrythng.thng.resource.model.core.SignedUploadRequest;
 import com.evrythng.thng.resource.model.store.File;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Collections;
@@ -30,9 +34,13 @@ import java.util.List;
  **/
 public class FileService extends EvrythngServiceBase {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
+
 	public static final String PATH_FILES = "/files";
 	public static final String PATH_FILE = PATH_FILES + "/%s";
 	public static final String PATH_SIGNATURE = PATH_FILES + "/signatures";
+	public static final String PATH_PRIVATE_SIGNATURE = PATH_FILES + "/privateSignatures";
+
 
 	/**
 	 * @param api {@link ApiManager} instance
@@ -122,6 +130,31 @@ public class FileService extends EvrythngServiceBase {
 	}
 
 	/**
+	 *
+	 * @param toSign
+	 * @return
+	 * @throws EvrythngClientException
+	 */
+	public Builder<List<PrivateSignedUploadRequest>> privateFileUploadRequestsSigner(final List<FileToSign> toSign)
+			throws EvrythngClientException {
+
+		Builder<List<PrivateSignedUploadRequest>> b = get(PATH_PRIVATE_SIGNATURE, new TypeReference<List<PrivateSignedUploadRequest>>() {
+
+		});
+		int i = 0;
+		for (FileToSign f : toSign) {
+			if (f.getName() != null) {
+				b.queryParam("name" + i, f.getName());
+			}
+			if (f.getType() != null) {
+				b.queryParam("type" + i, f.getType());
+			}
+			++i;
+		}
+		return b;
+	}
+
+	/**
 	 * Obtains a signed url where to upload and uploads there a single {@link java.io.File}. File name for the Cloud will be
 	 * determined from {@link java.io.File} provided. Will try to determine content type from {@link java.io.File} provided.
 	 *
@@ -172,6 +205,42 @@ public class FileService extends EvrythngServiceBase {
 		final URL url = new URL(signedUploadRequest.getSignedUploadUrl());
 		FileUtils.uploadContent(url, toSign.getType(), content);
 		return signedUploadRequest;
+	}
+
+	public PrivateSignedUploadRequest uploadSinglePrivateFile(final FileToSign toSign, final String content) throws EvrythngException, IOException, URISyntaxException {
+
+		LOGGER.debug("uploadSinglePrivateFile START: file to sign: {}; content length: {}", toSign, content.length());
+
+		final List<FileToSign> toSignList = Collections.singletonList(toSign);
+
+
+		final List<PrivateSignedUploadRequest> privateSignedUploadRequests = privateFileUploadRequestsSigner(toSignList).execute();
+
+
+		final PrivateSignedUploadRequest privateSignedUploadRequest = privateSignedUploadRequests.get(0);
+		FileUtils.uploadPrivateContent(privateSignedUploadRequest.getSignedUploadUri(), toSign.getType(), content);
+
+		LOGGER.debug("uploadSinglePrivateFile END: file to sign: {}; content length: {} => PrivateSignedUploadRequest: {}", new Object[] {toSign, content.length(), privateSignedUploadRequest});
+
+		return privateSignedUploadRequest;
+	}
+
+	public PrivateSignedUploadRequest uploadSinglePrivateFile(final FileToSign toSign, final java.io.File contentFile) throws EvrythngException, IOException, URISyntaxException {
+
+		LOGGER.debug("uploadSinglePrivateFile START: file to sign: {}; content file: {}", toSign, contentFile);
+
+		final List<FileToSign> toSignList = Collections.singletonList(toSign);
+
+
+		final List<PrivateSignedUploadRequest> privateSignedUploadRequests = privateFileUploadRequestsSigner(toSignList).execute();
+
+
+		final PrivateSignedUploadRequest privateSignedUploadRequest = privateSignedUploadRequests.get(0);
+		FileUtils.uploadPrivateContent(privateSignedUploadRequest.getSignedUploadUri(), toSign.getType(), contentFile);
+
+		LOGGER.debug("uploadSinglePrivateFile END: file to sign: {}; content file: {} => PrivateSignedUploadRequest: {}", new Object[] {toSign, contentFile, privateSignedUploadRequest});
+
+		return privateSignedUploadRequest;
 	}
 
 	/**
