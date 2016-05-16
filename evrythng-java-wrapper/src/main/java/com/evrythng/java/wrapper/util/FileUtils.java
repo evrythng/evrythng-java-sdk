@@ -114,6 +114,14 @@ public class FileUtils {
 		validateConnectionAfterUpload(connection);
 	}
 
+	/**
+	 * Uploads text as a file content with PRIVATE read access.
+	 *
+	 * @param uri upload {@link URI}
+	 * @param contentTypeString content type
+	 * @param contentString text content
+	 * @throws IOException
+	 */
 	public static void uploadPrivateContent(final URI uri, final String contentTypeString, final String contentString) throws IOException {
 
 		LOGGER.info("uploadPrivateContent START: uri: [{}]; content type: [{}], content length: [{}]", new Object[] { uri, contentTypeString, contentString.length() });
@@ -122,6 +130,7 @@ public class FileUtils {
 
 		HttpPut httpPut = new HttpPut(uri);
 		httpPut.addHeader(HttpHeaders.CONTENT_TYPE, contentTypeString);
+		httpPut.addHeader(FileUtils.X_AMZ_ACL_HEADER_NAME, FileUtils.X_AMZ_ACL_HEADER_VALUE_PRIVATE);
 
 		ContentType contentType = ContentType.create(contentTypeString);
 		StringEntity stringEntity = new StringEntity(contentString, contentType);
@@ -138,6 +147,14 @@ public class FileUtils {
 		LOGGER.info("uploadPrivateContent END: uri: [{}]; content type: [{}], content length: [{}]", new Object[] { uri, contentTypeString, contentString.length() });
 	}
 
+	/**
+	 * Uploads a {@code File} with PRIVATE read access.
+	 *
+	 * @param uri upload {@link URI}
+	 * @param contentTypeString content type
+	 * @param contentFile the file to upload
+	 * @throws IOException
+	 */
 	public static void uploadPrivateContent(final URI uri, final String contentTypeString, final File contentFile) throws IOException {
 
 		LOGGER.info("uploadPrivateContent START: uri: [{}]; content type: [{}], content file: [{}]", new Object[] { uri, contentTypeString, contentFile });
@@ -146,6 +163,7 @@ public class FileUtils {
 
 		HttpPut httpPut = new HttpPut(uri);
 		httpPut.addHeader(HttpHeaders.CONTENT_TYPE, contentTypeString);
+		httpPut.addHeader(FileUtils.X_AMZ_ACL_HEADER_NAME, FileUtils.X_AMZ_ACL_HEADER_VALUE_PRIVATE);
 
 		ContentType contentType = ContentType.create(contentTypeString);
 		FileEntity fileEntity = new FileEntity(contentFile, contentType);
