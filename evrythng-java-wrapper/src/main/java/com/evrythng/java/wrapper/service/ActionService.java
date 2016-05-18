@@ -208,6 +208,7 @@ public class ActionService extends EvrythngServiceBase {
 
 	public Builder<Iterator<PVector<Action>>> iterator(final String actionTypeName) {
 
-		return iterator(String.format(PATH_TYPED_ACTIONS, actionTypeName), ACTIONS_TYPE_REFERENCE).sortOrder(SortOrder.descending());
+		return iterator(String.format(PATH_TYPED_ACTIONS, actionTypeName), ACTIONS_TYPE_REFERENCE);
+//		return iterator(String.format(PATH_TYPED_ACTIONS, actionTypeName), ACTIONS_TYPE_REFERENCE).sortOrder(SortOrder.descending());
 	}
 }
