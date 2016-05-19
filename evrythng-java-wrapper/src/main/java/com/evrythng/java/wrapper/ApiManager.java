@@ -20,7 +20,6 @@ import com.evrythng.java.wrapper.service.ProductService;
 import com.evrythng.java.wrapper.service.ProjectService;
 import com.evrythng.java.wrapper.service.RedirectorService;
 import com.evrythng.java.wrapper.service.ScanService;
-import com.evrythng.java.wrapper.service.SearchService;
 import com.evrythng.java.wrapper.service.ThngService;
 import com.evrythng.java.wrapper.service.TimeService;
 import com.evrythng.java.wrapper.service.UrlBindingService;
@@ -42,7 +41,6 @@ public class ApiManager {
 	private ThngService thngService;
 	private final CollectionService collectionService;
 	private ProductService productService;
-	private final SearchService searchService;
 	private final ApplicationService applicationService;
 	private final AuthService authService;
 	private final ScanService scanThngService;
@@ -74,7 +72,6 @@ public class ApiManager {
 		}
 		this.config = config;
 		this.collectionService = new CollectionService(this);
-		this.searchService = new SearchService(this);
 		this.applicationService = new ApplicationService(this);
 		this.authService = new AuthService(this);
 		this.scanThngService = new ScanService(this);
@@ -159,17 +156,6 @@ public class ApiManager {
 	 */
 	public ProductService productService() {
 		return productService;
-	}
-
-	/**
-	 * Returns a preconfigured EVRYTHNG service for accessing the <a
-	 * href="https://dashboard.evrythng.com/developers/apidoc#search">Search</a>
-	 * API.
-	 *
-	 * @see SearchService
-	 */
-	public SearchService searchService() {
-		return searchService;
 	}
 
 	/**
