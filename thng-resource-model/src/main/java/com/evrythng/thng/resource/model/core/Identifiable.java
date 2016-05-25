@@ -9,6 +9,8 @@ import java.util.Map;
 
 public interface Identifiable {
 
+	String FIELD_IDENTIFIERS = "identifiers";
+
 	Map<String, String> getIdentifiers();
 
 	String firstIdentifier();
