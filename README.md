@@ -60,7 +60,7 @@ dependencies {
 
 ### Authenticating
 
-In order to start using the EVRYTHNG Java SDK, an API Key is needed, get one by registering on our [Dashboard](https://dashboard.evrythng.com/). Once logged in, you can find it under 'Account settings' section of the menu.
+In order to start using the EVRYTHNG Java SDK, an API Key is needed, get one by registering on our [Dashboard](https://developers.evrythng.com). Once logged in, you can find it under 'Account settings' section of the menu.
 
 In all the examples, we will assume you have an API Key stored in a variable called `apiKey`.
 

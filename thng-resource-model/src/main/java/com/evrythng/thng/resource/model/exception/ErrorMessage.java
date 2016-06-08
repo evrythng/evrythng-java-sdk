@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class ErrorMessage {
 
-	private static final String MORE_INFO_ROOT = "https://dashboard.evrythng.com/developers/apidoc";
+	private static final String MORE_INFO_ROOT = "https://developers.evrythng.com";
 	/**
 	 * HTTP status
 	 */
