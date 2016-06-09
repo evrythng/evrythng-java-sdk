@@ -25,7 +25,7 @@ public class CsvAdiOutputParameters extends BaseAdiOutputParameters {
 		this(null);
 	}
 
-	private CsvAdiOutputParameters(final List<Column> columns) {
+	public CsvAdiOutputParameters(final List<Column> columns) {
 
 		super(columns);
 		setType(Type.CSV);
