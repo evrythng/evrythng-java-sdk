@@ -26,14 +26,11 @@ import com.evrythng.thng.resource.model.store.geojson.GeoJsonPolygon;
 import com.evrythng.thng.resource.model.store.geojson.GeoJsonType;
 import com.evrythng.thng.resource.model.store.rule.reaction.ActionTagsSetReaction;
 import com.evrythng.thng.resource.model.store.rule.reaction.DataAddedReaction;
-import com.evrythng.thng.resource.model.store.rule.reaction.LoyaltyPointsChangedReaction;
 import com.evrythng.thng.resource.model.store.rule.reaction.MultimediaContentGrantedReaction;
-import com.evrythng.thng.resource.model.store.rule.reaction.PhysicalAssetGrantedReaction;
 import com.evrythng.thng.resource.model.store.rule.reaction.PostedToSocialNetworkReaction;
 import com.evrythng.thng.resource.model.store.rule.reaction.Reaction;
 import com.evrythng.thng.resource.model.store.rule.reaction.RedirectionReaction;
 import com.evrythng.thng.resource.model.store.rule.reaction.TextAddedReaction;
-import com.evrythng.thng.resource.model.store.rule.reaction.TierLevelChangedReaction;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -100,11 +97,8 @@ public class EvrythngJacksonModuleImpl extends SimpleModule implements EvrythngJ
 	public static ReactionDeserializerImpl createReactionDeserializer() {
 
 		ReactionDeserializerImpl reactionDeserializer = new ReactionDeserializerImpl();
-		reactionDeserializer.registerType(PhysicalAssetGrantedReaction.TYPE, PhysicalAssetGrantedReaction.class);
 		reactionDeserializer.registerType(MultimediaContentGrantedReaction.TYPE, MultimediaContentGrantedReaction.class);
-		reactionDeserializer.registerType(LoyaltyPointsChangedReaction.TYPE, LoyaltyPointsChangedReaction.class);
 		reactionDeserializer.registerType(TextAddedReaction.TYPE, TextAddedReaction.class);
-		reactionDeserializer.registerType(TierLevelChangedReaction.TYPE, TierLevelChangedReaction.class);
 		reactionDeserializer.registerType(PostedToSocialNetworkReaction.TYPE, PostedToSocialNetworkReaction.class);
 		reactionDeserializer.registerType(ActionTagsSetReaction.TYPE, ActionTagsSetReaction.class);
 		reactionDeserializer.registerType(DataAddedReaction.TYPE, DataAddedReaction.class);
