@@ -23,40 +23,21 @@ import java.io.InputStream;
 public class ScanService extends EvrythngServiceBase {
 
 	public static final String PATH_SCAN = "/scan";
-	public static final String PATH_SCAN_RECOGNIZE = PATH_SCAN + "/recognitions";
+	public static final String PATH_SCAN_RECOGNITIONS = PATH_SCAN + "/recognitions";
 	public static final String PATH_SCAN_BARCODE = PATH_SCAN + "/barcode";
-	public static final String PATH_IDENTIFY = "/identify";
 
-	public enum ScanMethod {
-
-		QRCODE("qrcode"),
-		ONEDBARCODE("1dbarcode"),
-		OBJPIC("objpic");
-		private final String queryParam;
-
-		ScanMethod(final String queryParam) {
-
-			this.queryParam = queryParam;
-		}
-
-		public String getQueryParam() {
-
-			return this.queryParam;
-		}
-	}
-
-	public enum IdentifyType {
+	public enum RecognitionType {
 		ONEDBARCODE("1dbarcode"),
 		QRCODE("qrcode"),
 		OBJPIC("objpic"),
 		DATAMATRIX("datamatrix"),
-		UNKNOWN("unknown");
+		AUTODETECT("autodetect");
 
 		private final String queryParam;
 
 		public final static String TYPE_QUERY_PARAM_KEY = "type";
 
-		IdentifyType(final String queryParam) {
+		RecognitionType(final String queryParam) {
 
 			this.queryParam = queryParam;
 		}
@@ -78,123 +59,74 @@ public class ScanService extends EvrythngServiceBase {
 	}
 
 	/**
-	 * POST {@value #PATH_SCAN_RECOGNIZE}
-	 * <p>
-	 * Scan a Base64 image. Return the corresponding binding in
-	 *
-	 * @param imageInBinding image {@link UrlBinding} instance
-	 * @param methods        array of {@link ScanMethod}
-	 * @return a preconfigured {@link Builder}
-	 */
-	public Builder<UrlBinding> recognitionsCreator(final UrlBinding imageInBinding, final ScanMethod... methods) throws EvrythngException {
-
-		Builder<UrlBinding> result = post(PATH_SCAN_RECOGNIZE, imageInBinding, Status.OK, new TypeReference<UrlBinding>() {
-
-		});
-		for (ScanMethod m : methods) {
-			result.queryParam(m.getQueryParam(), "true");
-		}
-		return result;
-	}
-
-	/**
-	 * POST {@value #PATH_SCAN_RECOGNIZE}
-	 *
-	 * @param base64Image base64 encoded image, with mime type header.
-	 * @param methods     array of {@link ScanMethod}
-	 * @return a preconfigured {@link Builder}
-	 */
-	public Builder<UrlBinding> recognitionsCreator(final String base64Image, final ScanMethod... methods) throws EvrythngException {
-
-		UrlBinding imageInBinding = new UrlBinding();
-		imageInBinding.setImage(base64Image);
-		return recognitionsCreator(imageInBinding, methods);
-	}
-
-	/**
-	 * POST {@value #PATH_IDENTIFY}
+	 * POST {@value #PATH_SCAN_RECOGNITIONS}
 	 * <p>
 	 * Scan a Base64 image. Return the corresponding binding in
 	 *
 	 * @param base64Image base64 encoded image, with mime type header.
 	 * @return a preconfigured {@link Builder}
 	 */
-	public Builder<UrlBinding> identifyCreator(final String base64Image) throws EvrythngException {
-		return identifyCreator(base64Image, IdentifyType.UNKNOWN);
+	public Builder<UrlBinding> recognitionCreator(final String base64Image) throws EvrythngException {
+		return recognitionCreator(base64Image, RecognitionType.AUTODETECT);
 	}
 
 	/**
-	 * POST {@value #PATH_IDENTIFY}
+	 * POST {@value #PATH_SCAN_RECOGNITIONS}
 	 * <p>
 	 * Identify a Base64 image. Return the corresponding bindings
 	 *
 	 * @param base64Image base64 encoded image, with mime type header.
-	 * @param type   one available {@link IdentifyType}
+	 * @param type   one available {@link RecognitionType}
 	 * @return a preconfigured {@link Builder}
 	 */
-	public Builder<UrlBinding> identifyCreator(final String base64Image, final IdentifyType type) throws EvrythngException {
+	public Builder<UrlBinding> recognitionCreator(final String base64Image, final RecognitionType type) throws EvrythngException {
 		UrlBinding imageInBinding = new UrlBinding();
 		imageInBinding.setImage(base64Image);
-		return identifyCreator(imageInBinding, type);
+		return recognitionCreator(imageInBinding, type);
 	}
 
 	/**
-	 * POST {@value #PATH_IDENTIFY}
+	 * POST {@value #PATH_SCAN_RECOGNITIONS}
 	 * <p>
 	 * Identify an image. Return the corresponding bindings
 	 *
 	 * @param image Image as an input stream.
 	 * @param mime mime type
-	 * @param type   one available {@link IdentifyType}
+	 * @param type   one available {@link RecognitionType}
 	 * @return a preconfigured {@link Builder}
 	 */
-	public Builder<UrlBinding> identifyCreator(final InputStream image, final String mime, final IdentifyType type) throws EvrythngException, IOException {
+	public Builder<UrlBinding> recognitionCreator(final InputStream image, final String mime, final RecognitionType type) throws EvrythngException, IOException {
 		String mimeAndB64 = encodeBase64(image, mime);
-		return identifyCreator(mimeAndB64, type);
+		return recognitionCreator(mimeAndB64, type);
 	}
 
 	/**
-	 * POST {@value #PATH_IDENTIFY}
+	 * POST {@value #PATH_SCAN_RECOGNITIONS}
 	 * <p>
 	 * Identify an image. Return the corresponding bindings
 	 *
 	 * @param imageInBinding image {@link UrlBinding} instance
 	 * @return a preconfigured {@link Builder}
 	 */
-	public Builder<UrlBinding> identifyCreator(final UrlBinding imageInBinding) throws EvrythngException {
-		return identifyCreator(imageInBinding, IdentifyType.UNKNOWN);
+	public Builder<UrlBinding> recognitionCreator(final UrlBinding imageInBinding) throws EvrythngException {
+		return recognitionCreator(imageInBinding, RecognitionType.AUTODETECT);
 	}
 
 	/**
-	 * POST {@value #PATH_IDENTIFY}
+	 * POST {@value #PATH_SCAN_RECOGNITIONS}
 	 * <p>
 	 * Identify an image. Return the corresponding bindings
 	 *
 	 * @param imageInBinding image {@link UrlBinding} instance
-	 * @param type   one available {@link IdentifyType}
+	 * @param type   one available {@link RecognitionType}
 	 * @return a preconfigured {@link Builder}
 	 */
-	public Builder<UrlBinding> identifyCreator(final UrlBinding imageInBinding, final IdentifyType type) throws EvrythngException {
-		Builder<UrlBinding> result = post(PATH_IDENTIFY, imageInBinding, Status.OK, new TypeReference<UrlBinding>() {
+	public Builder<UrlBinding> recognitionCreator(final UrlBinding imageInBinding, final RecognitionType type) throws EvrythngException {
+		Builder<UrlBinding> result = post(PATH_SCAN_RECOGNITIONS, imageInBinding, Status.OK, new TypeReference<UrlBinding>() {
 
 		});
 		result.queryParam(type.getQueryParam());
 		return result;
-	}
-
-	/**
-	 * POST {@value #PATH_SCAN_RECOGNIZE}
-	 *
-	 * @param image   image input stream. The input stream is quietly closed after
-	 *                call of this method.
-	 * @param mime    MIME type
-	 * @param methods array of {@link ScanMethod}
-	 * @return a preconfigured {@link Builder}
-	 */
-	public Builder<UrlBinding> recognitionsCreator(final InputStream image, final String mime, final ScanMethod... methods) throws EvrythngException, IOException {
-
-		String mimeAndB64 = encodeBase64(image, mime);
-		return recognitionsCreator(mimeAndB64, methods);
 	}
 
 	/**
