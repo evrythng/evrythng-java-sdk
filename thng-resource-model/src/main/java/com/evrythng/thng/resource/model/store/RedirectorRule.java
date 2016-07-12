@@ -7,6 +7,7 @@ package com.evrythng.thng.resource.model.store;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Model representation for single <em>redirector rule</em>.
@@ -18,6 +19,7 @@ public class RedirectorRule implements Serializable {
 	private String name;
 	private String redirectUrl;
 	private List<ProjectAndApp> delegates;
+	private Map<String, String> constants;
 
 	public String getMatch() {
 
@@ -57,6 +59,16 @@ public class RedirectorRule implements Serializable {
 	public void setDelegates(final List<ProjectAndApp> delegates) {
 
 		this.delegates = delegates;
+	}
+
+	public Map<String, String> getConstants() {
+
+		return constants;
+	}
+
+	public void setConstants(final Map<String, String> constants) {
+
+		this.constants = constants;
 	}
 
 	public static class ProjectAndApp implements Serializable {
@@ -144,8 +156,14 @@ public class RedirectorRule implements Serializable {
 		if (redirectUrl != null ? !redirectUrl.equals(that.redirectUrl) : that.redirectUrl != null) {
 			return false;
 		}
-		return !(delegates != null ? !delegates.equals(that.delegates) : that.delegates != null);
+		if (delegates != null ? !delegates.equals(that.delegates) : that.delegates != null) {
+			return false;
+		}
+		if (constants != null ? !constants.equals(that.constants) : that.constants != null) {
+			return false;
+		}
 
+		return true;
 	}
 
 	@Override
@@ -155,6 +173,7 @@ public class RedirectorRule implements Serializable {
 		result = 31 * result + (name != null ? name.hashCode() : 0);
 		result = 31 * result + (redirectUrl != null ? redirectUrl.hashCode() : 0);
 		result = 31 * result + (delegates != null ? delegates.hashCode() : 0);
+		result = 31 * result + (constants != null ? constants.hashCode() : 0);
 		return result;
 	}
 }
