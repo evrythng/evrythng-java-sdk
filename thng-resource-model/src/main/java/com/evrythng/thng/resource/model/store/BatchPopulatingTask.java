@@ -296,7 +296,27 @@ public class BatchPopulatingTask extends TaskOnBatch {
 		 */
 		enum Type {
 
-			FIXED_AMOUNT, FILE_BASED, PRIVATE_FILE_BASED, LIST_BASED, IDENTIFIERS_LIST_BASED
+			/**
+			 * Input parameters based on specified amount of generated thngs and redirections
+			 */
+			FIXED_AMOUNT,
+			/**
+			 * Input parameters based on provided file containing collection of shortIds used to generate thngs and redirections
+			 */
+			FILE_BASED,
+			/**
+			 * Input parameters based on provided amazon S3 file containing collection of shortIds used to generate thngs and
+			 * redirections
+			 */
+			PRIVATE_FILE_BASED,
+			/**
+			 * Input parameters based on provided json collection of shortIds used to generate thngs and redirections
+			 */
+			LIST_BASED,
+			/**
+			 * Input parameters based on provided json collection of custom identifiers used to generate thngs
+			 */
+			IDENTIFIERS_LIST_BASED
 		}
 
 		Boolean getGenerateThngs();
