@@ -9,6 +9,7 @@ import com.evrythng.java.wrapper.util.JSONUtils;
 import com.evrythng.thng.resource.model.store.BatchPopulatingTask;
 import com.evrythng.thng.resource.model.store.FileBasedAdiInputParameters;
 import com.evrythng.thng.resource.model.store.FixedAmountAdiInputParameters;
+import com.evrythng.thng.resource.model.store.IdentifiersListBasedAdiInputParameters;
 import com.evrythng.thng.resource.model.store.ListBasedAdiInputParameters;
 import com.evrythng.thng.resource.model.store.PrivateFileBasedAdiInputParameters;
 import com.fasterxml.jackson.core.JsonParser;
@@ -59,6 +60,8 @@ public class BatchPopulatingTaskInputParametersDeserializer extends StdDeseriali
 				return PrivateFileBasedAdiInputParameters.class;
 			case LIST_BASED:
 				return ListBasedAdiInputParameters.class;
+			case IDENTIFIERS_LIST_BASED:
+				return IdentifiersListBasedAdiInputParameters.class;
 		}
 		throw new IllegalArgumentException("Unsupported adi generation quantifier type: " + type);
 	}
