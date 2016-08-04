@@ -36,7 +36,7 @@ Inside `pom.xml`:
 <dependency>
     <groupId>com.evrythng</groupId>
     <artifactId>evrythng-java-wrapper</artifactId>
-    <version>1.29</version>
+    <version>1.30</version>
 </dependency>
 ```
 
@@ -54,7 +54,7 @@ repositories {
 
 
 dependencies {
-    compile group: 'com.evrythng', name: 'evrythng-java-wrapper', version: '1.29'
+    compile group: 'com.evrythng', name: 'evrythng-java-wrapper', version: '1.30'
 }
 ```
 
