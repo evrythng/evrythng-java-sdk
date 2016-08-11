@@ -5,23 +5,24 @@
  */
 package com.evrythng.thng.resource.model.store;
 
-import java.io.Serializable;
+import com.evrythng.thng.resource.model.core.DurableResourceModel;
 
-public class File implements Serializable {
+public class File extends DurableResourceModel {
 
 	private static final long serialVersionUID = 3858064514225475421L;
 
-	private String publicUrl;
+	private String contentUrl;
 	private Long size;
 	private String name;
 	private String type;
+	private Boolean privateAccess;
 
-	public String getPublicUrl() {
-		return publicUrl;
+	public String getContentUrl() {
+		return contentUrl;
 	}
 
-	public void setPublicUrl(String publicUrl) {
-		this.publicUrl = publicUrl;
+	public void setContentUrl(String contentUrl) {
+		this.contentUrl = contentUrl;
 	}
 
 	public Long getSize() {
@@ -46,5 +47,15 @@ public class File implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Boolean getPrivateAccess() {
+
+		return privateAccess;
+	}
+
+	public void setPrivateAccess(final Boolean privateAccess) {
+
+		this.privateAccess = privateAccess;
 	}
 }
