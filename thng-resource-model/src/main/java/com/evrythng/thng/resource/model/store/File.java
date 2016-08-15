@@ -11,11 +11,22 @@ public class File extends DurableResourceModel {
 
 	private static final long serialVersionUID = 3858064514225475421L;
 
+	private String uploadUrl;
 	private String contentUrl;
 	private Long size;
 	private String name;
 	private String type;
 	private Boolean privateAccess;
+
+	public String getUploadUrl() {
+
+		return uploadUrl;
+	}
+
+	public void setUploadUrl(final String uploadUrl) {
+
+		this.uploadUrl = uploadUrl;
+	}
 
 	public String getContentUrl() {
 		return contentUrl;
