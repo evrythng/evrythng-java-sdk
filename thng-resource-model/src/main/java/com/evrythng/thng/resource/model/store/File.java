@@ -7,6 +7,11 @@ package com.evrythng.thng.resource.model.store;
 
 import com.evrythng.thng.resource.model.core.DurableResourceModel;
 
+/**
+ * Represents a metadata record for a file to be uploaded to, or downloaded from, a remote file storage service like Amazon S3. Uploaded files can have either
+ * 'private' or 'public' access, which is indicated by the 'privateAccess' flag (defaults to 'true').
+ *
+ */
 public class File extends DurableResourceModel {
 
 	private static final long serialVersionUID = 3858064514225475421L;
@@ -16,7 +21,7 @@ public class File extends DurableResourceModel {
 	private Long size;
 	private String name;
 	private String type;
-	private Boolean privateAccess;
+	private Boolean privateAccess = Boolean.TRUE;
 
 	public String getUploadUrl() {
 
