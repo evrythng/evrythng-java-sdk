@@ -69,4 +69,38 @@ public class File extends DurableResourceModel {
 
 		this.privateAccess = privateAccess;
 	}
+
+	@Override
+	public boolean equals(final Object o) {
+
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		if (!super.equals(o)) {
+			return false;
+		}
+
+		File file = (File) o;
+
+		if (!name.equals(file.name)) {
+			return false;
+		}
+		if (!type.equals(file.type)) {
+			return false;
+		}
+		return privateAccess.equals(file.privateAccess);
+	}
+
+	@Override
+	public int hashCode() {
+
+		int result = super.hashCode();
+		result = 31 * result + name.hashCode();
+		result = 31 * result + type.hashCode();
+		result = 31 * result + privateAccess.hashCode();
+		return result;
+	}
 }

@@ -12,9 +12,11 @@ import com.evrythng.java.wrapper.ApiManager;
 import com.evrythng.java.wrapper.core.EvrythngServiceBase;
 import com.evrythng.thng.resource.model.store.File;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -42,12 +44,15 @@ public class FilesService extends EvrythngServiceBase {
 	 * @param privateAccess flag indicating whether or not the file should be privately accessible on remote storage. A value of false means the file will be accessible with a public URL.
 	 * @return a {@code File} metadata instance, with an 'uploadUrl' attribute.
 	 */
-	public File createFileRecordWithUploadUrl(String fileName, String fileType, Boolean privateAccess) {
+	public File createFileRecordWithUploadUrl(String fileName, String fileType, Boolean privateAccess, String... tags) {
 
 		File file = new File();
 		file.setName(fileName);
 		file.setType(fileType);
 		file.setPrivateAccess(privateAccess);
+		if (tags != null && ArrayUtils.isNotEmpty(tags)) {
+			file.setTags(Arrays.asList(tags));
+		}
 
 		return post(PATH_V2_FILES, file, new TypeReference<File>() {}).execute();
 	}
