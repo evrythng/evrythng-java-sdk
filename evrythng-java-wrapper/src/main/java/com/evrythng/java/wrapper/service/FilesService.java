@@ -42,7 +42,7 @@ public class FilesService extends EvrythngServiceBase {
 	 * @param fileName name of the file to be uploaded.
 	 * @param fileType mime-type of file to be uploaded, e.g. text/plain, image/jpg, etc.
 	 * @param privateAccess flag indicating whether or not the file should be privately accessible on remote storage. A value of false means the file will be accessible with a public URL.
-	 * @return a {@code File} metadata instance, with an 'uploadUrl' attribute.
+	 * @return a {@link File} metadata instance, with an 'uploadUrl' attribute.
 	 */
 	public File createFileRecordWithUploadUrl(String fileName, String fileType, Boolean privateAccess, String... tags) {
 
@@ -58,11 +58,11 @@ public class FilesService extends EvrythngServiceBase {
 	}
 
 	/**
-	 * Looks up a {@code File} metadata record by id. The returned object will have a 'contentUrl' attribute that can be used by a client to download the remote file using HTTP GET.
+	 * Looks up a {@link File} metadata record by id. The returned object will have a 'contentUrl' attribute that can be used by a client to download the remote file using HTTP GET.
 	 * The 'contentUrl' expires after 30 minutes if the file was marked as 'private'.
 	 *
 	 * @param id id of the file to retrieve metadata for.
-	 * @return a {@code File} metadata instance, with an 'contentUrl' attribute.
+	 * @return a {@link File} metadata instance, with an 'contentUrl' attribute.
 	 */
 	public File findFileById(String id) {
 
@@ -70,7 +70,7 @@ public class FilesService extends EvrythngServiceBase {
 	}
 
 	/**
-	 * Deletes a {@code File} metadata record by id. <b>This method will also delete the actual physical file on remote storage.</b>
+	 * Deletes a {@link File} metadata record by id. <b>This method will also delete the actual physical file on remote storage.</b>
 	 *
 	 * @param id id of the file to be deleted.
 	 * @return boolean response indicating whether the delete operation succeeded or failed.
@@ -81,12 +81,12 @@ public class FilesService extends EvrythngServiceBase {
 	}
 
 	/**
-	 * Looks up a list of {@code File} metadata records based on the provided filter.
+	 * Looks up a list of {@link File} metadata records based on the provided filter.
 	 *
-	 * @param filter filter string to be used as criteria for looking up {@code File} records.
-	 * @return list of {@code File} metadata records based on the provided filter.
+	 * @param filter filter string to be used as criteria for looking up {@link File} records.
+	 * @return list of {@link File} metadata records based on the provided filter.
 	 */
-	public List<File> filesBuilder(String filter) {
+	public List<File> filesReader(String filter) {
 
 		return get(PATH_V2_FILES, new TypeReference<List<File>>() {}).filter(filter).execute();
 	}
