@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This class provides a wrapper around version 2 of the Files REST API (/v2/files).
+ * This class provides a wrapper around version 2 of the Files REST API (/files).
  *
  */
 public class FilesService extends EvrythngServiceBase {

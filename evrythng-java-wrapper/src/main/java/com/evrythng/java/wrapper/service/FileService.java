@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Service wrapper for the {@code /files} endpoint.
+ * Service wrapper for the {@code /deprecated/files} endpoint.
  **/
 public class FileService extends EvrythngServiceBase {
 
