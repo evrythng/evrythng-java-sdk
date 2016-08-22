@@ -234,11 +234,23 @@ public class ApiManager {
 		return this.actionService;
 	}
 
+	/**
+	 * Returns an instance of {@link FileService}, that is a wrapper around the older Files API.
+	 * Newer clients should use {@code filesService()} instead.
+	 *
+	 * @return an instance of {@link FileService}.
+	 */
 	public FileService fileService() {
 
 		return fileService;
 	}
 
+	/**
+	 * Returns an instance of {@link FilesService}, that is a wrapper around the newer Files API.
+	 * Use this method instead of {@code fileService()}.
+	 *
+	 * @return an instance of {@link FilesService}.
+	 */
 	public FilesService filesService() {
 
 		return filesService;

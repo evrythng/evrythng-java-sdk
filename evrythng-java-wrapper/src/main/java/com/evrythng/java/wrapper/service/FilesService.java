@@ -44,7 +44,7 @@ public class FilesService extends EvrythngServiceBase {
 	 * @param privateAccess flag indicating whether or not the file should be privately accessible on remote storage. A value of false means the file will be accessible with a public URL.
 	 * @return a {@link File} metadata instance, with an 'uploadUrl' attribute.
 	 */
-	public File createFileRecordWithUploadUrl(String fileName, String fileType, Boolean privateAccess, String... tags) {
+	public File createFileRecordWithUploadUrl(String fileName, String fileType, boolean privateAccess, String... tags) {
 
 		File file = new File();
 		file.setName(fileName);
@@ -75,7 +75,7 @@ public class FilesService extends EvrythngServiceBase {
 	 * @param id id of the file to be deleted.
 	 * @return boolean response indicating whether the delete operation succeeded or failed.
 	 */
-	public Boolean deleteFileById(String id) {
+	public boolean deleteFileById(String id) {
 
 		return delete(String.format(PATH_V2_FILES_BY_ID, id)).execute();
 	}
