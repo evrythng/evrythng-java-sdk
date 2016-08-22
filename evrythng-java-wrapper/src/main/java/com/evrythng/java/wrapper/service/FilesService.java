@@ -27,7 +27,7 @@ public class FilesService extends EvrythngServiceBase {
 
 	private static final Logger LOG = LoggerFactory.getLogger(FilesService.class);
 
-	private static final String PATH_V2_FILES = "/v2/files";
+	private static final String PATH_V2_FILES = "/files";
 	private static final String PATH_V2_FILES_BY_ID = PATH_V2_FILES + "/%s";
 
 	public FilesService(ApiManager apiManager) {

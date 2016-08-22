@@ -36,7 +36,7 @@ public class FileService extends EvrythngServiceBase {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
 
-	public static final String PATH_FILES = "/files";
+	public static final String PATH_FILES = "/deprecated/files";
 	public static final String PATH_FILE = PATH_FILES + "/%s";
 	public static final String PATH_SIGNATURE = PATH_FILES + "/signatures";
 	public static final String PATH_PRIVATE_SIGNATURE = PATH_FILES + "/privateSignatures";
