@@ -19,6 +19,8 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
+
 /**
  * This class provides a wrapper around version 2 of the Files REST API (/files).
  *
@@ -54,7 +56,7 @@ public class FilesService extends EvrythngServiceBase {
 			file.setTags(Arrays.asList(tags));
 		}
 
-		return post(PATH_V2_FILES, file, new TypeReference<File>() {}).execute();
+		return fileCreator(file).execute();
 	}
 
 	/**
@@ -66,7 +68,7 @@ public class FilesService extends EvrythngServiceBase {
 	 */
 	public File findFileById(String id) {
 
-		return get(String.format(PATH_V2_FILES_BY_ID, id), new TypeReference<File>() {}).execute();
+		return fileReader(id).execute();
 	}
 
 	/**
@@ -77,7 +79,7 @@ public class FilesService extends EvrythngServiceBase {
 	 */
 	public boolean deleteFileById(String id) {
 
-		return delete(String.format(PATH_V2_FILES_BY_ID, id)).execute();
+		return fileDeleter(id).execute();
 	}
 
 	/**
@@ -86,8 +88,52 @@ public class FilesService extends EvrythngServiceBase {
 	 * @param filter filter string to be used as criteria for looking up {@link File} records.
 	 * @return list of {@link File} metadata records based on the provided filter.
 	 */
-	public List<File> filesReader(String filter) {
+	public List<File> findFilesByFilter(String filter) {
 
-		return get(PATH_V2_FILES, new TypeReference<List<File>>() {}).filter(filter).execute();
+		return filesReader(filter).execute();
+	}
+
+	/**
+	 * {@link Builder} that creates a new {@link File} instance when it is executed.
+	 *
+	 * @param file {@link File} to be created.
+	 * @return {@link Builder} to create a new {@link File}.
+	 */
+	public Builder<File> fileCreator(File file) {
+
+		return post(PATH_V2_FILES, file, new TypeReference<File>() {});
+	}
+
+	/**
+	 * {@link Builder} that returns a single {@link File} instance by id when executed.
+	 *
+	 * @param id id of {@link File} to find.
+	 * @return {@link Builder} to find a {@link File} by id.
+	 */
+	public Builder<File> fileReader(String id) {
+
+		return get(String.format(PATH_V2_FILES_BY_ID, id), new TypeReference<File>() {});
+	}
+
+	/**
+	 * {@link Builder} that returns a a list of {@link File} instances by filter when executed.
+	 *
+	 * @param filter filter criteria to apply. Supported are 'tags=tag1,tag2' and 'name=filename'.
+	 * @return {@link Builder} to find a list of {@link File}s by filter.
+	 */
+	public Builder<List<File>> filesReader(String filter) {
+
+		return get(PATH_V2_FILES, new TypeReference<List<File>>() {}).filter(filter);
+	}
+
+	/**
+	 * {@link Builder} that deletes a {@link File} by id when executed.
+	 *
+	 * @param id id of {@link File} to delete.
+	 * @return {@link Builder} to delete a {@link File} by id.
+	 */
+	public Builder<Boolean> fileDeleter(String id) {
+
+		return delete(String.format(PATH_V2_FILES_BY_ID, id));
 	}
 }
