@@ -36,10 +36,10 @@ public class FileService extends EvrythngServiceBase {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
 
-	public static final String PATH_FILES = "/deprecated/files";
-	public static final String PATH_FILE = PATH_FILES + "/%s";
-	public static final String PATH_SIGNATURE = PATH_FILES + "/signatures";
-	public static final String PATH_PRIVATE_SIGNATURE = PATH_FILES + "/privateSignatures";
+	private static final String DEPRECATED_PATH_FILES = "/deprecated/files";
+	private static final String PATH_FILE = DEPRECATED_PATH_FILES + "/%s";
+	private static final String PATH_SIGNATURE = DEPRECATED_PATH_FILES + "/signatures";
+	private static final String PATH_PRIVATE_SIGNATURE = DEPRECATED_PATH_FILES + "/privateSignatures";
 
 
 	/**
@@ -59,7 +59,7 @@ public class FileService extends EvrythngServiceBase {
 	 */
 	public Builder<List<File>> filesReader(final String after) throws EvrythngClientException {
 
-		return get(PATH_FILES, new TypeReference<List<File>>() {
+		return get(DEPRECATED_PATH_FILES, new TypeReference<List<File>>() {
 
 		}).queryParam(AfterQueryParamValue.after(after));
 	}

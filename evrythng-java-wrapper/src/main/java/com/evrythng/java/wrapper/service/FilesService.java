@@ -29,8 +29,8 @@ public class FilesService extends EvrythngServiceBase {
 
 	private static final Logger LOG = LoggerFactory.getLogger(FilesService.class);
 
-	private static final String PATH_V2_FILES = "/files";
-	private static final String PATH_V2_FILES_BY_ID = PATH_V2_FILES + "/%s";
+	private static final String PATH_FILES = "/files";
+	private static final String PATH_FILES_BY_ID = PATH_FILES + "/%s";
 
 	public FilesService(ApiManager apiManager) {
 
@@ -101,7 +101,7 @@ public class FilesService extends EvrythngServiceBase {
 	 */
 	public Builder<File> fileCreator(File file) {
 
-		return post(PATH_V2_FILES, file, new TypeReference<File>() {});
+		return post(PATH_FILES, file, new TypeReference<File>() {});
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class FilesService extends EvrythngServiceBase {
 	 */
 	public Builder<File> fileReader(String id) {
 
-		return get(String.format(PATH_V2_FILES_BY_ID, id), new TypeReference<File>() {});
+		return get(String.format(PATH_FILES_BY_ID, id), new TypeReference<File>() {});
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class FilesService extends EvrythngServiceBase {
 	 */
 	public Builder<List<File>> filesReader(String filter) {
 
-		return get(PATH_V2_FILES, new TypeReference<List<File>>() {}).filter(filter);
+		return get(PATH_FILES, new TypeReference<List<File>>() {}).filter(filter);
 	}
 
 	/**
@@ -134,6 +134,6 @@ public class FilesService extends EvrythngServiceBase {
 	 */
 	public Builder<Boolean> fileDeleter(String id) {
 
-		return delete(String.format(PATH_V2_FILES_BY_ID, id));
+		return delete(String.format(PATH_FILES_BY_ID, id));
 	}
 }
