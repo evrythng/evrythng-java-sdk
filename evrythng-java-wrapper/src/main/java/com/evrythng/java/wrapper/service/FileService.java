@@ -30,8 +30,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Service wrapper for the {@code /deprecated/files} endpoint.
+ * Service wrapper for the '/deprecated/files' endpoint.
  **/
+@Deprecated
 public class FileService extends EvrythngServiceBase {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
@@ -44,7 +45,10 @@ public class FileService extends EvrythngServiceBase {
 
 	/**
 	 * @param api {@link ApiManager} instance
+	 *
+	 * @deprecated use {@link FilesService} instead.
 	 */
+	@Deprecated
 	public FileService(final ApiManager api) {
 
 		super(api);
@@ -56,7 +60,10 @@ public class FileService extends EvrythngServiceBase {
 	 * @param after find files starting from file name {@code after} or if {@code null} find from the beginning.
 	 *
 	 * @return a preconfigured {@link Builder}
+	 *
+	 * @deprecated use {@link FilesService#filesReader(String)} instead.
 	 */
+	@Deprecated
 	public Builder<List<File>> filesReader(final String after) throws EvrythngClientException {
 
 		return get(DEPRECATED_PATH_FILES, new TypeReference<List<File>>() {
@@ -71,7 +78,10 @@ public class FileService extends EvrythngServiceBase {
 	 * @param searchString only find files starting with search string or {@code null} to find all files.
 	 *
 	 * @return a preconfigured {@link Builder}
+	 *
+	 * @deprecated use {@link FilesService#filesReader(String)} instead.
 	 */
+	@Deprecated
 	public Builder<List<File>> filesReader(final String after, final String searchString) throws EvrythngClientException {
 
 		return filesReader(after).queryParam(SearchQueryParamValue.search(searchString));
@@ -83,7 +93,10 @@ public class FileService extends EvrythngServiceBase {
 	 * @param name file name.
 	 *
 	 * @return a preconfigured {@link Builder}
+	 *
+	 * @deprecated use {@link FilesService#fileReader(String)} instead.
 	 */
+	@Deprecated
 	public Builder<File> fileReader(final String name) throws EvrythngClientException {
 
 		return get(String.format(DEPRECATED_PATH_FILE, urlEncodePathPart(name)), new TypeReference<File>() {
@@ -97,7 +110,10 @@ public class FileService extends EvrythngServiceBase {
 	 * @param name file name.
 	 *
 	 * @return a preconfigured {@link Builder}
+	 *
+	 * @deprecated use {@link FilesService#fileDeleter(String)} instead.
 	 */
+	@Deprecated
 	public Builder<Boolean> fileDeleter(final String name) throws EvrythngClientException {
 
 		return delete(String.format(DEPRECATED_PATH_FILE, urlEncodePathPart(name)));
@@ -109,7 +125,10 @@ public class FileService extends EvrythngServiceBase {
 	 * @param toSign list of pairs {@code fileName} and {@code contentType}.
 	 *
 	 * @return a preconfigured {@link Builder}
+	 *
+	 * @deprecated use {@link FilesService#fileCreator(File)} instead.
 	 */
+	@Deprecated
 	public Builder<List<SignedUploadRequest>> fileUploadRequestsSigner(final List<FileToSign> toSign)
 			throws EvrythngClientException {
 
@@ -130,11 +149,15 @@ public class FileService extends EvrythngServiceBase {
 	}
 
 	/**
+	 * Obtain the signatures necessary to upload private files to the Cloud.
 	 *
-	 * @param toSign
-	 * @return
+	 * @param toSign a list of {@link FileToSign} objects.
+	 * @return  preconfigured {@link Builder}
 	 * @throws EvrythngClientException
+	 *
+	 * @deprecated use {@link FilesService#fileCreator(File)} instead.
 	 */
+	@Deprecated
 	public Builder<List<PrivateSignedUploadRequest>> privateFileUploadRequestsSigner(final List<FileToSign> toSign)
 			throws EvrythngClientException {
 
@@ -161,7 +184,10 @@ public class FileService extends EvrythngServiceBase {
 	 * @param file {@link java.io.File} to upload.
 	 *
 	 * @return {@link SignedUploadRequest} instance containing url.
+	 *
+	 * @deprecated no alternative for this one yet.
 	 */
+	@Deprecated
 	public SignedUploadRequest uploadSingleFile(final java.io.File file) throws EvrythngException, IOException {
 
 		final String fileName = file.getName();
@@ -176,7 +202,10 @@ public class FileService extends EvrythngServiceBase {
 	 * @param file   {@link java.io.File} to upload.
 	 *
 	 * @return {@link SignedUploadRequest} instance containing url.
+	 *
+	 * @deprecated no alternative for this one yet.
 	 */
+	@Deprecated
 	public SignedUploadRequest uploadSingleFile(final FileToSign toSign, final java.io.File file)
 			throws EvrythngException, IOException {
 
@@ -195,7 +224,10 @@ public class FileService extends EvrythngServiceBase {
 	 * @param content text content.
 	 *
 	 * @return {@link SignedUploadRequest} instance containing url.
+	 *
+	 * @deprecated no alternative for this one yet.
 	 */
+	@Deprecated
 	public SignedUploadRequest uploadSingleFile(final FileToSign toSign, final String content)
 			throws EvrythngException, IOException {
 
@@ -207,6 +239,7 @@ public class FileService extends EvrythngServiceBase {
 		return signedUploadRequest;
 	}
 
+	@Deprecated
 	public PrivateSignedUploadRequest uploadSinglePrivateFile(final FileToSign toSign, final String content) throws EvrythngException, IOException, URISyntaxException {
 
 		LOGGER.debug("uploadSinglePrivateFile START: file to sign: {}; content length: {}", toSign, content.length());
@@ -225,6 +258,7 @@ public class FileService extends EvrythngServiceBase {
 		return privateSignedUploadRequest;
 	}
 
+	@Deprecated
 	public PrivateSignedUploadRequest uploadSinglePrivateFile(final FileToSign toSign, final java.io.File contentFile) throws EvrythngException, IOException, URISyntaxException {
 
 		LOGGER.debug("uploadSinglePrivateFile START: file to sign: {}; content file: {}", toSign, contentFile);
@@ -250,7 +284,10 @@ public class FileService extends EvrythngServiceBase {
 	 * @param stream {@link InputStream} where to read from. Should be closed externally.
 	 *
 	 * @return {@link SignedUploadRequest} instance containing url.
+	 *
+	 * @deprecated no alternative for this one yet.
 	 */
+	@Deprecated
 	public SignedUploadRequest uploadSingleFile(final FileToSign toSign, final InputStream stream)
 			throws EvrythngException, IOException {
 

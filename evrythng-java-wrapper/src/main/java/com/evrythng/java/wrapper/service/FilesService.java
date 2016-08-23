@@ -46,7 +46,7 @@ public class FilesService extends EvrythngServiceBase {
 	 * @param privateAccess flag indicating whether or not the file should be privately accessible on remote storage. A value of false means the file will be accessible with a public URL.
 	 * @return a {@link File} metadata instance, with an 'uploadUrl' attribute.
 	 */
-	public File createFileRecordWithUploadUrl(String fileName, String fileType, boolean privateAccess, String... tags) {
+	public File createFileRecordWithUploadUrl(final String fileName, final String fileType, final boolean privateAccess, final String... tags) {
 
 		File file = new File();
 		file.setName(fileName);
@@ -66,7 +66,7 @@ public class FilesService extends EvrythngServiceBase {
 	 * @param id id of the file to retrieve metadata for.
 	 * @return a {@link File} metadata instance, with an 'contentUrl' attribute.
 	 */
-	public File findFileById(String id) {
+	public File findFileById(final String id) {
 
 		return fileReader(id).execute();
 	}
@@ -77,7 +77,7 @@ public class FilesService extends EvrythngServiceBase {
 	 * @param id id of the file to be deleted.
 	 * @return boolean response indicating whether the delete operation succeeded or failed.
 	 */
-	public boolean deleteFileById(String id) {
+	public boolean deleteFileById(final String id) {
 
 		return fileDeleter(id).execute();
 	}
@@ -88,7 +88,7 @@ public class FilesService extends EvrythngServiceBase {
 	 * @param filter filter string to be used as criteria for looking up {@link File} records.
 	 * @return list of {@link File} metadata records based on the provided filter.
 	 */
-	public List<File> findFilesByFilter(String filter) {
+	public List<File> findFilesByFilter(final String filter) {
 
 		return filesReader(filter).execute();
 	}
@@ -99,7 +99,7 @@ public class FilesService extends EvrythngServiceBase {
 	 * @param file {@link File} to be created.
 	 * @return {@link Builder} to create a new {@link File}.
 	 */
-	public Builder<File> fileCreator(File file) {
+	public Builder<File> fileCreator(final File file) {
 
 		return post(PATH_FILES, file, new TypeReference<File>() {});
 	}
@@ -110,7 +110,7 @@ public class FilesService extends EvrythngServiceBase {
 	 * @param id id of {@link File} to find.
 	 * @return {@link Builder} to find a {@link File} by id.
 	 */
-	public Builder<File> fileReader(String id) {
+	public Builder<File> fileReader(final String id) {
 
 		return get(String.format(PATH_FILES_BY_ID, id), new TypeReference<File>() {});
 	}
@@ -121,7 +121,7 @@ public class FilesService extends EvrythngServiceBase {
 	 * @param filter filter criteria to apply. Supported are 'tags=tag1,tag2' and 'name=filename'.
 	 * @return {@link Builder} to find a list of {@link File}s by filter.
 	 */
-	public Builder<List<File>> filesReader(String filter) {
+	public Builder<List<File>> filesReader(final String filter) {
 
 		return get(PATH_FILES, new TypeReference<List<File>>() {}).filter(filter);
 	}
@@ -132,7 +132,7 @@ public class FilesService extends EvrythngServiceBase {
 	 * @param id id of {@link File} to delete.
 	 * @return {@link Builder} to delete a {@link File} by id.
 	 */
-	public Builder<Boolean> fileDeleter(String id) {
+	public Builder<Boolean> fileDeleter(final String id) {
 
 		return delete(String.format(PATH_FILES_BY_ID, id));
 	}

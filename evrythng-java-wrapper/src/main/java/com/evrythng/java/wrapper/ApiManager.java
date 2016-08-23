@@ -236,10 +236,12 @@ public class ApiManager {
 
 	/**
 	 * Returns an instance of {@link FileService}, that is a wrapper around the older Files API.
-	 * Newer clients should use {@code filesService()} instead.
 	 *
 	 * @return an instance of {@link FileService}.
+	 *
+	 * @deprecated newer clients should use {@link this#filesService()} instead.
 	 */
+	@Deprecated
 	public FileService fileService() {
 
 		return fileService;
@@ -247,7 +249,7 @@ public class ApiManager {
 
 	/**
 	 * Returns an instance of {@link FilesService}, that is a wrapper around the newer Files API.
-	 * Use this method instead of {@code fileService()}.
+	 * Use this method instead of {@link this#fileService()}.
 	 *
 	 * @return an instance of {@link FilesService}.
 	 */
