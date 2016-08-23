@@ -37,9 +37,9 @@ public class FileService extends EvrythngServiceBase {
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
 
 	private static final String DEPRECATED_PATH_FILES = "/deprecated/files";
-	private static final String PATH_FILE = DEPRECATED_PATH_FILES + "/%s";
-	private static final String PATH_SIGNATURE = DEPRECATED_PATH_FILES + "/signatures";
-	private static final String PATH_PRIVATE_SIGNATURE = DEPRECATED_PATH_FILES + "/privateSignatures";
+	private static final String DEPRECATED_PATH_FILE = DEPRECATED_PATH_FILES + "/%s";
+	private static final String DEPRECATED_PATH_SIGNATURE = DEPRECATED_PATH_FILES + "/signatures";
+	private static final String DEPRECATED_PATH_PRIVATE_SIGNATURE = DEPRECATED_PATH_FILES + "/privateSignatures";
 
 
 	/**
@@ -86,7 +86,7 @@ public class FileService extends EvrythngServiceBase {
 	 */
 	public Builder<File> fileReader(final String name) throws EvrythngClientException {
 
-		return get(String.format(PATH_FILE, urlEncodePathPart(name)), new TypeReference<File>() {
+		return get(String.format(DEPRECATED_PATH_FILE, urlEncodePathPart(name)), new TypeReference<File>() {
 
 		});
 	}
@@ -100,7 +100,7 @@ public class FileService extends EvrythngServiceBase {
 	 */
 	public Builder<Boolean> fileDeleter(final String name) throws EvrythngClientException {
 
-		return delete(String.format(PATH_FILE, urlEncodePathPart(name)));
+		return delete(String.format(DEPRECATED_PATH_FILE, urlEncodePathPart(name)));
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class FileService extends EvrythngServiceBase {
 	public Builder<List<SignedUploadRequest>> fileUploadRequestsSigner(final List<FileToSign> toSign)
 			throws EvrythngClientException {
 
-		Builder<List<SignedUploadRequest>> b = get(PATH_SIGNATURE, new TypeReference<List<SignedUploadRequest>>() {
+		Builder<List<SignedUploadRequest>> b = get(DEPRECATED_PATH_SIGNATURE, new TypeReference<List<SignedUploadRequest>>() {
 
 		});
 		int i = 0;
@@ -138,7 +138,7 @@ public class FileService extends EvrythngServiceBase {
 	public Builder<List<PrivateSignedUploadRequest>> privateFileUploadRequestsSigner(final List<FileToSign> toSign)
 			throws EvrythngClientException {
 
-		Builder<List<PrivateSignedUploadRequest>> b = get(PATH_PRIVATE_SIGNATURE, new TypeReference<List<PrivateSignedUploadRequest>>() {
+		Builder<List<PrivateSignedUploadRequest>> b = get(DEPRECATED_PATH_PRIVATE_SIGNATURE, new TypeReference<List<PrivateSignedUploadRequest>>() {
 
 		});
 		int i = 0;
