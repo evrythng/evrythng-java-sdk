@@ -5,23 +5,40 @@
  */
 package com.evrythng.thng.resource.model.store;
 
-import java.io.Serializable;
+import com.evrythng.thng.resource.model.core.DurableResourceModel;
 
-public class File implements Serializable {
+/**
+ * Represents a metadata record for a file to be uploaded to, or downloaded from, a remote file storage service like Amazon S3. Uploaded files can have either
+ * 'private' or 'public' access, which is indicated by the 'privateAccess' flag (defaults to 'true').
+ *
+ */
+public class File extends DurableResourceModel {
 
 	private static final long serialVersionUID = 3858064514225475421L;
 
-	private String publicUrl;
+	private String uploadUrl;
+	private String contentUrl;
 	private Long size;
 	private String name;
 	private String type;
+	private Boolean privateAccess = Boolean.TRUE;
 
-	public String getPublicUrl() {
-		return publicUrl;
+	public String getUploadUrl() {
+
+		return uploadUrl;
 	}
 
-	public void setPublicUrl(String publicUrl) {
-		this.publicUrl = publicUrl;
+	public void setUploadUrl(final String uploadUrl) {
+
+		this.uploadUrl = uploadUrl;
+	}
+
+	public String getContentUrl() {
+		return contentUrl;
+	}
+
+	public void setContentUrl(String contentUrl) {
+		this.contentUrl = contentUrl;
 	}
 
 	public Long getSize() {
@@ -46,5 +63,49 @@ public class File implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Boolean getPrivateAccess() {
+
+		return privateAccess;
+	}
+
+	public void setPrivateAccess(final Boolean privateAccess) {
+
+		this.privateAccess = privateAccess;
+	}
+
+	@Override
+	public boolean equals(final Object o) {
+
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		if (!super.equals(o)) {
+			return false;
+		}
+
+		File file = (File) o;
+
+		if (!name.equals(file.name)) {
+			return false;
+		}
+		if (!type.equals(file.type)) {
+			return false;
+		}
+		return privateAccess.equals(file.privateAccess);
+	}
+
+	@Override
+	public int hashCode() {
+
+		int result = super.hashCode();
+		result = 31 * result + name.hashCode();
+		result = 31 * result + type.hashCode();
+		result = 31 * result + privateAccess.hashCode();
+		return result;
 	}
 }

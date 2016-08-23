@@ -14,6 +14,7 @@ import com.evrythng.java.wrapper.service.AuthService;
 import com.evrythng.java.wrapper.service.BatchService;
 import com.evrythng.java.wrapper.service.CollectionService;
 import com.evrythng.java.wrapper.service.FileService;
+import com.evrythng.java.wrapper.service.FilesService;
 import com.evrythng.java.wrapper.service.JobsService;
 import com.evrythng.java.wrapper.service.PlaceService;
 import com.evrythng.java.wrapper.service.ProductService;
@@ -53,6 +54,7 @@ public class ApiManager {
 	private final JobsService jobs;
 	private final FileService fileService;
 	private UrlBindingService urlBindingService;
+	private final FilesService filesService;
 
 	/**
 	 * Creates a new {@link ApiManager} instance using the provided
@@ -86,6 +88,7 @@ public class ApiManager {
 		createPlaceService();
 		createActionService();
 		createUrlBindingService();
+		this.filesService = new FilesService(this);
 	}
 
 	/**
@@ -231,9 +234,28 @@ public class ApiManager {
 		return this.actionService;
 	}
 
+	/**
+	 * Returns an instance of {@link FileService}, that is a wrapper around the older Files API.
+	 *
+	 * @return an instance of {@link FileService}.
+	 *
+	 * @deprecated newer clients should use {@link ApiManager#filesService()} instead.
+	 */
+	@Deprecated
 	public FileService fileService() {
 
 		return fileService;
+	}
+
+	/**
+	 * Returns an instance of {@link FilesService}, that is a wrapper around the newer Files API.
+	 * Use this method instead of {@link ApiManager#fileService()}.
+	 *
+	 * @return an instance of {@link FilesService}.
+	 */
+	public FilesService filesService() {
+
+		return filesService;
 	}
 
 	protected void createEvrythngJacksonModule() {
