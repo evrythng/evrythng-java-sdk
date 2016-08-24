@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.evrythng</groupId>
         <artifactId>evrythng-java-sdk</artifactId>
-        <version>1.31</version>
+        <version>1.32.0-SNAPSHOT</version>
     </parent>
 	
     <artifactId>evrythng-commons</artifactId>
