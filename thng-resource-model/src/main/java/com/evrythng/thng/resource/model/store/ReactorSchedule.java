@@ -11,35 +11,14 @@ import com.evrythng.thng.resource.model.core.DurableResourceModel;
  * REST model representation for reactor schedule.
  */
 public class ReactorSchedule extends DurableResourceModel {
+	private static final long serialVersionUID = 2312479445439758160L;
 
-	private String project;
-	private String application;
 	private Object event;
 	private String function;
 	private Long executeAt;
 	private String cron;
 	private String description;
 	private Boolean enabled;
-
-	public String getProject() {
-
-		return project;
-	}
-
-	public void setProject(final String project) {
-
-		this.project = project;
-	}
-
-	public String getApplication() {
-
-		return application;
-	}
-
-	public void setApplication(final String application) {
-
-		this.application = application;
-	}
 
 	public Object getEvent() {
 
@@ -105,9 +84,7 @@ public class ReactorSchedule extends DurableResourceModel {
 	public String toString() {
 
 		return "ReactorSchedule{" +
-				"project='" + project + '\'' +
-				", application='" + application + '\'' +
-				", event=" + event +
+				"event=" + event +
 				", function='" + function + '\'' +
 				", executeAt=" + executeAt +
 				", cron='" + cron + '\'' +
