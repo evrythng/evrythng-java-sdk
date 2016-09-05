@@ -19,6 +19,7 @@ import com.evrythng.java.wrapper.service.JobsService;
 import com.evrythng.java.wrapper.service.PlaceService;
 import com.evrythng.java.wrapper.service.ProductService;
 import com.evrythng.java.wrapper.service.ProjectService;
+import com.evrythng.java.wrapper.service.ReactorSchedulesService;
 import com.evrythng.java.wrapper.service.RedirectorService;
 import com.evrythng.java.wrapper.service.ScanService;
 import com.evrythng.java.wrapper.service.ThngService;
@@ -55,6 +56,7 @@ public class ApiManager {
 	private final FileService fileService;
 	private UrlBindingService urlBindingService;
 	private final FilesService filesService;
+	private final ReactorSchedulesService reactorSchedulesService;
 
 	/**
 	 * Creates a new {@link ApiManager} instance using the provided
@@ -89,6 +91,7 @@ public class ApiManager {
 		createActionService();
 		createUrlBindingService();
 		this.filesService = new FilesService(this);
+		this.reactorSchedulesService = new ReactorSchedulesService(this);
 	}
 
 	/**
@@ -256,6 +259,14 @@ public class ApiManager {
 	public FilesService filesService() {
 
 		return filesService;
+	}
+
+	/**
+	 * Retrieves a preconfigured EVRYTHNG service for accessing reactor schedules API.
+	 * @return an instance of {@link ReactorSchedulesService}.
+	 */
+	public ReactorSchedulesService reactorSchedulesService() {
+		return reactorSchedulesService;
 	}
 
 	protected void createEvrythngJacksonModule() {

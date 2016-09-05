@@ -22,63 +22,104 @@ import java.util.Map;
  */
 public abstract class ResourceModel implements Serializable, WithScopeResource, WithId.Mutable {
 
-	private static final long serialVersionUID = -2842591513551534611L;
 	public static final String FIELD_ID = "id";
-	private String id;
 	public static final String FIELD_CREATED_AT = "createdAt";
-	private Long createdAt;
 	public static final String FIELD_CUSTOM_FIELDS = "customFields";
-	private Map<String, Object> customFields;
 	public static final String FIELD_TAGS = "tags";
-	private List<String> tags;
 	public static final String FIELD_SCOPES = "scopes";
+	private static final long serialVersionUID = -2842591513551534611L;
+	private String id;
+	private Long createdAt;
+	private Map<String, Object> customFields;
+	private List<String> tags;
 	private ScopeResource scopes;
 
+	/**
+	 * Retrieves resource id.
+	 *
+	 * @return instance of {@link String}.
+	 */
 	@Override
 	public String getId() {
 
 		return id;
 	}
 
+	/**
+	 * Sets resource id.
+	 *
+	 * @param id id to set.
+	 */
 	@Override
 	public void setId(final String id) {
 
 		this.id = id;
 	}
 
+	/**
+	 * Retrieves unix time (milliseconds since Epoch) when resource was created.
+	 *
+	 * @return instance of {@link Long}.
+	 */
 	public Long getCreatedAt() {
 
 		return createdAt;
 	}
 
+	/**
+	 * Read-only unix time (milliseconds since Epoch) when resource was created. The value of this property is managed by
+	 * platform so you should not to specify it.
+	 */
 	public void setCreatedAt(final Long createdAt) {
 
 		this.createdAt = createdAt;
 	}
 
+	/**
+	 * Retrieves resource optional custom fields.
+	 *
+	 * @return instance of {@link Map}.
+	 */
 	@CsvTransient
 	public Map<String, Object> getCustomFields() {
-		
+
 		return customFields != null ? Collections.unmodifiableMap(customFields) : null;
 	}
-	
-	@JsonIgnore
-	public <T> T getCustomField(final String key){
 
-		return customFields != null ? (T) customFields.get(key) : null;
-	}
-
+	/**
+	 * Sets resource optional custom fields.
+	 *
+	 * @param customFields custom fields to set.
+	 */
 	public void setCustomFields(final Map<String, Object> customFields) {
 
-		if (customFields == null){
+		if (customFields == null) {
 			this.customFields = null;
-		}
-		else {
+		} else {
 			this.customFields = new HashMap<>();
 			this.customFields.putAll(customFields);
 		}
 	}
 
+	/**
+	 * Retrieves resource custom field specified by key.
+	 *
+	 * @param key custom field key.
+	 *
+	 * @return custom field value.
+	 */
+	@JsonIgnore
+	public <T> T getCustomField(final String key) {
+
+		return customFields != null ? (T) customFields.get(key) : null;
+	}
+
+	/**
+	 * Adds resource custom field key-value pair.
+	 *
+	 * @param key   custom field key to add.
+	 * @param value custom field value to add.
+	 */
 	public void addCustomFields(final String key, final Object value) {
 
 		if (customFields == null) {
@@ -87,22 +128,42 @@ public abstract class ResourceModel implements Serializable, WithScopeResource, 
 		customFields.put(key, value);
 	}
 
+	/**
+	 * Retrieves resource optional tags.
+	 *
+	 * @return instance of {@link List}.
+	 */
 	public List<String> getTags() {
 
 		return tags;
 	}
 
+	/**
+	 * Sets resource optional tags.
+	 *
+	 * @param tags tags to set.
+	 */
 	public void setTags(final List<String> tags) {
 
 		this.tags = tags != null ? SetUniqueList.decorate(new ArrayList(tags)) : null;
 	}
 
+	/**
+	 * Retrieves {@link ScopeResource} defining who can have an access to current resource.
+	 *
+	 * @return instance of {@link ScopeResource}.
+	 */
 	@Override
 	public ScopeResource getScopes() {
 
 		return scopes;
 	}
 
+	/**
+	 * Sets {@link ScopeResource} defining who can have an access to current resource.
+	 *
+	 * @param scopes scope to set.
+	 */
 	@Override
 	public void setScopes(final ScopeResource scopes) {
 
@@ -113,8 +174,9 @@ public abstract class ResourceModel implements Serializable, WithScopeResource, 
 	 * Indicates whether some other object is "equal to" this one.
 	 *
 	 * @param o the ResourceModel subclass object with which to compare.
-	 * @return {@code true} if this object is the same as the argument
-	 * or they both have not-null equal id's; {@code false} otherwise.
+	 *
+	 * @return {@code true} if this object is the same as the argument or they both have not-null equal id's; {@code false}
+	 * otherwise.
 	 */
 	@Override
 	public boolean equals(final Object o) {
