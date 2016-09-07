@@ -55,7 +55,7 @@ public class ReactorSchedulesService extends EvrythngServiceBase {
 	public Builder<List<ReactorSchedule>> reactorSchedulesReader(final String projectId, final String appId)
 			throws EvrythngClientException {
 
-		return get(reactorSchedulesUrl(projectId, appId), new SimpleReference<List<ReactorSchedule>>());
+		return get(reactorSchedulesUrl(projectId, appId), new TypeReference<List<ReactorSchedule>>() {});
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class ReactorSchedulesService extends EvrythngServiceBase {
 	                                                      final String reactorScheduleId)
 			throws EvrythngClientException {
 
-		return get(reactorScheduleUrl(projectId, appId, reactorScheduleId), new SimpleReference<ReactorSchedule>());
+		return get(reactorScheduleUrl(projectId, appId, reactorScheduleId), new TypeReference<ReactorSchedule>() {});
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class ReactorSchedulesService extends EvrythngServiceBase {
 			throws EvrythngClientException {
 
 		return put(reactorScheduleUrl(projectId, appId, reactorScheduleId), reactorSchedule,
-		           new SimpleReference<ReactorSchedule>());
+		           new TypeReference<ReactorSchedule>() {});
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class ReactorSchedulesService extends EvrythngServiceBase {
 	                                                       final ReactorSchedule reactorSchedule)
 			throws EvrythngClientException {
 
-		return post(reactorSchedulesUrl(projectId, appId), reactorSchedule, new SimpleReference<ReactorSchedule>());
+		return post(reactorSchedulesUrl(projectId, appId), reactorSchedule, new TypeReference<ReactorSchedule>() {});
 	}
 
 	/**
@@ -127,12 +127,5 @@ public class ReactorSchedulesService extends EvrythngServiceBase {
 			throws EvrythngClientException {
 
 		return delete(reactorScheduleUrl(projectId, appId, reactorScheduleId));
-	}
-
-	/**
-	 * Simple implementation of {@link TypeReference} to get rid of anonymous class instantiation.
-	 */
-	private static class SimpleReference<T> extends TypeReference<T> {
-
 	}
 }
