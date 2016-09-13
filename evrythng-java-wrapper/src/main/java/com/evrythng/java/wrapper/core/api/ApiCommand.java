@@ -48,6 +48,7 @@ import java.util.concurrent.TimeUnit;
 public class ApiCommand<T> {
 
 	private static final Logger logger = LoggerFactory.getLogger(ApiCommand.class);
+	private static final Random RANDOM = new Random();
 
 	private static final int DEFAULT_CONNECTION_TIMEOUT = 5000;
 	private static final int DEFAULT_SOCKET_TIMEOUT = 30000;
@@ -148,7 +149,7 @@ public class ApiCommand<T> {
 	 * <p>Executes the current command and maps the {@link HttpResponse} entity to
 	 * {@code T} specified by {@link ApiCommand#responseType}.</p>
 	 * <p>
-	 * <p>If the <code>retryOnConnectTimeout</code> parameter is true the connecti
+	 * <p>If the <code>retryOnConnectTimeout</code> parameter is true the connection will be attempted up to
 	 * {@link #CONNECTION_RETRY_ATTEMPTS} times.</p>
 	 *
 	 * @param retryOnConnectTimeout if true the connection will be attempted up to
@@ -160,7 +161,7 @@ public class ApiCommand<T> {
 	 */
 	public T execute(final boolean retryOnConnectTimeout) throws EvrythngException {
 
-		return execute(responseType, RETRY_ON_CONNECT_TIMEOUT);
+		return execute(responseType, retryOnConnectTimeout);
 	}
 
 	/**
@@ -386,7 +387,7 @@ public class ApiCommand<T> {
 		// the number of HTTP request attempts have been performed
 		int requestAttemptsPerformed = 0;
 
-		// this variable will become true when the connection to the remote HTTP server sill be successful
+		// this variable will become true when the connection to the remote HTTP server will be successful
 		boolean connectionSucceeded = false;
 
 		while (!connectionSucceeded && requestAttemptsPerformed < CONNECTION_RETRY_ATTEMPTS) {
@@ -438,10 +439,9 @@ public class ApiCommand<T> {
 	private void sleepBetweenHttpRequests(final int requestAttemptsPerformed, final HttpUriRequest request) {
 
 		try {
-			final Random random         = new Random();
-			final int    nextInt        = random.nextInt(CONNECTION_RETRY_MILLISECONDS_RANDOM);
-			final int    waitTimeRandom = nextInt - (CONNECTION_RETRY_MILLISECONDS_RANDOM / 2);
-			final long   waitTime       = TimeUnit.SECONDS.toMillis(2 * requestAttemptsPerformed) + waitTimeRandom;
+			final int nextInt = RANDOM.nextInt(CONNECTION_RETRY_MILLISECONDS_RANDOM);
+			final int waitTimeRandom = nextInt - (CONNECTION_RETRY_MILLISECONDS_RANDOM / 2);
+			final long waitTime = TimeUnit.SECONDS.toMillis(2 * requestAttemptsPerformed) + waitTimeRandom;
 
 			logger.info("The thread will sleep for {}ms before attempting a new request to: [{}]", waitTime, request.getURI());
 
