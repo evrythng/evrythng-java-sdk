@@ -153,6 +153,12 @@ public class EvrythngServiceBase {
 		}
 
 		@Override
+		public final TYPE execute(final boolean retryOnConnectTimeout) throws EvrythngException {
+
+			return internal.execute(retryOnConnectTimeout);
+		}
+
+		@Override
 		public final String content() throws EvrythngException {
 
 			return internal.content();

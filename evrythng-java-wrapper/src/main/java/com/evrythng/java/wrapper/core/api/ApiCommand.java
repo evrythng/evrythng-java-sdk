@@ -21,6 +21,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
@@ -38,6 +39,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Generic definition for API commands.
@@ -48,6 +51,26 @@ public class ApiCommand<T> {
 
 	private static final int DEFAULT_CONNECTION_TIMEOUT = 5000;
 	private static final int DEFAULT_SOCKET_TIMEOUT = 30000;
+
+	/**
+	 * The number of times a failed HTTP connection attempt should be retried.
+	 */
+	private static final int CONNECTION_RETRY_ATTEMPTS = 5;
+
+	/**
+	 * The number of milliseconds of variability to use when choosing the wait interval between 2 connection retries.
+	 */
+	private static final int CONNECTION_RETRY_MILLISECONDS_RANDOM = 1000;
+
+	/**
+	 * Retry to reconnect when connect timeout occurs.
+	 */
+	private static final boolean RETRY_ON_CONNECT_TIMEOUT = true;
+
+	/**
+	 * Do not retry to reconnect when connect timeout occurs.
+	 */
+	private static final boolean DO_NOT_RETRY_ON_CONNECT_TIMEOUT = false;
 
 	private MultiValueMap queryParams = new MultiValueMap();
 	private Map<String, String> headers = new LinkedHashMap<>();
@@ -118,7 +141,26 @@ public class ApiCommand<T> {
 	 */
 	public T execute() throws EvrythngException {
 
-		return execute(responseType);
+		return execute(responseType, DO_NOT_RETRY_ON_CONNECT_TIMEOUT);
+	}
+
+	/**
+	 * <p>Executes the current command and maps the {@link HttpResponse} entity to
+	 * {@code T} specified by {@link ApiCommand#responseType}.</p>
+	 * <p>
+	 * <p>If the <code>retryOnConnectTimeout</code> parameter is true the connecti
+	 * {@link #CONNECTION_RETRY_ATTEMPTS} times.</p>
+	 *
+	 * @param retryOnConnectTimeout if true the connection will be attempted up to
+	 *                              {@link #CONNECTION_RETRY_ATTEMPTS} times when a connect timeout is encountered
+	 *
+	 * @return the {@link HttpResponse} entity mapped to {@code T}
+	 *
+	 * @throws EvrythngException in case an exception is encountered during the request
+	 */
+	public T execute(final boolean retryOnConnectTimeout) throws EvrythngException {
+
+		return execute(responseType, RETRY_ON_CONNECT_TIMEOUT);
 	}
 
 	/**
@@ -130,9 +172,7 @@ public class ApiCommand<T> {
 	 */
 	public String content() throws EvrythngException {
 
-		return execute(new TypeReference<String>() {
-
-		});
+		return execute(new TypeReference<String>() {}, DO_NOT_RETRY_ON_CONNECT_TIMEOUT);
 	}
 
 	/**
@@ -143,9 +183,7 @@ public class ApiCommand<T> {
 	 */
 	public HttpResponse request() throws EvrythngException {
 
-		return execute(new TypeReference<HttpResponse>() {
-
-		});
+		return execute(new TypeReference<HttpResponse>() {}, DO_NOT_RETRY_ON_CONNECT_TIMEOUT);
 	}
 
 	/**
@@ -157,9 +195,7 @@ public class ApiCommand<T> {
 	 */
 	public InputStream stream() throws EvrythngException {
 
-		return execute(new TypeReference<InputStream>() {
-
-		});
+		return execute(new TypeReference<InputStream>() {}, DO_NOT_RETRY_ON_CONNECT_TIMEOUT);
 	}
 
 	/**
@@ -198,9 +234,7 @@ public class ApiCommand<T> {
 	 */
 	public Header head(final String headerName) throws EvrythngException {
 
-		HttpResponse response = execute(HttpMethodBuilder.httpGet(), new TypeReference<HttpResponse>() {
-
-		});
+		HttpResponse response = execute(HttpMethodBuilder.httpGet(), new TypeReference<HttpResponse>() {}, DO_NOT_RETRY_ON_CONNECT_TIMEOUT);
 		logger.debug("Retrieving first header: [name={}]", headerName);
 		return response.getFirstHeader(headerName);
 	}
@@ -287,22 +321,27 @@ public class ApiCommand<T> {
 		this.httpParams = params;
 	}
 
-	private <K> K execute(final TypeReference<K> type) throws EvrythngException {
+	private <K> K execute(final TypeReference<K> type, final boolean retryOnConnectTimeout) throws EvrythngException {
 		// Delegate:
-		return execute(methodBuilder, type);
+		return execute(methodBuilder, type, retryOnConnectTimeout);
 	}
 
-	private <K> K execute(final MethodBuilder<?> method, final TypeReference<K> type) throws EvrythngException {
+	private <K> K execute(final MethodBuilder<?> method, final TypeReference<K> type, final boolean retryOnConnectTimeout) throws EvrythngException {
 		// Delegate:
-		return execute(method, responseStatus, type);
+		return execute(method, responseStatus, type, retryOnConnectTimeout);
 	}
 
-	private <K> K execute(final MethodBuilder<?> method, final Status expectedStatus, final TypeReference<K> type) throws EvrythngException {
+	private <K> K execute(final MethodBuilder<?> method, final Status expectedStatus, final TypeReference<K> type, final boolean retryOnConnectTimeout) throws EvrythngException {
 
 		HttpClient client = new DefaultHttpClient(httpParams);
 		client = wrapClient(client);
 		try {
-			HttpResponse response = performRequest(client, method, expectedStatus);
+			HttpResponse response;
+			if (retryOnConnectTimeout) {
+				response = performRequestWithRetry(client, method, expectedStatus);
+			} else {
+				response = performRequest(client, method, expectedStatus);
+			}
 			return Utils.convert(response, type);
 		} finally {
 			shutdown(client);
@@ -326,6 +365,90 @@ public class ApiCommand<T> {
 		Utils.assertStatus(response, expectedStatus);
 
 		return response;
+	}
+
+	/**
+	 * Performs a HTTP request and retries it multiple times in case of connection timeout.
+	 *
+	 * @param client         the HTTP client to use
+	 * @param method         the HTTP method builder to use
+	 * @param expectedStatus the HTTP status expected for the result
+	 *
+	 * @return the response of the HTTP request
+	 *
+	 * @throws EvrythngException in case an exception is encountered during the request
+	 */
+	private HttpResponse performRequestWithRetry(final HttpClient client, final MethodBuilder<?> method, final Status expectedStatus) throws EvrythngException {
+
+		HttpResponse   response = null;
+		HttpUriRequest request  = buildRequest(method);
+
+		// the number of HTTP request attempts have been performed
+		int requestAttemptsPerformed = 0;
+
+		// this variable will become true when the connection to the remote HTTP server sill be successful
+		boolean connectionSucceeded = false;
+
+		while (!connectionSucceeded && requestAttemptsPerformed < CONNECTION_RETRY_ATTEMPTS) {
+			final long requestAttemptStartMs = System.currentTimeMillis();
+			try {
+				requestAttemptsPerformed++;
+
+				logger.debug(">> Executing request: [method={}, url={}]", request.getMethod(), request.getURI().toString());
+				response = client.execute(request);
+				connectionSucceeded = true;
+				logger.debug("<< Response received: [statusLine={}]", response.getStatusLine().toString());
+			} catch (ConnectTimeoutException connectTimeoutException) {
+				// time the duration for logging purposes
+				final long requestAttemptDurationMs = System.currentTimeMillis() - requestAttemptStartMs;
+
+				// Log the exception
+				logger.warn("CONNECT_TIMEOUT_EXCEPTION: Attempt #: [{}/{}], Duration: {}ms, URI:[{}]", new Object[] {requestAttemptsPerformed, CONNECTION_RETRY_ATTEMPTS, requestAttemptDurationMs, request.getURI(), connectTimeoutException});
+
+				if (requestAttemptsPerformed >= CONNECTION_RETRY_ATTEMPTS) {
+					// If the number of request attempts has exceeded the maximum allowed throw an EvrythngClientException
+					throw new EvrythngClientException(String.format("Unable to execute request: [uri=%s, cause=%s]", request.getURI(), connectTimeoutException.getMessage()), connectTimeoutException);
+				} else {
+					// The number of requests has not exceeded yet, wait for a bit and perform the request again
+					sleepBetweenHttpRequests(requestAttemptsPerformed, request);
+				}
+			} catch (Exception e) {
+				// Convert to custom exception:
+				throw new EvrythngClientException(String.format("Unable to execute request: [uri=%s, cause=%s]", request.getURI(), e.getMessage()), e);
+			}
+		}
+
+		// HTTP request successful, Assert response status:
+		Utils.assertStatus(response, expectedStatus);
+
+		return response;
+	}
+
+	/**
+	 * <p>Performs a {@link Thread#sleep(long)} for a certain amount of time depending on the number of connection attempts have been made until this point.</p>
+	 * <p>
+	 * <p>The formula to calculate the wait time is the following:<br />
+	 * waitTimeMilliseconds = 2 * requestAttempts * 1000 + randomBetween(-500, 500)</p>
+	 *
+	 * @param requestAttemptsPerformed the number of connection attempts have been made until this point.
+	 * @param request                  the request to be performed.
+	 *
+	 * @throws EvrythngClientException in case a {@link InterruptedException} is encountered during the {@link Thread#sleep(long)}
+	 */
+	private void sleepBetweenHttpRequests(final int requestAttemptsPerformed, final HttpUriRequest request) {
+
+		try {
+			final Random random         = new Random();
+			final int    nextInt        = random.nextInt(CONNECTION_RETRY_MILLISECONDS_RANDOM);
+			final int    waitTimeRandom = nextInt - (CONNECTION_RETRY_MILLISECONDS_RANDOM / 2);
+			final long   waitTime       = TimeUnit.SECONDS.toMillis(2 * requestAttemptsPerformed) + waitTimeRandom;
+
+			logger.info("The thread will sleep for {}ms before attempting a new request to: [{}]", waitTime, request.getURI());
+
+			Thread.sleep(waitTime);
+		} catch (InterruptedException e) {
+			throw new EvrythngClientException(String.format("InterruptedException while waiting to perform request: [uri=%s]", request.getURI()), e);
+		}
 	}
 
 	private static HttpClient wrapClient(final HttpClient base) {

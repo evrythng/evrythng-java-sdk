@@ -220,6 +220,20 @@ public class ApiCommandBuilder<TYPE, BUILDER extends ApiCommandBuilder> {
 	}
 
 	/**
+	 * Executes the current command and maps the {@link HttpResponse} entity to
+	 * {@code T} specified by {@link ApiCommand#responseType}.
+	 *
+	 * @param retryOnConnectTimeout if true the connection will be attempted up to 5 times
+	 *                              times when a connect timeout is encountered
+	 * @return the {@link HttpResponse} entity mapped to {@code T}
+	 * @see ApiCommand#execute()
+	 */
+	public TYPE execute(final boolean retryOnConnectTimeout) throws EvrythngException {
+
+		return command.execute(retryOnConnectTimeout);
+	}
+
+	/**
 	 * Executes the current command and returns the {@link HttpResponse} entity
 	 * content as {@link String}.
 	 *
