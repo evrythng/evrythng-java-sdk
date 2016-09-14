@@ -202,6 +202,18 @@ public class UncheckedApiCommandBuilder<T, B extends UncheckedApiCommandBuilder>
 	}
 
 	/**
+	 * Executes the current command and maps the {@link HttpResponse} entity to
+	 * {@code T} specified by {@link ApiCommand#responseType}.
+	 *
+	 * @return the {@link HttpResponse} entity mapped to {@code T}
+	 * @see ApiCommand#execute()
+	 */
+	public <X> X execute(final boolean retryOnConnectTimeout) throws EvrythngException {
+
+		return (X) command.execute(retryOnConnectTimeout);
+	}
+
+	/**
 	 * Executes the current command and returns the {@link HttpResponse} entity
 	 * content as {@link String}.
 	 *
