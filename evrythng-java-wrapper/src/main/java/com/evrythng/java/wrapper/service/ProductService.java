@@ -75,18 +75,6 @@ public class ProductService extends EvrythngServiceBase {
 		});
 	}
 
-	/**
-	 * GET {@value #PATH_PRODUCTS}
-	 * @deprecated use {@link #iterator()} instead.
-	 * @return a pre-configured {@link Builder}
-	 */
-	public Builder<List<Product>> productsReader() throws EvrythngClientException {
-
-		return get(PATH_PRODUCTS, new TypeReference<List<Product>>() {
-
-		});
-	}
-
 	/* ***** /products/{id} ***** */
 
 	/**
