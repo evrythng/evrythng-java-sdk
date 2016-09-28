@@ -178,6 +178,15 @@ public class RedirectorRule implements Serializable {
 			result = 31 * result + (project != null ? project.hashCode() : 0);
 			return result;
 		}
+
+		@Override
+		public String toString() {
+
+			return "ProjectAndApp{" +
+					"app='" + app + '\'' +
+					", project='" + project + '\'' +
+					'}';
+		}
 	}
 
 	@Override
