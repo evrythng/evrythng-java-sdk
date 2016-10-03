@@ -18,6 +18,7 @@ public abstract class Reaction implements Serializable {
 
 	public static final String FIELD_TYPE = "type";
 	private String type;
+	@Deprecated
 	private Map<String, Object> customFields;
 
 	public abstract void accept(ReactionVisitor visitor);
@@ -30,15 +31,18 @@ public abstract class Reaction implements Serializable {
 		this.type = type;
 	}
 
+	@Deprecated
 	public Map<String, Object> getCustomFields() {
 		return customFields;
 	}
 
+	@Deprecated
 	public void setCustomFields(final Map<String, Object> customFields) {
 
 		this.customFields = customFields;
 	}
 
+	@Deprecated
 	public void addCustomFields(final String key, final Object value) {
 
 		if (customFields == null) {
