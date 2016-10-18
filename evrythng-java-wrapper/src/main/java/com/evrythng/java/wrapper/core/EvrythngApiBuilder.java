@@ -176,7 +176,7 @@ public final class EvrythngApiBuilder {
 	private static class IteratorBuilder<T> extends UncheckedBuilder<Iterator<PVector<T>>> {
 
 		private static final URLCodec CODEC = new URLCodec();
-		private final String apiKey;
+		private String apiKey;
 		private final Status responseStatus;
 		private final TypeReference<List<T>> pageType;
 
@@ -186,6 +186,14 @@ public final class EvrythngApiBuilder {
 			this.apiKey = apiKey;
 			this.responseStatus = responseStatus;
 			this.pageType = pageType;
+		}
+
+		@Override
+		public UncheckedBuilder<Iterator<PVector<T>>> apiKey(final String apiKey) {
+
+			super.apiKey(apiKey);
+			this.apiKey = apiKey;
+			return this;
 		}
 
 		@Override

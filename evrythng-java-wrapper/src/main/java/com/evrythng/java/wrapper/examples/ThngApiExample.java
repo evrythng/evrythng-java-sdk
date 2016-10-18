@@ -12,8 +12,10 @@ import com.evrythng.java.wrapper.exception.EvrythngException;
 import com.evrythng.java.wrapper.service.ThngService;
 import com.evrythng.thng.commons.config.ApiConfiguration;
 import com.evrythng.thng.resource.model.store.Thng;
+import org.pcollections.PVector;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -89,28 +91,15 @@ public class ThngApiExample extends ExampleRunner {
 		}
 
 		// Get a Thngs reader builder for querying resources:
-		echo("Getting a reader for Thng resources...");
-		Builder<List<Thng>> thngsReader = thngService.thngsReader();
+		echo("Getting an iterator for Thng resources...");
+		final Builder<Iterator<PVector<Thng>>> iteratorBuilder = thngService.iterator();
+		final Iterator<PVector<Thng>>          iterator        = iteratorBuilder.execute();
 
-		echo("Counting total number of Thng resources...");
-		echo("Total: {}", thngsReader.count());
-
-		// Navigate through resource pages using a thngsReader builder:
-		echo("Reading first page of Thng resources...");
-		List<Thng> results = thngsReader.execute();
-		echo("Results: {}", results);
-
-		echo("Reading second page of Thng resources...");
-		results = thngsReader.page(2).execute();
-		echo("Results: {}", results);
-
-		echo("Reading second page of Thng resources with 2 elements per page...");
-		results = thngsReader.page(2).perPage(2).execute();
-		echo("Results: {}", results);
-
-		echo("Reading second page of Thng resources with 1 element per page...");
-		results = thngsReader.perPage(1).execute(); // "page=2" is still active!
-		echo("Results: {}", results);
+		echo("Reading all the pages retrieved by the iterator...");
+		while (iterator.hasNext()) {
+			final List<Thng> currentPage = iterator.next();
+			echo("Results: {}", currentPage);
+		}
 
 		// Retrieve a specific Thng using a thngReader builder:
 		echo("Retrieving Thng by ID: {}", thngs.get(0).getId());
