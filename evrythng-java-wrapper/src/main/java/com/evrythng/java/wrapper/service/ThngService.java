@@ -67,22 +67,6 @@ public class ThngService extends EvrythngServiceBase {
 	}
 
 	/**
-	 * Retrieves the lst updates {@link Thng} resources.
-	 * <p>
-	 * GET {@value #PATH_THNGS}
-	 *
-	 * @deprecated use {@link #iterator()} instead.
-	 * @return a pre-configured {@link Builder}
-	 */
-	@Deprecated
-	public Builder<List<Thng>> thngsReader() throws EvrythngClientException {
-
-		return get(PATH_THNGS, new TypeReference<List<Thng>>() {
-
-		});
-	}
-
-	/**
 	 * Retrieves {@link Thng}s, whether all, by filter, or by ids, in an iterative way.
 	 * @return A remote iterator that keeps returning a page, with size specified by the {@link Builder#perPage(int)} method, until all matching resources are returned.
 	 * @throws EvrythngClientException in case server communication fails.
