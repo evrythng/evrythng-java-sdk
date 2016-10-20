@@ -10,15 +10,5 @@ package com.evrythng.thng.resource.model.store.rule.reaction;
  **/
 public interface ReactionVisitor {
 
-	void visit(MultimediaContentGrantedReaction reaction);
-
-	void visit(TextAddedReaction reaction);
-
-	void visit(PostedToSocialNetworkReaction reaction);
-
-	void visit(ActionTagsSetReaction reaction);
-
-	void visit(DataAddedReaction reaction);
-
 	void visit(RedirectionReaction reaction);
 }
