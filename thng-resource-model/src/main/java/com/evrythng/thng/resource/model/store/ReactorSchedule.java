@@ -22,7 +22,7 @@ public class ReactorSchedule extends DurableResourceModel {
 	/**
 	 * Retrieves event object which will be supplied as a parameter in a function executed by schedule.
 	 *
-	 * @return instance of {@Object}.
+	 * @return instance of {@link Object}.
 	 */
 	public Object getEvent() {
 

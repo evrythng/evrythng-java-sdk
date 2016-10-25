@@ -138,7 +138,6 @@ public class ApiCommand<T> {
 	 * {@code T} specified by {@link ApiCommand#responseType}.
 	 *
 	 * @return the {@link HttpResponse} entity mapped to {@code T}
-	 * @see #execute(TypeReference)
 	 */
 	public T execute() throws EvrythngException {
 
@@ -169,7 +168,6 @@ public class ApiCommand<T> {
 	 * content as {@link String}.
 	 *
 	 * @return the {@link HttpResponse} entity content as {@link String}
-	 * @see #execute(TypeReference)
 	 */
 	public String content() throws EvrythngException {
 
@@ -180,7 +178,6 @@ public class ApiCommand<T> {
 	 * Executes the current command and returns the native {@link HttpResponse}.
 	 *
 	 * @return the {@link HttpResponse} implied by the request
-	 * @see #execute(TypeReference)
 	 */
 	public HttpResponse request() throws EvrythngException {
 
@@ -192,7 +189,6 @@ public class ApiCommand<T> {
 	 * body as {@link InputStream}.
 	 *
 	 * @return the {@link HttpResponse} entity as {@link InputStream}
-	 * @see #execute(TypeReference)
 	 */
 	public InputStream stream() throws EvrythngException {
 
