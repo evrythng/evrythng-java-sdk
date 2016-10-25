@@ -21,8 +21,6 @@ public abstract class Reaction implements Serializable {
 	@Deprecated
 	private Map<String, Object> customFields;
 
-	public abstract void accept(ReactionVisitor visitor);
-
 	public String getType() {
 		return type;
 	}
