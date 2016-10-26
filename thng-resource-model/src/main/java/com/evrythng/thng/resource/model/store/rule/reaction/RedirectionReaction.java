@@ -14,7 +14,6 @@ public class RedirectionReaction extends Reaction {
 
 	private static final long serialVersionUID = 8799788066512698766L;
 	public static final String TYPE = "redirection";
-
 	private final String redirectUrl;
 	private Map<String, Object> redirectionContext;
 
@@ -30,6 +29,7 @@ public class RedirectionReaction extends Reaction {
 	}
 
 	public String getRedirectUrl() {
+
 		return redirectUrl;
 	}
 
@@ -41,10 +41,5 @@ public class RedirectionReaction extends Reaction {
 	public void setRedirectionContext(final Map<String, Object> redirectionContext) {
 
 		this.redirectionContext = redirectionContext;
-	}
-
-	@Override
-	public void accept(final ReactionVisitor visitor) {
-		visitor.visit(this);
 	}
 }
