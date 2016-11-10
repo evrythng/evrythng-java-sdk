@@ -186,12 +186,8 @@ To successfully build your Android app with the EVRYTHNG Java SDK, add the
 following object to the `android` object in your `app.gradle` file:
 
 ```
-android {
-  ...
-
-  packagingOptions {
-      exclude 'META-INF/LICENSE'
-  }
+packagingOptions {
+    exclude 'META-INF/LICENSE'
 }
 ```
 
