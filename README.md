@@ -176,6 +176,24 @@ Iterator<PVector<Thng>> redThngsOnly = client.thngService().iterator().perPage(1
 ```
 
 
+## Android Support
+
+The EVRYTHNG Java SDK can be used with the Android SDK to connect to the
+Platform from within Android apps. However, there is a small caveat to avoid
+conflicting with certain built-in Android libraries.
+
+To successfully build your Android app with the EVRYTHNG Java SDK, add the
+following object to the `android` object in your `app.gradle` file:
+
+```
+packagingOptions {
+    exclude 'META-INF/LICENSE'
+}
+```
+
+Note: Excluding the LICENSE file may affect your ability to distribute the app.
+
+
 ## License
 
  Copyright EVRYTHNG Limited
