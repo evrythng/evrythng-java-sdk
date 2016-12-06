@@ -12,7 +12,6 @@ import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.IOException;
 
@@ -37,7 +36,7 @@ public final class ActionDeserializerImpl extends TypeMapDeserializer<Action> im
 
 		ObjectCodec codec = jp.getCodec();
 		ObjectMapper mapper = (ObjectMapper) codec;
-		ObjectNode root = mapper.readTree(jp);
+		JsonNode root = mapper.readTree(jp);
 		JsonNode type = root.get(getTypeFieldName());
 		if (type == null) {
 			throw new IllegalArgumentException(this.getValueClass().getSimpleName() + " type cannot be empty.");
