@@ -37,6 +37,7 @@ Inside `pom.xml`:
     <groupId>com.evrythng</groupId>
     <artifactId>evrythng-java-wrapper</artifactId>
     <version>1.32</version>
+    <scope>compile</scope>
 </dependency>
 ```
 
