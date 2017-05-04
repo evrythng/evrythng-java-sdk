@@ -1,5 +1,6 @@
 package com.evrythng.java.wrapper.service;
 
+import com.evrythng.commons.domain.SortOrder;
 import com.evrythng.java.wrapper.ApiManager;
 import com.evrythng.java.wrapper.core.EvrythngApiBuilder.Builder;
 import com.evrythng.java.wrapper.core.EvrythngServiceBase;
@@ -12,8 +13,10 @@ import com.evrythng.thng.resource.model.store.action.CustomAction;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import org.pcollections.PVector;
 
 /**
  * Service wrapper for the {@code /collections} endpoint of the EVRYTHNG API.
@@ -24,11 +27,13 @@ public class CollectionService extends EvrythngServiceBase {
 	public static final String PATH_COLLECTION = PATH_COLLECTIONS + "/%s";
 	public static final String PATH_COLLECTION_THNGS = PATH_COLLECTION + "/thngs";
 	public static final String PATH_COLLECTION_THNG = PATH_COLLECTION_THNGS + "/%s";
-	public static final String PATH_COLLECTIONS_ACTIONS = PATH_COLLECTION + "/actions";
-	public static final String PATH_COLLECTIONS_TYPED_ACTIONS = PATH_COLLECTIONS_ACTIONS + "/%s";
-	public static final String PATH_COLLECTIONS_TYPED_ACTION = PATH_COLLECTIONS_TYPED_ACTIONS + "/%s";
+	public static final String PATH_COLLECTION_ACTIONS = PATH_COLLECTION + "/actions";
+	public static final String PATH_COLLECTION_ALL_ACTIONS = PATH_COLLECTION_ACTIONS + "/all";
+	public static final String PATH_COLLECTION_TYPED_ACTIONS = PATH_COLLECTION_ACTIONS + "/%s";
+	public static final String PATH_COLLECTION_TYPED_ACTION = PATH_COLLECTION_TYPED_ACTIONS + "/%s";
 	public static final String PATH_CHILDREN_COLLECTIONS = PATH_COLLECTION + "/collections";
 	public static final String PATH_CHILD_COLLECTION = PATH_CHILDREN_COLLECTIONS + "/%s";
+	private static final TypeReference<List<Action>> ACTIONS_TYPE_REFERENCE = new TypeReference<List<Action>>() {};
 
 	public CollectionService(final ApiManager apiManager) {
 
@@ -201,7 +206,7 @@ public class CollectionService extends EvrythngServiceBase {
 	public <T extends Action> Builder<T> actionCreator(final String collectionId, final T actionToCreate)
 			throws EvrythngClientException {
 
-		return (Builder<T>) post(String.format(PATH_COLLECTIONS_TYPED_ACTIONS, collectionId, actionToCreate.getType()),
+		return (Builder<T>) post(String.format(PATH_COLLECTION_TYPED_ACTIONS, collectionId, actionToCreate.getType()),
 		                                actionToCreate, new TypeReference<Action>() {
 
 				});
@@ -210,7 +215,7 @@ public class CollectionService extends EvrythngServiceBase {
 	public Builder<CustomAction> actionReader(final String collectionId, final String customType, final String actionId) throws EvrythngClientException {
 
 		checkCustomType(customType);
-		return get(String.format(PATH_COLLECTIONS_TYPED_ACTION, collectionId, customType, actionId), new TypeReference<CustomAction>() {
+		return get(String.format(PATH_COLLECTION_TYPED_ACTION, collectionId, customType, actionId), new TypeReference<CustomAction>() {
 
 		});
 	}
@@ -218,7 +223,7 @@ public class CollectionService extends EvrythngServiceBase {
 	public Builder<List<CustomAction>> actionsReader(final String collectionId, final String customType) throws EvrythngClientException {
 
 		checkCustomType(customType);
-		return get(String.format(PATH_COLLECTIONS_TYPED_ACTIONS, collectionId, customType), new TypeReference<List<CustomAction>>() {
+		return get(String.format(PATH_COLLECTION_TYPED_ACTIONS, collectionId, customType), new TypeReference<List<CustomAction>>() {
 
 		});
 	}
@@ -304,4 +309,23 @@ public class CollectionService extends EvrythngServiceBase {
 
 		});
 	}
+
+	/**
+	 * Retrieves all actions of collection.
+	 * @param collectionId collection id.
+	 */
+	public Builder<Iterator<PVector<Action>>> actionsIterator(final String collectionId) {
+		return iterator(String.format(PATH_COLLECTION_ALL_ACTIONS, collectionId), ACTIONS_TYPE_REFERENCE).sortOrder(
+			SortOrder.descending());
+	}
+
+	/**
+	 * Retrieves all actions of collection of type.
+	 * @param collectionId collection id.
+	 * @param actionTypeName action type.
+	 */
+	public Builder<Iterator<PVector<Action>>> actionsIterator(final String collectionId, final String actionTypeName) {
+		return iterator(String.format(PATH_COLLECTION_TYPED_ACTIONS, collectionId, actionTypeName), ACTIONS_TYPE_REFERENCE).sortOrder(SortOrder.descending());
+	}
+
 }
