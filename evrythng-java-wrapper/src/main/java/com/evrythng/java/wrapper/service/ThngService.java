@@ -40,6 +40,7 @@ public class ThngService extends EvrythngServiceBase {
 	public static final String PATH_THNG_ALL_ACTION = PATH_THNG_ALL_ACTIONS + "/%s";
 	public static final String PATH_THNG_TYPED_ACTIONS = PATH_THNG_ACTIONS + "/%s";
 	public static final String PATH_THNG_TYPED_ACTION = PATH_THNG_TYPED_ACTIONS + "/%s";
+	private static final TypeReference<List<Action>> ACTIONS_TYPE_REFERENCE = new TypeReference<List<Action>>() {};
 
 	protected ActionDeserializer deserializer;
 
@@ -526,6 +527,23 @@ public class ThngService extends EvrythngServiceBase {
 		return get(String.format(PATH_THNG_TYPED_ACTIONS, thngId, customType), new TypeReference<List<CustomAction>>() {
 
 		});
+	}
+
+	/**
+	 * Retrieves all actions of thng.
+	 * @param thngId thng id
+	 */
+	public Builder<Iterator<PVector<Action>>> actionsIterator(final String thngId) {
+		return iterator(String.format(PATH_THNG_ALL_ACTIONS, thngId), ACTIONS_TYPE_REFERENCE).sortOrder(SortOrder.descending());
+	}
+
+	/**
+	 * Retrieves all actions of thng of type.
+	 * @param thngId thng id.
+	 * @param actionTypeName action type.
+	 */
+	public Builder<Iterator<PVector<Action>>> actionsIterator(final String thngId, final String actionTypeName) {
+		return iterator(String.format(PATH_THNG_TYPED_ACTIONS, thngId, actionTypeName), ACTIONS_TYPE_REFERENCE).sortOrder(SortOrder.descending());
 	}
 
 	protected void checkCustomType(final String customType) {

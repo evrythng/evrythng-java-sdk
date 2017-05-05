@@ -38,6 +38,7 @@ public class ProductService extends EvrythngServiceBase {
 	public static final String PATH_PRODUCT_ALL_ACTION = PATH_PRODUCT_ALL_ACTIONS + "/%s";
 	public static final String PATH_PRODUCT_TYPED_ACTIONS = PATH_PRODUCT_ACTIONS + "/%s";
 	public static final String PATH_PRODUCT_TYPED_ACTION = PATH_PRODUCT_TYPED_ACTIONS + "/%s";
+	private static final TypeReference<List<Action>> ACTIONS_TYPE_REFERENCE = new TypeReference<List<Action>>() {};
 
 	protected ActionDeserializer deserializer;
 
@@ -453,6 +454,24 @@ public class ProductService extends EvrythngServiceBase {
 		return get(String.format(PATH_PRODUCT_TYPED_ACTIONS, productId, customType), new TypeReference<List<CustomAction>>() {
 
 		});
+	}
+
+	/**
+	 * Retrieves all actions of product.
+	 * @param productId product id.
+	 */
+	public Builder<Iterator<PVector<Action>>> actionsIterator(final String productId) {
+		return iterator(String.format(PATH_PRODUCT_ALL_ACTIONS, productId), ACTIONS_TYPE_REFERENCE).sortOrder(SortOrder.descending());
+	}
+
+	/**
+	 * Retrieves all actions of product of type.
+	 * @param productId product id.
+	 * @param actionTypeName action type
+	 * @return
+	 */
+	public Builder<Iterator<PVector<Action>>> actionsIterator(final String productId, final String actionTypeName) {
+		return iterator(String.format(PATH_PRODUCT_TYPED_ACTIONS, productId, actionTypeName), ACTIONS_TYPE_REFERENCE).sortOrder(SortOrder.descending());
 	}
 
 	protected void checkCustomType(final String customType) {
