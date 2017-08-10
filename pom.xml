@@ -4,7 +4,7 @@
 	<groupId>com.evrythng</groupId>
 	<artifactId>evrythng-java-sdk</artifactId>
 	<packaging>pom</packaging>
-	<version>1.34-SNAPSHOT</version>
+	<version>1.35-SNAPSHOT</version>
 
 	<name>evrythng-java-sdk</name>
 	<description>Java tools around the EVRYTHNG API.</description>
@@ -41,25 +41,9 @@
 			</roles>
 		</developer>
 		<developer>
-			<id>sollecitom</id>
-			<email>michele.sollecito@evrythng.com</email>
-			<name>Michele Sollecito</name>
-			<roles>
-				<role>Senior Backend Developer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>khanf</id>
-			<email>faisal.khan@evrythng.com</email>
-			<name>Faisal Khan</name>
-			<roles>
-				<role>Senior Backend Developer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>dragum</id>
-			<email>Matei.Dragu@evrythng.com</email>
-			<name>Matei Dragu</name>
+			<id>ricardoespsanto</id>
+			<email>ricardo.santo@evrythng.com</email>
+			<name>Ricardo Espirito Santo</name>
 			<roles>
 				<role>Senior Backend Developer</role>
 			</roles>

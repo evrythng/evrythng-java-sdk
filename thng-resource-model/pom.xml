@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>com.evrythng</groupId>
 		<artifactId>evrythng-java-sdk</artifactId>
-		<version>1.34-SNAPSHOT</version>
+		<version>1.35-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>thng-resource-model</artifactId>
