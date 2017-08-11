@@ -26,7 +26,6 @@ import com.evrythng.thng.resource.model.store.geojson.GeoJsonPolygon;
 import com.evrythng.thng.resource.model.store.geojson.GeoJsonType;
 import com.evrythng.thng.resource.model.store.rule.reaction.ActionTagsSetReaction;
 import com.evrythng.thng.resource.model.store.rule.reaction.DataAddedReaction;
-import com.evrythng.thng.resource.model.store.rule.reaction.MultimediaContentGrantedReaction;
 import com.evrythng.thng.resource.model.store.rule.reaction.PostedToSocialNetworkReaction;
 import com.evrythng.thng.resource.model.store.rule.reaction.Reaction;
 import com.evrythng.thng.resource.model.store.rule.reaction.RedirectionReaction;
@@ -97,7 +96,6 @@ public class EvrythngJacksonModuleImpl extends SimpleModule implements EvrythngJ
 	public static ReactionDeserializerImpl createReactionDeserializer() {
 
 		ReactionDeserializerImpl reactionDeserializer = new ReactionDeserializerImpl();
-		reactionDeserializer.registerType(MultimediaContentGrantedReaction.TYPE, MultimediaContentGrantedReaction.class);
 		reactionDeserializer.registerType(TextAddedReaction.TYPE, TextAddedReaction.class);
 		reactionDeserializer.registerType(PostedToSocialNetworkReaction.TYPE, PostedToSocialNetworkReaction.class);
 		reactionDeserializer.registerType(ActionTagsSetReaction.TYPE, ActionTagsSetReaction.class);
