@@ -343,7 +343,7 @@ public class ApiCommand<T> {
 		try {
 			HttpResponse response;
 			if (retryOnConnectTimeout) {
-				response = performRequestWithRetry(client, method);
+				response = performRequestWithRetry(client, method, expectedStatus);
 			} else {
 				response = performRequest(client, method, expectedStatus);
 			}
@@ -378,13 +378,14 @@ public class ApiCommand<T> {
 	 *
 	 * @param client         the HTTP client to use
 	 * @param method         the HTTP method builder to use
+	 * @param expectedStatus the HTTP status expected for the result
 	 *
 	 * @return the response of the HTTP request
 	 *
 	 * @throws EvrythngException in case an exception is encountered during the request
 	 */
 	private HttpResponse performRequestWithRetry(final HttpClient client,
-			final MethodBuilder<?> method) throws EvrythngException {
+			final MethodBuilder<?> method, Status expectedStatus) throws EvrythngException {
 
 		RetryPolicy retryWithExponentialDelayOnTimeoutAndServerError = new RetryPolicy()
 				.withMaxRetries(CONNECTION_RETRY_ATTEMPTS)
@@ -407,7 +408,7 @@ public class ApiCommand<T> {
 			}
 		};
 
-		return Failsafe.with(retryWithExponentialDelayOnTimeoutAndServerError)
+		HttpResponse response = Failsafe.with(retryWithExponentialDelayOnTimeoutAndServerError)
 				.onRetriesExceeded(throwClientException)
 				.onFailure(throwClientException)
 				.get(new Callable<HttpResponse>() {
@@ -425,6 +426,10 @@ public class ApiCommand<T> {
 						return response;
 					}
 				});
+
+		Utils.assertStatus(response, expectedStatus);
+
+		return response;
 	}
 
 	private static HttpClient wrapClient(final HttpClient base) {
