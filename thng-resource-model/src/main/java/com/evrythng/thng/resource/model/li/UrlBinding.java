@@ -136,7 +136,7 @@ public class UrlBinding extends AbstractUrlBinding {
 		}
 
 		try {
-			return new URI("http://" + getShortDomain() + "/" + shortId).toString();
+			return new URI("https://" + getShortDomain() + "/" + shortId).toString();
 		} catch (URISyntaxException e) {
 			throw new IllegalArgumentException("Could not build an URI out of " + getShortDomain() + " and " + shortId);
 		}
