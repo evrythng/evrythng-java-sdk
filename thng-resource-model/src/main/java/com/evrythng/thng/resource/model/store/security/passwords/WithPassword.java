@@ -10,4 +10,8 @@ public interface WithPassword {
 	String getPassword();
 
 	void setPassword(String password);
+
+	String getOldPassword();
+
+	void setOldPassword(String oldPassword);
 }

@@ -25,6 +25,7 @@ public abstract class AbstractUser extends DurableResourceModel implements WithP
 	 * The user's unique email address.
 	 */
 	private String email;
+	private String oldPassword;
 	private String password;
 	/**
 	 * The user's first name.
@@ -61,6 +62,14 @@ public abstract class AbstractUser extends DurableResourceModel implements WithP
 	public void setEmail(final String email) {
 
 		this.email = email;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(final String oldPassword) {
+		this.oldPassword = oldPassword;
 	}
 
 	public String getPassword() {
