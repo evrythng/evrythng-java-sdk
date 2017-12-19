@@ -1,5 +1,5 @@
 /*
- * (c) Copyright Reserved EVRYTHNG Limited 2016. All rights reserved.
+ * (c) Copyright Reserved EVRYTHNG Limited 2017. All rights reserved.
  * Use of this material is subject to license.
  * Copying and unauthorised use of this material strictly prohibited.
  */
@@ -40,14 +40,20 @@ public class ActionType extends DurableResourceModel {
 	}
 
 	private String name;
+	private String description;
 
 	public ActionType() {
 
 	}
 
-	public ActionType(final String name) {
+	public ActionType(String name) {
+		this.name = name;
+	}
+
+	public ActionType(final String name, final String description) {
 
 		this.name = name;
+		this.description = description;
 	}
 
 	public String getName() {
@@ -60,13 +66,20 @@ public class ActionType extends DurableResourceModel {
 		this.name = name;
 	}
 
-	@Override
-	public boolean equals(final Object o) {
+	public String getDescription() {
+		return description;
+	}
 
+	public void setDescription(final String description) {
+		this.description = description;
+	}
+
+	@Override
+	public boolean equals(Object o) {
 		if (this == o) {
 			return true;
 		}
-		if (o == null || getClass() != o.getClass()) {
+		if (!(o instanceof ActionType)) {
 			return false;
 		}
 		if (!super.equals(o)) {
@@ -75,15 +88,18 @@ public class ActionType extends DurableResourceModel {
 
 		ActionType that = (ActionType) o;
 
-		return name.equals(that.name);
-
+		if (!name.equals(that.name)) {
+			return false;
+		}
+		return description != null ? description.equals(that.description) : that.description == null;
 	}
 
 	@Override
 	public int hashCode() {
-
 		int result = super.hashCode();
-		return 31 * result + name.hashCode();
+		result = 31 * result + name.hashCode();
+		result = 31 * result + (description != null ? description.hashCode() : 0);
+		return result;
 	}
 
 	/**
@@ -103,6 +119,7 @@ public class ActionType extends DurableResourceModel {
 
 		StringBuilder sb = new StringBuilder("{");
 		sb.append("name='").append(name).append('\'');
+		sb.append(", description='").append(description).append('\'');
 		sb.append('}');
 		return sb.toString();
 	}
