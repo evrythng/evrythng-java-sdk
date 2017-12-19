@@ -79,7 +79,7 @@ public class ActionType extends DurableResourceModel {
 		if (this == o) {
 			return true;
 		}
-		if (!(o instanceof ActionType)) {
+		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
 		if (!super.equals(o)) {
