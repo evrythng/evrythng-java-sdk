@@ -10,6 +10,10 @@ package com.evrythng.thng.resource.model.store;
  */
 public class Operator extends AbstractUser {
 
+	public enum AuthProvider {
+		google
+	}
+
 	private static final long serialVersionUID = 2282241536928517609L;
 	private OperatorStatus operatorStatus;
 	private String registrationCode;
@@ -18,6 +22,8 @@ public class Operator extends AbstractUser {
 	private Long authBlockedUntil;
 
 	private Boolean tfaEnabled;
+
+	private AuthProvider authProvider;
 
 	public Boolean getTfaEnabled() {
 		return tfaEnabled;
@@ -62,5 +68,13 @@ public class Operator extends AbstractUser {
 
 	public void setAuthBlockedUntil(final Long authBlockedUntil) {
 		this.authBlockedUntil = authBlockedUntil;
+	}
+
+	public AuthProvider getAuthProvider() {
+		return authProvider;
+	}
+
+	public void setAuthProvider(final AuthProvider authProvider) {
+		this.authProvider = authProvider;
 	}
 }
