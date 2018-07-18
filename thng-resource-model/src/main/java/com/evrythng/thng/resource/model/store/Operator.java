@@ -5,6 +5,12 @@
  */
 package com.evrythng.thng.resource.model.store;
 
+import com.evrythng.commons.EnumUtils;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Map;
+import com.evrythng.thng.resource.model.store.AuthProvider;
+
 /**
  * Model representation for <em>operator</em>.
  */
@@ -18,6 +24,8 @@ public class Operator extends AbstractUser {
 	private Long authBlockedUntil;
 
 	private Boolean tfaEnabled;
+
+	private AuthProvider authProvider;
 
 	public Boolean getTfaEnabled() {
 		return tfaEnabled;
@@ -62,5 +70,13 @@ public class Operator extends AbstractUser {
 
 	public void setAuthBlockedUntil(final Long authBlockedUntil) {
 		this.authBlockedUntil = authBlockedUntil;
+	}
+
+	public AuthProvider getAuthProvider() {
+		return authProvider;
+	}
+
+	public void setAuthProvider(final AuthProvider authProvider) {
+		this.authProvider = authProvider;
 	}
 }
