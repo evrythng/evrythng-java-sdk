@@ -27,6 +27,7 @@ public class Project extends DurableResourceModel implements Identifiable {
 	private Long endsAt;
 	private List<String> shortDomains;
 	private Map<String, String> identifiers;
+	private String type;
 
 	/**
 	 * @return the name
@@ -143,6 +144,22 @@ public class Project extends DurableResourceModel implements Identifiable {
 			identifiers = new HashMap<>();
 		}
 		identifiers.put(type, value);
+	}
+
+	/**
+	 * @return the campaign
+	 */
+	public String getType() {
+
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(final String type) {
+
+		this.type = type;
 	}
 
 	@Override
