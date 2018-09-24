@@ -173,6 +173,7 @@ public class Project extends DurableResourceModel implements Identifiable {
 		sb.append(", imageUrl='").append(imageUrl).append('\'');
 		sb.append(", startsAt=").append(startsAt);
 		sb.append(", endsAt=").append(endsAt);
+		sb.append(", type=").append(type);
 		sb.append('}');
 		return sb.toString();
 	}
