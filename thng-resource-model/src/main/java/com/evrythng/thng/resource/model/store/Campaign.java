@@ -2,7 +2,7 @@ package com.evrythng.thng.resource.model.store;
 
 public class Campaign {
 	private String url;
-	private TemplateChosen templateChosen;
+	private Template template;
 
 	public String getUrl() {
 		return url;
@@ -12,11 +12,11 @@ public class Campaign {
 		this.url = url;
 	}
 
-	public TemplateChosen getTemplateChosen() {
-		return templateChosen;
+	public Template getTemplate() {
+		return template;
 	}
 
-	public void setTemplateChosen(final TemplateChosen templateChosen) {
-		this.templateChosen = templateChosen;
+	public void setTemplate(final Template templateChosen) {
+		this.template = templateChosen;
 	}
 }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Map;
 
-public enum TemplateChosen {
+public enum Template {
   REWARD("reward"),
   PROMOTION("promotion"),
   FEEDBACK("feedback"),
@@ -14,9 +14,9 @@ public enum TemplateChosen {
 
   private final String name;
 
-  private static final Map<String, TemplateChosen> names;
+  private static final Map<String, Template> names;
 
-  TemplateChosen(final String name) {
+  Template(final String name) {
 
     this.name = name;
   }
@@ -33,7 +33,7 @@ public enum TemplateChosen {
   }
 
   @JsonCreator
-  public static TemplateChosen fromString(final String name) {
+  public static Template fromString(final String name) {
 
     return EnumUtils.fromString(names, name);
   }
