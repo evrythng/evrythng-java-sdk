@@ -27,6 +27,8 @@ public class Project extends DurableResourceModel implements Identifiable {
 	private Long endsAt;
 	private List<String> shortDomains;
 	private Map<String, String> identifiers;
+	private ProjectType type;
+	private Campaign campaign;
 
 	/**
 	 * @return the name
@@ -145,6 +147,22 @@ public class Project extends DurableResourceModel implements Identifiable {
 		identifiers.put(type, value);
 	}
 
+	/**
+	 * @return the campaign
+	 */
+	public ProjectType getType() {
+
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(final ProjectType type) {
+
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
 
@@ -155,7 +173,18 @@ public class Project extends DurableResourceModel implements Identifiable {
 		sb.append(", imageUrl='").append(imageUrl).append('\'');
 		sb.append(", startsAt=").append(startsAt);
 		sb.append(", endsAt=").append(endsAt);
+		sb.append(", type=").append(type);
+		sb.append(", campaign=").append(campaign);
 		sb.append('}');
 		return sb.toString();
 	}
+
+	public Campaign getCampaign() {
+		return campaign;
+	}
+
+	public void setCampaign(final Campaign campaign) {
+		this.campaign = campaign;
+	}
 }
+
