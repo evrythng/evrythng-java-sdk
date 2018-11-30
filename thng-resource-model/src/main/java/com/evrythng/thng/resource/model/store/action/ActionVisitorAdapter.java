@@ -45,4 +45,17 @@ public class ActionVisitorAdapter implements ActionVisitor {
 	public void visit(ShareAction action) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void visit(CommissionAction action) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void visit(DecommissionAction action) {
+	}
 }

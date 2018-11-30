@@ -20,7 +20,13 @@ public class ActionType extends DurableResourceModel {
 
 	public enum Value {
 
-		IMPLICIT_SCANS("implicitScans"), SHARES("shares"), SCANS("scans"), CHECKINS("checkins");
+		IMPLICIT_SCANS("implicitScans"),
+		SHARES("shares"),
+		SCANS("scans"),
+		CHECKINS("checkins"),
+		COMMISSIONS("commissions"),
+		DECOMMISSIONS("decommissions");
+
 		private final String value;
 
 		Value(final String value) {
