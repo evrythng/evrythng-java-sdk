@@ -19,4 +19,8 @@ public interface ActionVisitor {
 	void visit(ImplicitScanAction action);
 
 	void visit(ShareAction action);
+
+	void visit(CommissionAction action);
+
+	void visit(DecommissionAction action);
 }
