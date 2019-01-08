@@ -1,3 +1,8 @@
+/*
+ * (c) Copyright Reserved EVRYTHNG Limited 2019. All rights reserved.
+ * Use of this material is subject to license.
+ * Copying and unauthorised use of this material strictly prohibited.
+ */
 package com.evrythng.thng.resource.model.store.action;
 
 public class EncodingAction extends ThngAction {
