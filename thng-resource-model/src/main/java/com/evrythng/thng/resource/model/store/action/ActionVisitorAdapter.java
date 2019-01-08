@@ -49,6 +49,13 @@ public class ActionVisitorAdapter implements ActionVisitor {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void visit(EncodingAction action) {
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void visit(CommissionAction action) {
 	}
 

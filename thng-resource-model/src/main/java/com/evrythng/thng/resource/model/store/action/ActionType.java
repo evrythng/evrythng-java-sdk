@@ -24,6 +24,7 @@ public class ActionType extends DurableResourceModel {
 		SHARES("shares"),
 		SCANS("scans"),
 		CHECKINS("checkins"),
+		ENCODINGS("encodings"),
 		COMMISSIONS("commissions"),
 		DECOMMISSIONS("decommissions");
 
