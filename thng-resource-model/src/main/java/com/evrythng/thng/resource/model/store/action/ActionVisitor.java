@@ -20,6 +20,8 @@ public interface ActionVisitor {
 
 	void visit(ShareAction action);
 
+	void visit(EncodingAction action);
+
 	void visit(CommissionAction action);
 
 	void visit(DecommissionAction action);
