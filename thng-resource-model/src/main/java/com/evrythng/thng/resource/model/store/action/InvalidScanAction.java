@@ -7,7 +7,7 @@ package com.evrythng.thng.resource.model.store.action;
 
 /**
  * Model for a invalid scan action.
- **/
+*/
 public class InvalidScanAction extends Action {
 
 	private static final long serialVersionUID = 7734607219137904410L;
@@ -16,7 +16,7 @@ public class InvalidScanAction extends Action {
 
 	/**
 	 * The URL that has been scanned but no matching resource found for it.
-		*/
+	*/
 	private String url;
 
 	public InvalidScanAction() {
