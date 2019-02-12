@@ -26,7 +26,8 @@ public class ActionType extends DurableResourceModel {
 		CHECKINS("checkins"),
 		ENCODINGS("encodings"),
 		COMMISSIONS("commissions"),
-		DECOMMISSIONS("decommissions");
+		DECOMMISSIONS("decommissions"),
+		INVALID_SCANS("invalidScans");
 
 		private final String value;
 

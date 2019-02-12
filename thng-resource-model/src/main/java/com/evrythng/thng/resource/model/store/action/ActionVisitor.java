@@ -25,4 +25,6 @@ public interface ActionVisitor {
 	void visit(CommissionAction action);
 
 	void visit(DecommissionAction action);
+
+	void visit(InvalidScanAction action);
 }

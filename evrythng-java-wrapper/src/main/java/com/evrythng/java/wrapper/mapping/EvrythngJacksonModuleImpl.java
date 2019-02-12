@@ -18,6 +18,7 @@ import com.evrythng.thng.resource.model.store.action.CustomAction;
 import com.evrythng.thng.resource.model.store.action.DecommissionAction;
 import com.evrythng.thng.resource.model.store.action.EncodingAction;
 import com.evrythng.thng.resource.model.store.action.ImplicitScanAction;
+import com.evrythng.thng.resource.model.store.action.InvalidScanAction;
 import com.evrythng.thng.resource.model.store.action.ScanAction;
 import com.evrythng.thng.resource.model.store.action.ShareAction;
 import com.evrythng.thng.resource.model.store.action.jobs.creation.ActionJob;
@@ -92,6 +93,7 @@ public class EvrythngJacksonModuleImpl extends SimpleModule implements EvrythngJ
 		actionDeserializer.registerType(EncodingAction.TYPE, EncodingAction.class);
 		actionDeserializer.registerType(CommissionAction.TYPE, CommissionAction.class);
 		actionDeserializer.registerType(DecommissionAction.TYPE, DecommissionAction.class);
+		actionDeserializer.registerType(InvalidScanAction.TYPE, InvalidScanAction.class);
 		return actionDeserializer;
 	}
 

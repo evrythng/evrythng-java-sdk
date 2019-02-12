@@ -65,4 +65,11 @@ public class ActionVisitorAdapter implements ActionVisitor {
 	@Override
 	public void visit(DecommissionAction action) {
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void visit(InvalidScanAction action) {
+	}
 }
