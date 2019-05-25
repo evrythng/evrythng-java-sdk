@@ -16,6 +16,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 /**
  *
@@ -113,6 +114,20 @@ public class ScanService extends EvrythngServiceBase {
 	}
 
 	/**
+	 *
+	 * POST {@value #PATH_SCAN_RECOGNITIONS}
+	 * <p>
+	 * Identify an image. Return all the corresponding bindings
+	 *
+	 * @param imageInBinding
+	 * @return
+	 * @throws EvrythngException
+     */
+	public Builder<List<UrlBinding>> recognitionListCreator(final UrlBinding imageInBinding) throws EvrythngException {
+		return recognitionListCreator(imageInBinding, RecognitionType.AUTODETECT);
+	}
+
+	/**
 	 * POST {@value #PATH_SCAN_RECOGNITIONS}
 	 * <p>
 	 * Identify an image. Return the corresponding bindings
@@ -126,6 +141,25 @@ public class ScanService extends EvrythngServiceBase {
 
 		});
 		result.queryParam(type.getQueryParam());
+		return result;
+	}
+
+	/**
+	 * POST {@value #PATH_SCAN_RECOGNITIONS}
+	 * <p>
+	 * Identify an image. Return all the corresponding bindings in a list
+	 *
+	 * @param imageInBinding
+	 * @param type
+	 * @return
+	 * @throws EvrythngException
+     */
+	public Builder<List<UrlBinding>> recognitionListCreator(final UrlBinding imageInBinding, final RecognitionType type) throws EvrythngException {
+		Builder<List<UrlBinding>> result = post(PATH_SCAN_RECOGNITIONS, imageInBinding, Status.OK, new TypeReference<List<UrlBinding>>() {
+
+		});
+		result.queryParam(type.getQueryParam());
+		result.queryParam("threshold", "1");
 		return result;
 	}
 
